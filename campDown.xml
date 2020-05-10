@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Camp>
+ <Car>
+  <CarNm>현대 스타렉스</CarNm>
+  <CarYear>2012</CarYear>
+  <CarKm>140,000</CarKm>
+  <CarAddr>광주</CarAddr>
+  <CarTel>010-0000-0000</CarTel>
+  <CarFuel>디젤</CarFuel>
+  <CarAmt>10,000,000원</CarAmt>
+  <CarInfo>좋아요 </CarInfo>
+  
+  <CarImg01></CarImg01>
+  <CarImg02></CarImg02>
+  <CarImg03></CarImg03>
+  <CarImg04></CarImg04>
+  <CarImg05></CarImg05>
+  <CarImg06></CarImg06>
+  <CarImg07></CarImg07>
+  <CarImg08></CarImg08>
+  <CarImg09></CarImg09>
+  <CarImg10></CarImg10>
+  
+ </Car>  
+</Camp>

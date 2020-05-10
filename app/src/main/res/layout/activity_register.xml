@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragment.MyFragment">
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+         >
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/registerTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/register"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/infoTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/register_info"
+                android:textSize="18sp" />
+        </TableRow>
+
+        <TableRow >
+
+            <TextView
+                android:id="@+id/nameTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/carNm"
+                />
+        </TableRow>
+        <TableRow >
+            <EditText
+                android:id="@+id/carNm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_edittxt"
+                android:inputType="textPersonName"    />
+        </TableRow>
+
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/useridTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/carKm"  />
+        </TableRow>
+        <TableRow >
+            <EditText
+                android:id="@+id/carKm"
+                android:layout_width="wrap_content"
+                android:background="@drawable/custom_edittxt"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"  />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/pwTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/carYear"
+                android:textSize="18sp"  />
+        </TableRow>
+        <TableRow >
+            <EditText
+                android:id="@+id/carYear"
+                android:layout_width="253dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_edittxt"
+                android:inputType="textPersonName"  />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/pwChkTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:text="@string/carFuel"  />
+        </TableRow>
+        <TableRow >
+            <EditText
+                android:id="@+id/carFuel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_edittxt"
+                android:inputType="textPersonName"
+                android:textCursorDrawable="@drawable/edittxt_cursor" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/genderTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:text="@string/carAddr"   />
+        </TableRow>
+        <TableRow >
+            <EditText
+                android:id="@+id/carAddr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:background="@drawable/custom_edittxt"  />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/yearsTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:text="@string/carTel"    />
+        </TableRow>
+        <TableRow >
+            <EditText
+                android:id="@+id/carTel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_edittxt"
+                android:inputType="textPersonName"    />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/carInfo"
+                android:inputType="textPersonName" />
+        </TableRow>
+        <TableRow >
+
+            <EditText
+                android:id="@+id/carInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/custom_edittxt"
+                android:inputType="textMultiLine"   />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/emailTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/carAmt"
+                android:inputType="textPersonName" />
+        </TableRow>
+        <TableRow >
+            <EditText
+                android:id="@+id/carAmt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_edittxt"
+                android:inputType="textPersonName" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/img01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="대표이미지" />
+        </TableRow>
+        <TableRow >
+
+            <ImageButton
+                android:id="@+id/imgBtn01"
+                android:layout_width="252dp"
+                android:layout_height="77dp"
+                android:background="@drawable/carbtn01"
+                android:scaleType="centerCrop"
+                android:tooltipText="대표이미지" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/carOk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ok"
+                android:textColor="@color/colorAccent"
+                android:textSize="20sp" />
+        </TableRow>
+        <TableRow >
+            <TextView
+                android:id="@+id/cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cancel" />
+        </TableRow>
+
+    </TableLayout>
+</ScrollView>

@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">CampCar</string>
+
+    <string name="my_info"	>내캠핑카등록</string>
+    <string name="carNm" >캠핑카명</string>
+    <string name="carYear" >년식</string>
+    <string name="carKm"   >키로수</string>
+    <string name="carAddr" >주소</string>
+    <string name="carTel"  >연락처</string>
+    <string name="carFuel" >연료</string>
+    <string name="carAmt"  >가격</string>
+    <string name="carInfo" >캠핑카소개</string>
+    <string name="carImg01">이미지-전면</string>
+    <string name="carImg02">이미지-후면</string>
+    <string name="carImg03">이미지-측면</string>
+    <string name="carImg04">이미지1</string>
+    <string name="carImg05">이미지2</string>
+    <string name="carImg06">이미지3</string>
+    <string name="carImg07">이미지4</string>
+    <string name="carImg08">이미지5</string>
+    <string name="carImg09">이미지6</string>
+    <string name="carImg10">이미지7</string>
+    <string name="register_info">환영합니다! 아래 정보들을 기입해주세요.</string>
+    <string name="register"	>내캠핑카등록</string>
+    <string name="ok"	>등록</string>
+    <string name="cancel"	>취소</string>
+    <string name="next"	>다음으로</string>
+    <string name="camera"	>카메라</string>
+    <string name="album"	>갤러리</string>
+
+
+</resources>
