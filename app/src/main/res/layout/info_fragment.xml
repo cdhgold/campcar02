@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:padding="20dp"
+     >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <!-- 차량 상세보기 -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/icarNm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:paddingLeft="20dp"
+                        android:text="안내"
+                        android:textSize="20dip"
+                        android:textStyle="bold" />
+
+                </TableRow>
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/carNm"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:paddingLeft="20dp"
+                        android:text="\n캠프카는 중고캠핑카 공유앱입니다\n
+캠핑카를 장만하고 싶은데\n
+너무비싸죠, 여기서 공유하세요 \n
+싸고 좋은 캠핑카 찾으세요! \n
+감사합니다.\n"
+                        android:textSize="20dip"
+                        android:textStyle="bold" />
+                </TableRow>
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/tcarTel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:paddingLeft="20dp"
+                        android:text="광고문의"
+                        android:textSize="20dip"
+                        android:textStyle="bold" />
+
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:id="@+id/carTel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:paddingLeft="20dp"
+                        android:textSize="20dip"
+                        android:text="\n1년간 소개페이지를 유지합니다.\n
+문의는 konginfo.co.kr 로 해주세요  \n
+오픈기념 무료로 운영합니다. \n
+탭하시면 샘플광고를 보실 수 있습니다. \n
+감사합니다.\n"
+                        android:textStyle="bold" />
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:id="@+id/icarAddr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:paddingLeft="20dp"
+                        android:text="기타"
+                        android:textSize="20dip" />
+
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:id="@+id/carAddr"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:text="\n문의는 konginfo.co.kr 게시판으로\n
+부탁드려요.  \n
+감사합니다.\n"
+
+                        android:paddingLeft="20dp"
+                        android:textSize="20dip" />
+                </TableRow>
+            </TableLayout>
+
+        </LinearLayout>
+
+
+</RelativeLayout>
+</ScrollView>

@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:padding="20dp"
+     >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <!-- 차량 상세보기 -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/icarNm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:paddingLeft="20dp"
+                        android:text="@string/carNm"
+                        android:textSize="20dip"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/carNm"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:paddingLeft="20dp"
+                        android:textSize="20dip"
+                        android:textStyle="bold" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/tcarTel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:paddingLeft="20dp"
+                        android:text="@string/carTel"
+                        android:textSize="20dip"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/carTel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:paddingLeft="20dp"
+                        android:textSize="20dip"
+
+                        android:textStyle="bold" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/icarAddr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:paddingLeft="20dp"
+                        android:text="@string/carAddr"
+                        android:textSize="20dip" />
+
+                    <TextView
+                        android:id="@+id/carAddr"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:paddingLeft="20dp"
+                        android:textSize="20dip" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/icarAmt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:paddingLeft="20dp"
+                        android:text="@string/carAmt"
+
+                        android:textSize="20dip" />
+
+                    <TextView
+                        android:id="@+id/carAmt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:paddingLeft="20dp"
+                        android:textSize="20dip" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/tcarYear"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:paddingLeft="20dp"
+                        android:text="@string/carYear"
+
+                        android:textSize="20dip" />
+
+                    <TextView
+                        android:id="@+id/carYear"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:paddingLeft="20dp"
+                        android:textSize="20dip" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/icarKm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:paddingLeft="20dp"
+                        android:text="@string/carKm"
+
+                        android:textSize="20dip" />
+
+                    <TextView
+                        android:id="@+id/carKm"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:paddingLeft="20dp"
+                        android:textSize="20dip" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/tcarFuel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:paddingLeft="20dp"
+                        android:text="@string/carFuel"
+
+                        android:textSize="20dip" />
+
+                    <TextView
+                        android:id="@+id/carFuel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:paddingLeft="20dp"
+                        android:text="@string/carFuel"
+
+                        android:textSize="20dip" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/tcarInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:paddingLeft="20dp"
+                        android:text="@string/carInfo"
+
+                        android:textSize="20dip" />
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/carInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:paddingLeft="20dp"
+                        android:textSize="20dip" />
+                </TableRow>
+                <TableRow>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                    <ImageView
+                        android:id="@+id/carimg01"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:scaleType="fitXY"/>
+                        <Button
+                            android:id="@+id/ibtn01"
+                            android:text="수정"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                    <ImageView
+                        android:id="@+id/carimg02"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:scaleType="fitXY"/>
+                        <Button
+                            android:id="@+id/ibtn02"
+                            android:text="수정"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                </TableRow>
+                <TableRow>
+                    <ImageView
+                        android:id="@+id/carimg03"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:scaleType="fitXY"/>
+
+                    <ImageView
+                        android:id="@+id/carimg04"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:scaleType="fitXY"/>
+                </TableRow>
+                <TableRow>
+                    <ImageView
+                        android:id="@+id/carimg05"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:scaleType="fitXY"/>
+
+                    <ImageView
+                        android:id="@+id/carimg06"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:scaleType="fitXY"/>
+                </TableRow>
+                <TableRow>
+                    <ImageView
+                        android:id="@+id/carimg07"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:scaleType="fitXY"/>
+
+                    <ImageView
+                        android:id="@+id/carimg08"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:scaleType="fitXY"/>
+                </TableRow>
+                <TableRow>
+                    <ImageView
+                        android:id="@+id/carimg09"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:scaleType="fitXY"/>
+
+                    <ImageView
+                        android:id="@+id/carimg10"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:scaleType="fitXY"/>
+                </TableRow>
+            </TableLayout>
+
+        </LinearLayout>
+
+
+</RelativeLayout>
+</ScrollView>

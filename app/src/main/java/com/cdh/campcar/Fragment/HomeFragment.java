@@ -1,9 +1,12 @@
 package com.cdh.campcar.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ViewFlipper;
@@ -15,6 +18,8 @@ import androidx.fragment.app.Fragment;
 
 import com.cdh.campcar.Data.ProductBean;
 import com.cdh.campcar.Data.ProductDBHelper;
+import com.cdh.campcar.InfoActivity;
+import com.cdh.campcar.PhotoActivity;
 import com.cdh.campcar.R;
 import com.cdh.campcar.Recycler.HomeGridAdapter;
 
@@ -67,6 +72,15 @@ public class HomeFragment extends Fragment {
 
         viewFlipper.setInAnimation(getContext(), R.anim.slide_in_anim);
         viewFlipper.setOutAnimation(getContext(), R.anim.slide_out_anim);
+        // 이미지 click 인포화면으로
+        imageView.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v){
+//photoActivity를 호출
+                Intent intent = new Intent(getContext(), InfoActivity.class);
+                //액티비티 시작!
+                startActivity(intent);
+            }
+        });
     }
 
     private void showProduct() {
@@ -76,5 +90,6 @@ public class HomeFragment extends Fragment {
         gridView = view.findViewById(R.id.gridView);
         adapter = new HomeGridAdapter(getContext(), data);
         gridView.setAdapter(adapter);
+
     }
 }

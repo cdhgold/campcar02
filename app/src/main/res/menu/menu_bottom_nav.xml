@@ -8,24 +8,25 @@
 
     <item
         android:id="@+id/nav_shop"
-        android:icon="@drawable/ic_shopping_cart_24px"
-        android:title="Shop"
-        android:enabled="true" />
+        android:enabled="true"
+        android:icon="@android:drawable/arrow_down_float"
+        android:title="보기" />
 
     <item
         android:id="@+id/nav_cart"
-        android:icon="@drawable/ic_favorite_24px"
-        android:title="Cart"
-        android:enabled="true" />
+        android:enabled="true"
+        android:icon="@android:drawable/arrow_up_float"
+        android:title="보기" />
 
     <item
         android:id="@+id/nav_my"
         android:icon="@drawable/ic_person_24px"
-        android:title="My"
+        android:title="내캠핑카등록"
         android:enabled="true" />
+
     <item
         android:id="@+id/nav_data"
         android:enabled="true"
         android:icon="@android:drawable/star_big_on"
-        android:title="Refresh" />
+        android:title="최신데이타" />
 </menu>

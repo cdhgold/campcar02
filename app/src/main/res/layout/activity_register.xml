@@ -207,17 +207,12 @@
                 android:id="@+id/carOk"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/ok"
+                android:text="다음으로"
+                android:gravity="center"
                 android:textColor="@color/colorAccent"
                 android:textSize="20sp" />
         </TableRow>
-        <TableRow >
-            <TextView
-                android:id="@+id/cancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/cancel" />
-        </TableRow>
+
 
     </TableLayout>
 </ScrollView>

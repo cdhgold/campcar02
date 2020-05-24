@@ -1,7 +1,5 @@
 package com.cdh.campcar.Fragment;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,22 +7,16 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.cdh.campcar.Data.PreferenceManager;
+import com.cdh.campcar.Data.ProductBean;
 import com.cdh.campcar.Data.ProductDBHelper;
-import com.cdh.campcar.Data.UserBean;
-import com.cdh.campcar.Data.UserDBHelper;
 import com.cdh.campcar.MainActivity;
 import com.cdh.campcar.R;
-import com.cdh.campcar.Recycler.ItemClickListener;
 import com.cdh.campcar.UtilActivity;
-
-import java.util.ArrayList;
 
 /*
 캠핑카등록
@@ -44,12 +36,10 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     private ImageButton carImg01  ;
     private TextView carOk ;
     private ProductDBHelper dbHelper;
-    private PreferenceManager pManager;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_register, container, false);
 
-        pManager = new PreferenceManager();
         carNm	 = view.findViewById(R.id.carNm	);
         carYear  = view.findViewById(R.id.carYear );
         carKm    = view.findViewById(R.id.carKm   );
@@ -75,7 +65,6 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         userYears.setText(userArr.get(0).getYears());
 */
 
-        // 시간남으면 회원탈퇴 구현
         return view;
     }
     /*
@@ -94,8 +83,36 @@ public class MyFragment extends Fragment implements View.OnClickListener {
             UtilActivity.showALert("캠핑카명",getContext());
             return ;
         }
-
-        // 이미지 get
+        if("".equals(scarYear)){
+            UtilActivity.showALert("년식",getContext());
+            return ;
+        }
+        if("".equals(scarKm)){
+            UtilActivity.showALert("키로수",getContext());
+            return ;
+        }
+        if("".equals(scarAddr)){
+            UtilActivity.showALert("차주주소",getContext());
+            return ;
+        }
+        if("".equals(scarTel)){
+            UtilActivity.showALert("연락처",getContext());
+            return ;
+        }
+        if("".equals(scarAmt)){
+            UtilActivity.showALert("금액",getContext());
+            return ;
+        }
+        ProductBean vo = new ProductBean();
+        vo.setCarNm(scarNm);
+        vo.setCarYear(scarYear);
+        vo.setCarKm(scarKm);
+        vo.setCarAddr(scarAddr);
+        vo.setCarTel(scarTel);
+        vo.setCarFuel(scarFuel);
+        vo.setCarAmt(scarAmt);
+        vo.setCarInfo(scarInfo);
+        vo.setProd(vo);
 
         MyInsFragment frg = new MyInsFragment();
         ((MainActivity)getActivity()).replaceFragment(frg);    // 새로 불러올 Fragment의 Instance를 Main으로 전달

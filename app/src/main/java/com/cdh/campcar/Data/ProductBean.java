@@ -1,5 +1,7 @@
 package com.cdh.campcar.Data;
 
+import android.graphics.drawable.Drawable;
+
 public class ProductBean {
 
     private int seq   		= 0;
@@ -21,6 +23,24 @@ public class ProductBean {
     private String carImg08     = "";
     private String carImg09     = "";
     private String carImg10     = "";
+    private static ProductBean prod = null;
+    private static Drawable[] dimg = null    ;
+
+    public static Drawable[] getDimg() {
+        return dimg;
+    }
+
+    public static void setDimg(Drawable[] dimg) {
+        ProductBean.dimg = dimg;
+    }
+
+    public ProductBean getProd() {
+        return prod;
+    }
+
+    public void setProd(ProductBean prod) {
+        this.prod = prod;
+    }
 
     public int getSeq() {
         return seq;

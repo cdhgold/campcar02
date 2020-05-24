@@ -1,5 +1,6 @@
 package com.cdh.campcar.Recycler;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -14,16 +15,24 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cdh.campcar.Data.ProductBean;
+import com.cdh.campcar.Fragment.ViewFragment;
+import com.cdh.campcar.MainActivity;
 import com.cdh.campcar.R;
+import com.cdh.campcar.UtilActivity;
 
 import java.util.ArrayList;
+/*
+최신목록으로 보기
+ */
 public class CartRecyclerAdapter extends RecyclerView.Adapter<CartRecyclerAdapter.CartViewHolder>{
     private ArrayList<ProductBean> data;
     private ItemClickListener listener;
-
-    public CartRecyclerAdapter(ArrayList<ProductBean> data, ItemClickListener listener){
+    private Context ctx;
+    private int pos = 0;
+    public CartRecyclerAdapter(Context context, ArrayList<ProductBean> data, ItemClickListener listener){
         this.data = data;
         this.listener = listener;
+        this.ctx = context;
     }
 
     @NonNull
@@ -35,9 +44,13 @@ public class CartRecyclerAdapter extends RecyclerView.Adapter<CartRecyclerAdapte
 
     @Override
     public void onBindViewHolder(@NonNull CartViewHolder cartViewHolder, int i) {
+        pos = i;
         ProductBean productBean = data.get(i);
+        String imgStr = productBean.getCarImg01() ;
+        Bitmap bm = UtilActivity.StringToBitmap(imgStr);
+        Drawable image =  new BitmapDrawable(ctx.getResources(), bm);
 
-        //cartViewHolder.productImage.setImageDrawable(getImage(productBean.getImage()));
+        cartViewHolder.productImage.setImageDrawable(image);
         cartViewHolder.productName.setText(productBean.getCarNm());
         cartViewHolder.productPrice.setText(String.valueOf(productBean.getCarAmt()));
     }
@@ -67,6 +80,12 @@ public class CartRecyclerAdapter extends RecyclerView.Adapter<CartRecyclerAdapte
             productImage = itemView.findViewById(R.id.imageView);
             productName = itemView.findViewById(R.id.productNameTv);
             productPrice = itemView.findViewById(R.id.productPriceTv);
+            productImage.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v){
+                    listener.onItemClick(v, pos,"" );
+
+                }
+            });
         }
     }
 }

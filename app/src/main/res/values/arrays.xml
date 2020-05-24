@@ -9,8 +9,8 @@
     </string-array>
 
     <string-array name="type">
-        <item>Top</item>
-        <item>Bottom</item>
-        <item>Acc</item>
+        <item>가격</item>
+        <item>년식</item>
+        <item>키로수</item>
     </string-array>
 </resources>

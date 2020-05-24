@@ -10,23 +10,21 @@
     <string name="carFuel" >연료</string>
     <string name="carAmt"  >가격</string>
     <string name="carInfo" >캠핑카소개</string>
-    <string name="carImg01">이미지-전면</string>
-    <string name="carImg02">이미지-후면</string>
-    <string name="carImg03">이미지-측면</string>
-    <string name="carImg04">이미지1</string>
-    <string name="carImg05">이미지2</string>
-    <string name="carImg06">이미지3</string>
-    <string name="carImg07">이미지4</string>
-    <string name="carImg08">이미지5</string>
-    <string name="carImg09">이미지6</string>
-    <string name="carImg10">이미지7</string>
+    <string name="carImg01">이미지1</string>
+    <string name="carImg02">이미지2</string>
+    <string name="carImg03">이미지3</string>
+    <string name="carImg04">이미지4</string>
+    <string name="carImg05">이미지5</string>
+    <string name="carImg06">이미지6</string>
+    <string name="carImg07">이미지7</string>
+    <string name="carImg08">이미지8</string>
+    <string name="carImg09">이미지9</string>
+    <string name="carImg10">이미지10</string>
     <string name="register_info">환영합니다! 아래 정보들을 기입해주세요.</string>
     <string name="register"	>내캠핑카등록</string>
-    <string name="ok"	>등록</string>
-    <string name="cancel"	>취소</string>
-    <string name="next"	>다음으로</string>
-    <string name="camera"	>카메라</string>
-    <string name="album"	>갤러리</string>
+    <string name="ok"	>ok</string>
+    <string name="cancel"	>cancel</string>
 
-
+    <string name="permission_1">[설정] > [권한] 에서 권한을 허용할 수 있습니다.</string>
+    <string name="permission_2">사진 및 파일을 저장하기 위하여 접근 권한이 필요합니다.</string>
 </resources>

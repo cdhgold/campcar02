@@ -16,17 +16,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cdh.campcar.Data.ProductBean;
+import com.cdh.campcar.Fragment.ViewFragment;
+import com.cdh.campcar.MainActivity;
 import com.cdh.campcar.R;
+import com.cdh.campcar.UtilActivity;
 
 import java.util.ArrayList;
 
 public class ShopRecyclerAdapter extends RecyclerView.Adapter<ShopRecyclerAdapter.ShopViewHolder> {
     private ArrayList<ProductBean> data;
     private ItemClickListener listener;
-
-    public ShopRecyclerAdapter(ArrayList<ProductBean> data, ItemClickListener listener){
+    private Context ctx;
+    private int pos = 0;
+    public ShopRecyclerAdapter(Context context, ArrayList<ProductBean> data, ItemClickListener listener){
         this.data = data;
         this.listener = listener;
+        this.ctx = context;
     }
 
     @NonNull
@@ -38,11 +43,18 @@ public class ShopRecyclerAdapter extends RecyclerView.Adapter<ShopRecyclerAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ShopViewHolder shopViewHolder, int i) {
+        pos = i;
+
         ProductBean productBean = data.get(i);
 
-        //shopViewHolder.productImage.setImageDrawable(getImage(productBean.getCarImg01()) );
+        String imgStr = productBean.getCarImg01() ;
+        Bitmap bm = UtilActivity.StringToBitmap(imgStr);
+        Drawable image =  new BitmapDrawable(ctx.getResources(), bm);
+
+        shopViewHolder.productImage.setImageDrawable( image  );
         shopViewHolder.productName.setText(productBean.getCarNm());
         shopViewHolder.productPrice.setText(String.valueOf(productBean.getCarAmt()));
+
     }
 
     @Override
@@ -55,7 +67,7 @@ public class ShopRecyclerAdapter extends RecyclerView.Adapter<ShopRecyclerAdapte
 
     public void updateData(ArrayList<ProductBean> data){
         this.data = data;
-        notifyDataSetChanged();
+
     }
 
     public Drawable getImage(byte[] bytes){
@@ -72,17 +84,17 @@ public class ShopRecyclerAdapter extends RecyclerView.Adapter<ShopRecyclerAdapte
 
         public ShopViewHolder(@NonNull View itemView) {
             super(itemView);
-
+            //notifyItemRangeChanged(0, data.size());
             productImage = itemView.findViewById(R.id.imageView);
             productName = itemView.findViewById(R.id.productNameTv);
             productPrice = itemView.findViewById(R.id.productPriceTv);
-            context = itemView.getContext();
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                   }
+            productImage.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v){
+                    //notifyDataSetChanged();
+                    listener.onItemClick(v, pos,"Y");
+                }
             });
+
         }
     }
 }

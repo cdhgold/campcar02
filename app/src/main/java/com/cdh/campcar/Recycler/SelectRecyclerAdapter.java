@@ -9,13 +9,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cdh.campcar.R;
-
+/*
+ 가격,년식,키로수 adapter
+ */
 public class SelectRecyclerAdapter extends RecyclerView.Adapter<SelectRecyclerAdapter.SelectViewHolder> {
     private String[] data;
     private ItemClickListener listener;
 
     public SelectRecyclerAdapter(String[] data, ItemClickListener listener){
-        this.data = data;
+        this.data = data; //가격,년식,키로수
         this.listener = listener;
     }
 
@@ -49,6 +51,19 @@ public class SelectRecyclerAdapter extends RecyclerView.Adapter<SelectRecyclerAd
             super(itemView);
 
             typeSelect = itemView.findViewById(R.id.typeSelectTv);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = getAdapterPosition() ;
+                    if (pos != RecyclerView.NO_POSITION) {
+                        // 데이터 리스트로부터 아이템 데이터 참조.
+                        //String gbn = data[pos] ;
+
+                        listener.onItemClick(v,pos,"");
+
+                    }
+                }
+            });
         }
     }
 }

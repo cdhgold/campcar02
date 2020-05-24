@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.cdh.campcar.Data.ProductBean;
 import com.cdh.campcar.Data.ProductDBHelper;
+import com.cdh.campcar.MainActivity;
 import com.cdh.campcar.R;
 import com.cdh.campcar.Recycler.CartRecyclerAdapter;
 import com.cdh.campcar.Recycler.ItemClickListener;
@@ -46,12 +47,18 @@ public class CartFragment extends Fragment implements ItemClickListener {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new CartRecyclerAdapter(data, this);
+        adapter = new CartRecyclerAdapter(getContext(), data, this);
         recyclerView.setAdapter(adapter);
     }
 
     @Override
-    public void onItemClick(View v, int position) {
+    public void onItemClick(View v, int pos,String gbn) {
+// 상세보기로 가기
+        //data.get(pos); // procutBean 을 넘긴다
+        ProductBean procutBean = new ProductBean();
+        procutBean.setProd(data.get(pos));
+        ViewFragment frg = new ViewFragment();
+        ((MainActivity)getContext()).replaceFragment(frg);    // 새로 불러올 Fragment의 Instance를 Main으로 전달
 
     }
 }

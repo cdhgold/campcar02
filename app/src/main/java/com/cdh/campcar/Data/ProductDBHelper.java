@@ -52,9 +52,8 @@ public class ProductDBHelper extends SQLiteOpenHelper {
     private ProductDBHelper(Context context){
         super(context, DATABASE_NAME, null, DB_VERSION);
         this.mContext = context;
-
-        deleteAllProduct();
-        initProduct();
+        //deleteAllProduct();
+        //initProduct();
     }
 
     @Override
@@ -191,7 +190,7 @@ public class ProductDBHelper extends SQLiteOpenHelper {
      */
     public ArrayList<ProductBean> getRandomProduct(){
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("select * from " + TABLE_NAME  + " order by seq ", null );
+        Cursor cursor = db.rawQuery("select * from " + TABLE_NAME  + " order by seq desc", null );
         ArrayList<ProductBean> result = new ArrayList<>();
 
         while (cursor.moveToNext()) {
@@ -222,10 +221,21 @@ public class ProductDBHelper extends SQLiteOpenHelper {
 
         return result;
     }
-
-    public ArrayList<ProductBean> getProductbySeq(String seq){
+    /*
+    param : amt, year, km
+     */
+    public ArrayList<ProductBean> getProductbySeq(String gbn){
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.query(TABLE_NAME, null, "seq = ?", new String[] {seq}, null, null, null);
+        Cursor cursor = null;
+        if("amt".equals(gbn) ){
+            cursor = db.query(TABLE_NAME, null, null, null, null, null, "carAmt asc" );
+        }
+        else if("year".equals(gbn) ){
+            cursor = db.query(TABLE_NAME, null, null, null, null, null, "carYear desc" );
+        }
+        else if("km".equals(gbn) ){
+            cursor = db.query(TABLE_NAME, null, null, null, null, null, "carKm asc" );
+        }
         ArrayList<ProductBean> result = new ArrayList<>();
 
         while (cursor.moveToNext()) {
@@ -278,7 +288,7 @@ public class ProductDBHelper extends SQLiteOpenHelper {
         Drawable drawable = mContext.getDrawable(image);
         Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        bitmap.compress(Bitmap.CompressFormat.PNG, 40, stream);
         byte[] dataByte = stream.toByteArray();
 
         return dataByte;

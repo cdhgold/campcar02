@@ -1,6 +1,9 @@
 package com.cdh.campcar.Fragment;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.os.StrictMode;
@@ -22,6 +25,7 @@ import com.cdh.campcar.Data.ProductDBHelper;
 import com.cdh.campcar.R;
 import com.cdh.campcar.Recycler.CartRecyclerAdapter;
 import com.cdh.campcar.Recycler.ItemClickListener;
+import com.cdh.campcar.UtilActivity;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -32,11 +36,17 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -107,7 +117,7 @@ public class DdFragment extends Fragment  {
     class campXml extends Thread {
         public void run() {
             try {
-                url = new URL("http://konginfo.co.kr/car/downfile/getXml");
+                url = new URL("http://49.50.167.90/car/downfile/getXml");// 공인IP 49.50.167.90
                 DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
                 DocumentBuilder db = dbf.newDocumentBuilder();
                 doc = db.parse(new InputSource(url.openStream()));
@@ -226,16 +236,16 @@ public class DdFragment extends Fragment  {
                     product.setCarFuel	(scarFuel);
                     product.setCarAmt	(scarAmt);
                     product.setCarInfo	(scarInfo);
-                    product.setCarImg01	(scarImg01);
-                    product.setCarImg02	(scarImg02);
-                    product.setCarImg03	(scarImg03);
-                    product.setCarImg04	(scarImg04);
-                    product.setCarImg05	(scarImg05);
-                    product.setCarImg06	(scarImg06);
-                    product.setCarImg07	(scarImg07);
-                    product.setCarImg08	(scarImg08);
-                    product.setCarImg09	(scarImg09);
-                    product.setCarImg10	(scarImg10);
+                    product.setCarImg01(new String(LoadImageFromWebOperations(scarImg01)) );
+                    product.setCarImg02(new String(LoadImageFromWebOperations(scarImg02)));
+                    product.setCarImg03(new String(LoadImageFromWebOperations(scarImg03)));
+                    product.setCarImg04(new String(LoadImageFromWebOperations(scarImg04)));
+                    product.setCarImg05(new String(LoadImageFromWebOperations(scarImg05)));
+                    product.setCarImg06(new String(LoadImageFromWebOperations(scarImg06)));
+                    product.setCarImg07(new String(LoadImageFromWebOperations(scarImg07)));
+                    product.setCarImg08(new String(LoadImageFromWebOperations(scarImg08)));
+                    product.setCarImg09(new String(LoadImageFromWebOperations(scarImg09)));
+                    product.setCarImg10(new String(LoadImageFromWebOperations(scarImg10)));
                     dbHelper.insertProduct(product);
                     int percent = 100/nodeList.getLength()*(i+1);
                     progressBar.setProgress(percent);
@@ -254,6 +264,51 @@ public class DdFragment extends Fragment  {
             } catch (Exception e) {
                 e.getMessage();
             }
+        }
+    }// end class
+
+    // url 이미지를 set String
+    private String LoadImageFromWebOperations(String url) {
+        // unique 키 생성
+        String imgStr =  UUID.randomUUID().toString().replaceAll("-", "");
+        try {
+            String sext = url.substring(url.lastIndexOf("."));
+            imgStr+=sext;
+
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            InputStream is = (InputStream) new URL(url).getContent();
+            Bitmap bitmap = BitmapFactory.decodeStream(is);
+            if(bitmap != null) {
+                saveBitmapToJpeg(bitmap, imgStr,sext); // 이미지 파일생성 및 저장
+            }else{
+                imgStr = "";
+            }
+            //imgStr = UtilActivity.BitmapToString(bitmap);
+        } catch (Exception e) {
+            System.out.println("Exc=" + e);
+        }
+        return imgStr;
+    }
+    private void saveBitmapToJpeg(Bitmap bitmap, String name, String ext) {
+        //외부저장소 파일저장 getExternalStorageDirectory()
+        File storage = new File(Environment.DIRECTORY_PICTURES , name);
+        //저장할 파일 이름
+        String fileName = name + ext;
+        //storage 에 파일 인스턴스를 생성합니다.
+        File tempFile = new File(storage, fileName);
+        try {
+            // 자동으로 빈 파일을 생성합니다.
+            tempFile.createNewFile();
+            // 파일을 쓸 수 있는 스트림을 준비합니다.
+            FileOutputStream out = new FileOutputStream(tempFile);
+            // compress 함수를 사용해 스트림에 비트맵을 저장합니다.
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 40, out);
+            // 스트림 사용후 닫아줍니다.
+            out.close();
+        } catch (FileNotFoundException e) {
+            Log.e("campcar","FileNotFoundExce ption : " + e.getMessage());
+        } catch (IOException e) {
+            Log.e("campcar","IOException : " + e.getMessage());
         }
     }
 }
