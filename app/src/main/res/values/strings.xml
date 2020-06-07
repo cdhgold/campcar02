@@ -21,7 +21,7 @@
     <string name="carImg09">이미지9</string>
     <string name="carImg10">이미지10</string>
     <string name="register_info">환영합니다! 아래 정보들을 기입해주세요.</string>
-    <string name="register"	>내캠핑카등록</string>
+    <string name="register"	>내캠핑카\n등록</string>
     <string name="ok"	>ok</string>
     <string name="cancel"	>cancel</string>
 

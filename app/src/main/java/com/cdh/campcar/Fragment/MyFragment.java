@@ -26,6 +26,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     // 정보수정? 시간 남으면 하기 -> 정보수정 글씨를 누르면 팝업화면으로 수정하고 확인하면 refresh
 
     private EditText carNm;
+    private EditText carEmail;
     private EditText carYear 	;
     private EditText carKm     ;
     private EditText carAddr   ;
@@ -41,6 +42,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.activity_register, container, false);
 
         carNm	 = view.findViewById(R.id.carNm	);
+        carEmail	 = view.findViewById(R.id.email	);
         carYear  = view.findViewById(R.id.carYear );
         carKm    = view.findViewById(R.id.carKm   );
         carAddr  = view.findViewById(R.id.carAddr );
@@ -72,6 +74,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
      */
     public void carInsert(View view){
         String scarNm =  carNm.getText().toString();
+        String scarEmail =  carEmail.getText().toString();
         String scarYear = carYear.getText().toString();
         String scarKm   = carKm.getText().toString();
         String scarAddr = carAddr.getText().toString();
@@ -79,6 +82,10 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         String scarFuel = carFuel.getText().toString();
         String scarAmt  = carAmt.getText().toString();
         String scarInfo = carInfo.getText().toString();
+        if("".equals(scarEmail)){
+            UtilActivity.showALert("이메일(수정시필요)",getContext());
+            return ;
+        }
         if("".equals(scarNm)){
             UtilActivity.showALert("캠핑카명",getContext());
             return ;
@@ -104,7 +111,9 @@ public class MyFragment extends Fragment implements View.OnClickListener {
             return ;
         }
         ProductBean vo = new ProductBean();
+        vo.setCarEmail(scarEmail);
         vo.setCarNm(scarNm);
+
         vo.setCarYear(scarYear);
         vo.setCarKm(scarKm);
         vo.setCarAddr(scarAddr);

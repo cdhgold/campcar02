@@ -15,23 +15,31 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.cdh.campcar.Data.ProductBean;
 import com.cdh.campcar.Fragment.ViewFragment;
 import com.cdh.campcar.MainActivity;
 import com.cdh.campcar.R;
 import com.cdh.campcar.UtilActivity;
 
+import java.io.File;
 import java.util.ArrayList;
-
+/*
+구분조건으로 3열보기
+ */
 public class ShopRecyclerAdapter extends RecyclerView.Adapter<ShopRecyclerAdapter.ShopViewHolder> {
     private ArrayList<ProductBean> data;
     private ItemClickListener listener;
     private Context ctx;
     private int pos = 0;
-    public ShopRecyclerAdapter(Context context, ArrayList<ProductBean> data, ItemClickListener listener){
+    private RequestManager glideMang;
+    public ShopRecyclerAdapter(Context context, ArrayList<ProductBean> data, ItemClickListener listener
+                                , RequestManager mGlideRequestManager){
         this.data = data;
         this.listener = listener;
         this.ctx = context;
+        this.glideMang = mGlideRequestManager;
     }
 
     @NonNull
@@ -43,15 +51,20 @@ public class ShopRecyclerAdapter extends RecyclerView.Adapter<ShopRecyclerAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ShopViewHolder shopViewHolder, int i) {
-        pos = i;
-
         ProductBean productBean = data.get(i);
+        pos = productBean.getSeq() ;
 
         String imgStr = productBean.getCarImg01() ;
-        Bitmap bm = UtilActivity.StringToBitmap(imgStr);
-        Drawable image =  new BitmapDrawable(ctx.getResources(), bm);
+        //File storage = new File(ctx.getFilesDir(), imgStr);
+        //Bitmap myBitmap = BitmapFactory.decodeFile(storage.getAbsolutePath());
+        //Bitmap bm = UtilActivity.StringToBitmap(imgStr);
+        //Drawable image =  new BitmapDrawable(ctx.getResources(), bm);
 
-        shopViewHolder.productImage.setImageDrawable( image  );
+        //shopViewHolder.productImage.setImageDrawable( image  );
+
+        this.glideMang.load("file:///" + ctx.getFilesDir() + "/" + imgStr).into(shopViewHolder.productImage);
+
+        //shopViewHolder.productImage.setImageBitmap(myBitmap);
         shopViewHolder.productName.setText(productBean.getCarNm());
         shopViewHolder.productPrice.setText(String.valueOf(productBean.getCarAmt()));
 
@@ -88,10 +101,13 @@ public class ShopRecyclerAdapter extends RecyclerView.Adapter<ShopRecyclerAdapte
             productImage = itemView.findViewById(R.id.imageView);
             productName = itemView.findViewById(R.id.productNameTv);
             productPrice = itemView.findViewById(R.id.productPriceTv);
-            productImage.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v){
-                    //notifyDataSetChanged();
-                    listener.onItemClick(v, pos,"Y");
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = getAdapterPosition() ;
+                    if (pos != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(v, pos,"img" );
+                    }
                 }
             });
 

@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Message;
+import android.util.Log;
 
 import com.cdh.campcar.UtilActivity;
 
@@ -16,10 +17,15 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.UUID;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -45,6 +51,7 @@ public class GetXml extends Thread {
             NodeList nodeList = doc.getElementsByTagName("Car");
             for (int i = 0; i < nodeList.getLength(); i++) {
                 String sseq = "";
+                String semail = "";
                 String scarNm = "";
                 String scarYear = "";
                 String scarKm = "";
@@ -70,6 +77,10 @@ public class GetXml extends Thread {
                 NodeList seq = fstElmnt.getElementsByTagName("Seq");
                 if (seq.getLength() > 0) {
                     sseq = seq.item(0).getChildNodes().item(0).getNodeValue();
+                }
+                NodeList email = fstElmnt.getElementsByTagName("Email");
+                if (email.getLength() > 0) {
+                    semail = email.item(0).getChildNodes().item(0).getNodeValue();
                 }
                 NodeList carNm = fstElmnt.getElementsByTagName("CarNm");
                 if (carNm.getLength() > 0) {
@@ -148,6 +159,7 @@ public class GetXml extends Thread {
                 ProductBean product = new ProductBean();
                 product.setSeq(Integer.parseInt(sseq));
                 product.setCarNm(scarNm);
+                product.setCarEmail(semail);
                 product.setCarYear(scarYear);
                 product.setCarKm(scarKm);
                 product.setCarAddr(scarAddr);
@@ -185,15 +197,40 @@ public class GetXml extends Thread {
 
     // url 이미지를 set String
     private String LoadImageFromWebOperations(String url) {
-        String imgStr = "";
+        // unique 키 생성
+        String imgStr =  UUID.randomUUID().toString().replaceAll("-", "");
         try {
+            String sext = url.substring(url.lastIndexOf("."));
+            imgStr+=sext;
+
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             InputStream is = (InputStream) new URL(url).getContent();
             Bitmap bitmap = BitmapFactory.decodeStream(is);
-            imgStr = UtilActivity.BitmapToString(bitmap);
+            if(bitmap != null) {
+                saveBitmapToJpeg(bitmap, imgStr ); // 이미지 파일생성 및 저장
+            }else{
+                imgStr = "";
+            }
+            //imgStr = UtilActivity.BitmapToString(bitmap);
         } catch (Exception e) {
             System.out.println("Exc=" + e);
         }
         return imgStr;
+    }
+    private void saveBitmapToJpeg(Bitmap bitmap, String name ) {
+        //내부저장소 파일저장
+        //File storage = new File(Environment.DIRECTORY_PICTURES , name);
+        File storage = new File(context.getFilesDir(), name);
+        try {
+            FileOutputStream out = new FileOutputStream(storage);
+            // compress 함수를 사용해 스트림에 비트맵을 저장합니다.
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 40, out);
+            // 스트림 사용후 닫아줍니다.
+            out.close();
+        } catch (FileNotFoundException e) {
+            Log.e("campcar","FileNotFoundExce ption : " + e.getMessage());
+        } catch (IOException e) {
+            Log.e("campcar","IOException : " + e.getMessage());
+        }
     }
 }

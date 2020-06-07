@@ -34,7 +34,13 @@ public class UtilActivity   {
 
         builder.show();
     }
+    public static void showAlim(String nm, Context ctx) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
+        builder.setTitle("확인!");
+        builder.setMessage(nm );
 
+        builder.show();
+    }
     /*
      * String형을 BitMap으로 변환시켜주는 함수
      * */

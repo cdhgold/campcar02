@@ -4,39 +4,54 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_weight="1"
     tools:context=".Fragment.MyFragment">
 
     <TableLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
          >
 
-        <TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
 
             <TextView
                 android:id="@+id/registerTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
-                android:text="@string/register"
+                android:text="캠핑카등록"
                 android:textSize="24sp"
                 android:textStyle="bold" />
         </TableRow>
 
-        <TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/infoTv"
-                android:layout_width="wrap_content"
+                android:id="@+id/em"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/register_info"
-                android:textSize="18sp" />
+                android:text="이메일(수정시사용)"
+                />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_edittxt"
+                android:inputType="textPersonName"    />
         </TableRow>
 
-        <TableRow >
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/nameTv"
@@ -45,7 +60,9 @@
                 android:text="@string/carNm"
                 />
         </TableRow>
-        <TableRow >
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
             <EditText
                 android:id="@+id/carNm"
                 android:layout_width="wrap_content"
@@ -53,10 +70,7 @@
                 android:background="@drawable/custom_edittxt"
                 android:inputType="textPersonName"    />
         </TableRow>
-
-
         <TableRow>
-
             <TextView
                 android:id="@+id/useridTv"
                 android:layout_width="wrap_content"
@@ -64,16 +78,15 @@
                 android:text="@string/carKm"  />
         </TableRow>
         <TableRow >
+
             <EditText
                 android:id="@+id/carKm"
                 android:layout_width="wrap_content"
-                android:background="@drawable/custom_edittxt"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"  />
+                android:background="@drawable/custom_edittxt"
+                android:inputType="number" />
         </TableRow>
-
         <TableRow>
-
             <TextView
                 android:id="@+id/pwTv"
                 android:layout_width="wrap_content"
@@ -87,7 +100,7 @@
                 android:layout_width="253dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/custom_edittxt"
-                android:inputType="textPersonName"  />
+                android:inputType="number"  />
         </TableRow>
 
         <TableRow>
@@ -142,7 +155,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/custom_edittxt"
-                android:inputType="textPersonName"    />
+                android:inputType="number"    />
         </TableRow>
 
         <TableRow>

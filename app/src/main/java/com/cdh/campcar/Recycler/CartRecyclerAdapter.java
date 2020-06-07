@@ -14,12 +14,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.cdh.campcar.Data.ProductBean;
 import com.cdh.campcar.Fragment.ViewFragment;
 import com.cdh.campcar.MainActivity;
 import com.cdh.campcar.R;
 import com.cdh.campcar.UtilActivity;
 
+import java.io.File;
 import java.util.ArrayList;
 /*
 최신목록으로 보기
@@ -29,10 +32,13 @@ public class CartRecyclerAdapter extends RecyclerView.Adapter<CartRecyclerAdapte
     private ItemClickListener listener;
     private Context ctx;
     private int pos = 0;
-    public CartRecyclerAdapter(Context context, ArrayList<ProductBean> data, ItemClickListener listener){
+    private RequestManager glideMang;
+    public CartRecyclerAdapter(Context context, ArrayList<ProductBean> data, ItemClickListener listener
+                                 , RequestManager mGlideRequestManager){
         this.data = data;
         this.listener = listener;
         this.ctx = context;
+        this.glideMang = mGlideRequestManager;
     }
 
     @NonNull
@@ -44,13 +50,20 @@ public class CartRecyclerAdapter extends RecyclerView.Adapter<CartRecyclerAdapte
 
     @Override
     public void onBindViewHolder(@NonNull CartViewHolder cartViewHolder, int i) {
-        pos = i;
+
         ProductBean productBean = data.get(i);
         String imgStr = productBean.getCarImg01() ;
-        Bitmap bm = UtilActivity.StringToBitmap(imgStr);
-        Drawable image =  new BitmapDrawable(ctx.getResources(), bm);
+        //File storage = new File(ctx.getFilesDir(), imgStr);
+        //Drawable image =  new BitmapDrawable(context.getResources(), bm);
+        //Drawable image = Drawable.createFromPath(context.getFilesDir()+imgStr );
+        //imageView.setImageBitmap(BitmapFactory.decodeFile(pathToPicture));
+        //Bitmap myBitmap = BitmapFactory.decodeFile(storage.getAbsolutePath());
+        //Bitmap bm = UtilActivity.StringToBitmap(imgStr);
+        //Drawable image =  new BitmapDrawable(ctx.getResources(), bm);
+        //cartViewHolder.productImage.setImageDrawable(image);
+        pos = productBean.getSeq();
+        this.glideMang.load("file:///"+ctx.getFilesDir()+"/"+imgStr).into(cartViewHolder.productImage);
 
-        cartViewHolder.productImage.setImageDrawable(image);
         cartViewHolder.productName.setText(productBean.getCarNm());
         cartViewHolder.productPrice.setText(String.valueOf(productBean.getCarAmt()));
     }
@@ -74,18 +87,23 @@ public class CartRecyclerAdapter extends RecyclerView.Adapter<CartRecyclerAdapte
         TextView productName;
         TextView productPrice;
 
-        public CartViewHolder(@NonNull View itemView) {
+        public CartViewHolder(@NonNull final View itemView) {
             super(itemView);
 
             productImage = itemView.findViewById(R.id.imageView);
             productName = itemView.findViewById(R.id.productNameTv);
             productPrice = itemView.findViewById(R.id.productPriceTv);
-            productImage.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v){
-                    listener.onItemClick(v, pos,"" );
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = getAdapterPosition() ;
+                    if (pos != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(v, pos,"" );
+                    }
                 }
             });
+
         }
     }
 }

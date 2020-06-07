@@ -11,14 +11,13 @@
         android:id="@+id/imgAlbum"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="104dp"
+        android:layout_marginTop="80dp"
         android:scaleType="fitXY"
-        android:src="@drawable/carbtn01"
+        android:src="@drawable/galary"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.299"
         app:layout_constraintStart_toEndOf="@+id/imgCamera"
-        app:layout_constraintTop_toBottomOf="@+id/registerTv" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/registerTv"
@@ -36,29 +35,28 @@
         android:id="@+id/imgCamera"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginStart="24dp"
         android:scaleType="fitXY"
-        android:src="@drawable/carbtn01"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton2"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerTv" />
+        android:src="@drawable/camera"
+        app:layout_constraintBottom_toTopOf="@+id/img01"
+        app:layout_constraintStart_toEndOf="@+id/registerTv"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.351" />
 
     <TextView
         android:id="@+id/save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="52dp"
+        android:layout_height="43dp"
         android:text="@string/ok"
         android:textColor="@color/colorAccent"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.475"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img01"
-        app:layout_constraintVertical_bias="0.247" />
+        app:layout_constraintVertical_bias="0.404" />
 
     <TextView
         android:id="@+id/cancel"
@@ -69,7 +67,11 @@
         android:text="@string/cancel"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/save"
+        app:layout_constraintHorizontal_bias="0.396"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img01"
+        app:layout_constraintVertical_bias="0.444" />
 
     <ImageView
         android:id="@+id/img01"
@@ -82,6 +84,6 @@
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgAlbum"
-        app:layout_constraintVertical_bias="0.142" />
+        app:layout_constraintVertical_bias="0.114" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

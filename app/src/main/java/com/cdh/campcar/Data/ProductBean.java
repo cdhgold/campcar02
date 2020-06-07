@@ -6,6 +6,7 @@ public class ProductBean {
 
     private int seq   		= 0;
     private String carNm	    = "";
+    private String carEmail	    = "";
     private String carYear      = "";
     private String carKm        = "";
     private String carAddr      = "";
@@ -24,22 +25,30 @@ public class ProductBean {
     private String carImg09     = "";
     private String carImg10     = "";
     private static ProductBean prod = null;
-    private static Drawable[] dimg = null    ;
+    private static String[] dimg = null    ;
 
-    public static Drawable[] getDimg() {
-        return dimg;
+    public String getCarEmail() {
+        return carEmail;
     }
 
-    public static void setDimg(Drawable[] dimg) {
+    public void setCarEmail(String carEmail) {
+        this.carEmail = carEmail;
+    }
+
+    public static String[] getDimg() {
+        return ProductBean.dimg;
+    }
+
+    public static void setDimg(String[] dimg) {
         ProductBean.dimg = dimg;
     }
 
     public ProductBean getProd() {
-        return prod;
+        return ProductBean.prod;
     }
 
     public void setProd(ProductBean prod) {
-        this.prod = prod;
+        ProductBean.prod = prod;
     }
 
     public int getSeq() {

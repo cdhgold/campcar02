@@ -14,29 +14,31 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.androidnetworking.AndroidNetworking;
-import com.androidnetworking.common.Priority;
-import com.androidnetworking.error.ANError;
-import com.androidnetworking.interfaces.JSONObjectRequestListener;
-import com.androidnetworking.interfaces.UploadProgressListener;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.cdh.campcar.Data.GetXml;
 import com.cdh.campcar.Data.ProductBean;
 import com.cdh.campcar.Data.ProductDBHelper;
+import com.cdh.campcar.InfoActivity;
 import com.cdh.campcar.MainActivity;
+import com.cdh.campcar.PhotoActivity;
 import com.cdh.campcar.R;
+import com.cdh.campcar.Recycler.HomeGridAdapter;
+import com.cdh.campcar.UtilActivity;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
-
-import org.json.JSONObject;
 
 import java.io.DataOutputStream;
 import java.io.File;
@@ -52,40 +54,67 @@ import java.util.ArrayList;
 import static android.app.Activity.RESULT_OK;
 
 /*
-캠핑카등록 2
+ 각 이미지수정
  */
-public class MyInsFragment extends Fragment implements View.OnClickListener {
-    // 이름, 아이디, 이메일, 성별, 나이 표시해주기
-    // 정보수정? 시간 남으면 하기 -> 정보수정 글씨를 누르면 팝업화면으로 수정하고 확인하면 refresh
+public class PhotoEdFragment extends Fragment  implements View.OnClickListener {
 
+    private View view;
+
+    private EditText carNm;
+    private EditText carYear 	;
+    private EditText carKm     ;
+    private EditText carAddr   ;
+    private EditText carTel    ;
+    private EditText carFuel   ;
+    private EditText carAmt    ;
+    private EditText carInfo   ;
     private ImageButton imgCamera  ;
     private ImageButton imgAlbum  ;
     private ImageView img01;
     private TextView save ;
+    private TextView cancel ;
     private ProductDBHelper dbHelper;
-
+    private String imgSeq = ""; // img 수정 순번
     final static int TAKE_PICTURE = 1;
     final static int CAPTURE_IMAGE = 2;
+    private int seq = 0;
+    private int chkimg = 0; // image 수정여부확인 , image get 100
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        chkimg = 0;
+        if (getArguments() != null) {
+            imgSeq = getArguments().getString("img"); // img 순번
+//UtilActivity.showALert(imgSeq,getContext());
+        }
+    }
 
+    // 메인. 슬라이드 형식 화면 절반치 광고, 아래에 상품 6개 정도 보여주기
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_reg_img, container, false);
-
+        view = inflater.inflate(R.layout.activity_reg_img, container, false);
+        ProductBean vo = new ProductBean();
+        vo = vo.getProd();
+        seq = vo.getSeq(); // 수정data  seq
+UtilActivity.showALert(String.valueOf(seq), getContext());
 
         save  = view.findViewById(R.id.save );
+        cancel  = view.findViewById(R.id.cancel );
         imgCamera  = view.findViewById(R.id.imgCamera );
         imgAlbum   = view.findViewById(R.id.imgAlbum );
         img01  = view.findViewById(R.id.img01 );        //  get 한 이미지를 보여준다
         save.setOnClickListener(this);
-        imgCamera.setOnClickListener(this);
-        imgAlbum.setOnClickListener(this);
+        cancel.setOnClickListener(this);
+        imgCamera.setOnClickListener(this);// 카메라
+        imgAlbum.setOnClickListener(this);  // 갤러리
 
         dbHelper = ProductDBHelper.getInstance(getContext());
-        tedPermission();
+        tedPermission();// 권한요청
+
         return view;
     }
     /*
-    카메라로 이미지가져오기
-     */
+        카메라로 이미지가져오기
+         */
     public void getCameraImg(View view){
         Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
 
@@ -124,11 +153,11 @@ public class MyInsFragment extends Fragment implements View.OnClickListener {
         startActivityForResult(intent, 101);
     }
 
-    // 카메라로 촬영한 영상을 가져오는 부분
+    // 갤러리, 카메라로 촬영한 영상을 가져오는 부분
     @Override
     public  void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
-
+        chkimg= 100;
         switch (requestCode) {
             case 101:
                 if (resultCode == RESULT_OK) {
@@ -146,26 +175,19 @@ public class MyInsFragment extends Fragment implements View.OnClickListener {
 
                 break;
             case CAPTURE_IMAGE:
-            if (requestCode == CAPTURE_IMAGE && resultCode == Activity.RESULT_OK && intent.hasExtra("data")) {
-                Bitmap bitmap = (Bitmap) intent.getExtras().get("data");
-                if (bitmap != null) {
-                    img01.setImageBitmap(bitmap);
+                if (requestCode == CAPTURE_IMAGE && resultCode == Activity.RESULT_OK && intent.hasExtra("data")) {
+                    Bitmap bitmap = (Bitmap) intent.getExtras().get("data");
+                    if (bitmap != null) {
+                        img01.setImageBitmap(bitmap);
+                    }
+
+
                 }
-
-
-            }
                 break;
 
         }
     }
-    /*
-    서버에 등록
-     */
-    public void setSave(View view){
 
-
-
-    }
     // 카메라, 앨범 에서 이미지 가져오기
     @Override
     public void onClick(View v) {
@@ -177,9 +199,19 @@ public class MyInsFragment extends Fragment implements View.OnClickListener {
                 getAlbumImg(v);
                 break;
             case R.id.save:
-                //setSave(v);
-                sendServer send = new sendServer();
+                // img 있는지 확인
+                if( chkimg == 0){
+                    UtilActivity.showAlim("이미지를 선택하세요!",getContext());
+                    break;
+                }
+                // inner class thread
+                PhotoEdFragment.sendServer send = new PhotoEdFragment.sendServer();
                 send.start();
+                break;
+            case R.id.cancel:
+                PhotoFragment frg = new PhotoFragment();
+                //frg.setArguments(args); // param pass
+                ((PhotoActivity)getContext()).replaceFragment(frg);
                 break;
         }
     }
@@ -188,18 +220,18 @@ public class MyInsFragment extends Fragment implements View.OnClickListener {
         public void run() {
             File file = null;
             try {
+                // 임시파일 생성
                 file = new File(Environment.getExternalStorageDirectory(), "/carImg01.jpeg");
                 //bitmap을 생성
-                Bitmap bitmap = ((BitmapDrawable)img01.getDrawable()).getBitmap();
-                OutputStream out = new FileOutputStream(file);
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 40, out);
+                Bitmap bitmap = ((BitmapDrawable)img01.getDrawable()).getBitmap(); // 가져온 이미지
+                OutputStream out = new FileOutputStream(file);              // outstream 정의
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 40, out); // 압축
                 out.close();
-                ProductBean vo = new ProductBean();
-                vo = vo.getProd();              // myFragment 에서 값 담음
+
                 HttpURLConnection conn = null;
                 DataOutputStream dos = null;
                 String lineEnd = "\r\n";
-                String twoHyphens = "--";
+                String twoHyphens = "--";   // w3c에서 규정
                 String boundary = "*****";
                 int bytesRead, bytesAvailable, bufferSize;
                 byte[] buffer;
@@ -209,7 +241,7 @@ public class MyInsFragment extends Fragment implements View.OnClickListener {
                 if (file.isFile()) {
 
                     try {
-                        String upLoadServerUri = "http://49.50.167.90/car/carIns/saveApp";
+                        String upLoadServerUri = "http://49.50.167.90/car/carIns/imgUp";
 
                         // open a URL connection to the Servlet
                         fileInputStream = new FileInputStream( file);
@@ -232,24 +264,11 @@ public class MyInsFragment extends Fragment implements View.OnClickListener {
 
                         dos.writeBytes(twoHyphens + boundary + lineEnd);
                         //한글깨짐
-                        dos.writeBytes("Content-Disposition: form-data; name=\"email\""+lineEnd+lineEnd+ URLEncoder.encode(vo.getCarEmail(), "UTF-8")+lineEnd);
+                        dos.writeBytes("Content-Disposition: form-data; name=\"seq\""+lineEnd+lineEnd+ URLEncoder.encode(String.valueOf(seq) , "UTF-8")+lineEnd);
                         dos.writeBytes(twoHyphens + boundary + lineEnd);
-                        dos.writeBytes("Content-Disposition: form-data; name=\"carNm\""+lineEnd+lineEnd+ URLEncoder.encode(vo.getCarNm(), "UTF-8")+lineEnd);
+                        dos.writeBytes("Content-Disposition: form-data; name=\"imgSeq\""+lineEnd+lineEnd+ URLEncoder.encode(imgSeq , "UTF-8")+lineEnd);
                         dos.writeBytes(twoHyphens + boundary + lineEnd);
-                        dos.writeBytes("Content-Disposition: form-data; name=\"carAddr\""+lineEnd+lineEnd+ URLEncoder.encode(vo.getCarAddr(), "UTF-8")+lineEnd);
-                        dos.writeBytes(twoHyphens + boundary + lineEnd);
-                        dos.writeBytes("Content-Disposition: form-data; name=\"carAmt\""+lineEnd+lineEnd+ URLEncoder.encode(vo.getCarAmt(), "UTF-8")+lineEnd);
-                        dos.writeBytes(twoHyphens + boundary + lineEnd);
-                        dos.writeBytes("Content-Disposition: form-data; name=\"carInfo\""+lineEnd+lineEnd+ URLEncoder.encode(vo.getCarInfo(), "UTF-8")+lineEnd);
-                        dos.writeBytes(twoHyphens + boundary + lineEnd);
-                        dos.writeBytes("Content-Disposition: form-data; name=\"carFuel\""+lineEnd+lineEnd+ URLEncoder.encode(vo.getCarFuel(), "UTF-8")+lineEnd);
-                        dos.writeBytes(twoHyphens + boundary + lineEnd);
-                        dos.writeBytes("Content-Disposition: form-data; name=\"carKm\""+lineEnd+lineEnd+ URLEncoder.encode(vo.getCarKm(), "UTF-8")+lineEnd);
-                        dos.writeBytes(twoHyphens + boundary + lineEnd);
-                        dos.writeBytes("Content-Disposition: form-data; name=\"carTel\""+lineEnd+lineEnd+ URLEncoder.encode(vo.getCarTel(), "UTF-8")+lineEnd);
-                        dos.writeBytes(twoHyphens + boundary + lineEnd);
-                        dos.writeBytes("Content-Disposition: form-data; name=\"carYear\""+lineEnd+lineEnd+ URLEncoder.encode(vo.getCarYear(), "UTF-8")+lineEnd);
-                        dos.writeBytes(twoHyphens + boundary + lineEnd);
+
                         dos.writeBytes("Content-Disposition: form-data; name=\"carImg01\";filename=\""
                                 + "carImg01.jpg" + "\"" + lineEnd);
 
@@ -266,7 +285,7 @@ public class MyInsFragment extends Fragment implements View.OnClickListener {
 
                         while (bytesRead > 0) {
 
-                            dos.write(buffer, 0, bufferSize);
+                            dos.write(buffer, 0, bufferSize); // file write
                             bytesAvailable = fileInputStream.available();
                             bufferSize = Math.min(bytesAvailable, maxBufferSize);
                             bytesRead = fileInputStream.read(buffer, 0,
@@ -285,13 +304,15 @@ public class MyInsFragment extends Fragment implements View.OnClickListener {
                         String serverResponseMessage = conn.getResponseMessage();
 
                         if (serverResponseCode == 200) {
+                            //저장후 이동
                             Log.d("campCar","success");
                             Log.d("campCar",serverResponseMessage);
                             //성공시 xml다시받고 , list화면으로 이동
                             GetXml getxml = new GetXml(getContext());
                             getxml.start();
-                            HomeFragment frg = new HomeFragment();
-                            ((MainActivity)getActivity()).replaceFragment(frg);
+                            ViewFragment frg = new ViewFragment();
+                            ((PhotoActivity)getContext()).replaceFragment(frg);
+
                         }else{
                             Log.d("campCar","server err");
                             Log.d("campCar",serverResponseMessage);
@@ -302,7 +323,7 @@ public class MyInsFragment extends Fragment implements View.OnClickListener {
                         fileInputStream.close();
                         dos.flush();
                         dos.close();
-                        vo = null;
+
                     } catch (Exception e) {
                         // dialog.dismiss();
                         e.printStackTrace();
@@ -310,7 +331,7 @@ public class MyInsFragment extends Fragment implements View.OnClickListener {
                         fileInputStream.close();
                         dos.flush();
                         dos.close();
-                        vo = null;
+
                     }
                     // dialog.dismiss();
 
@@ -328,7 +349,5 @@ public class MyInsFragment extends Fragment implements View.OnClickListener {
 
         }//run
     }//class
-
-
 
 }

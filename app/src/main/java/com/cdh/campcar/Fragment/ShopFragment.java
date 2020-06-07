@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.cdh.campcar.Data.ProductBean;
 import com.cdh.campcar.Data.ProductDBHelper;
 import com.cdh.campcar.MainActivity;
@@ -37,7 +39,14 @@ public class ShopFragment extends Fragment implements ItemClickListener {
     private ShopRecyclerAdapter pAdapter;
     private ArrayList<ProductBean> pData;
     private ProductDBHelper dbHelper;
+    public RequestManager mGlideRequestManager;
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mGlideRequestManager = Glide.with(this);
+        ProductBean.setDimg(null);// 이미지초기화
+    }
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_shop_fragment, container, false);
 
@@ -70,7 +79,7 @@ public class ShopFragment extends Fragment implements ItemClickListener {
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
         recyclerView = view.findViewById(R.id.productRecycler);
         recyclerView.setLayoutManager(layoutManager);
-        pAdapter = new ShopRecyclerAdapter(getContext(), pData, this);
+        pAdapter = new ShopRecyclerAdapter(getContext(), pData, this,mGlideRequestManager);
         recyclerView.setAdapter(pAdapter);
     }
 
@@ -98,6 +107,7 @@ public class ShopFragment extends Fragment implements ItemClickListener {
             }
         }else {
             //이미지 click시 상세보기
+
             ProductBean procutBean = new ProductBean();
             procutBean.setProd(pData.get(position));
             ViewFragment frg = new ViewFragment();

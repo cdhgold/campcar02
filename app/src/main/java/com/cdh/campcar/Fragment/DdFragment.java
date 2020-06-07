@@ -1,5 +1,7 @@
 package com.cdh.campcar.Fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.cdh.campcar.Data.ProductBean;
 import com.cdh.campcar.Data.ProductDBHelper;
+import com.cdh.campcar.MainActivity;
 import com.cdh.campcar.R;
 import com.cdh.campcar.Recycler.CartRecyclerAdapter;
 import com.cdh.campcar.Recycler.ItemClickListener;
@@ -76,12 +80,16 @@ public class DdFragment extends Fragment  {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        /* Google 에서 StrickMode 정책 적용은 실제 배포할 때는 적용하지 않도록 가이드
+        main thread에서 thread분리 , 개발시에만 적용
         if (android.os.Build.VERSION.SDK_INT > 9)
         {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
                     .permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
+        */
+
         tv = view.findViewById(R.id.tv);
         progressBar = (ProgressBar) view.findViewById(R.id.h_progressbar) ;
 
@@ -97,11 +105,32 @@ public class DdFragment extends Fragment  {
                 }
             }
         };
+        // 최신 다운 여부확인
+        conFirmDialog();
 
-
-        downXml();
     }
+    public void conFirmDialog()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("CmapCar");
+        builder.setMessage("최신정보를 다운받을래요?");
+        builder.setPositiveButton("예",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        downXml();
+                    }
+                });
+        builder.setNegativeButton("아니오",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        //Toast.makeText(getContext(),"아니오를 선택했습니다.",Toast.LENGTH_LONG).show();
+                        HomeFragment frg = new HomeFragment();
+                        ((MainActivity)getContext()).replaceFragment(frg);    // 새로 불러올 Fragment의 Instance를 Main으로 전달
 
+                    }
+                });
+        builder.show();
+    }
     private void downXml() {
         try {
             campXml xml = new campXml();
@@ -248,6 +277,7 @@ public class DdFragment extends Fragment  {
                     product.setCarImg10(new String(LoadImageFromWebOperations(scarImg10)));
                     dbHelper.insertProduct(product);
                     int percent = 100/nodeList.getLength()*(i+1);
+                    if(percent > 95)percent = 100;
                     progressBar.setProgress(percent);
                     Message msg = handler.obtainMessage();
                     msg.arg1 = percent;
@@ -279,7 +309,7 @@ public class DdFragment extends Fragment  {
             InputStream is = (InputStream) new URL(url).getContent();
             Bitmap bitmap = BitmapFactory.decodeStream(is);
             if(bitmap != null) {
-                saveBitmapToJpeg(bitmap, imgStr,sext); // 이미지 파일생성 및 저장
+                saveBitmapToJpeg(bitmap, imgStr ); // 이미지 파일생성 및 저장
             }else{
                 imgStr = "";
             }
@@ -289,18 +319,12 @@ public class DdFragment extends Fragment  {
         }
         return imgStr;
     }
-    private void saveBitmapToJpeg(Bitmap bitmap, String name, String ext) {
-        //외부저장소 파일저장 getExternalStorageDirectory()
-        File storage = new File(Environment.DIRECTORY_PICTURES , name);
-        //저장할 파일 이름
-        String fileName = name + ext;
-        //storage 에 파일 인스턴스를 생성합니다.
-        File tempFile = new File(storage, fileName);
+    private void saveBitmapToJpeg(Bitmap bitmap, String name ) {
+        //내부저장소 파일저장
+        //File storage = new File(Environment.DIRECTORY_PICTURES , name);
+        File storage = new File(getContext().getFilesDir(), name);
         try {
-            // 자동으로 빈 파일을 생성합니다.
-            tempFile.createNewFile();
-            // 파일을 쓸 수 있는 스트림을 준비합니다.
-            FileOutputStream out = new FileOutputStream(tempFile);
+            FileOutputStream out = new FileOutputStream(storage);
             // compress 함수를 사용해 스트림에 비트맵을 저장합니다.
             bitmap.compress(Bitmap.CompressFormat.JPEG, 40, out);
             // 스트림 사용후 닫아줍니다.

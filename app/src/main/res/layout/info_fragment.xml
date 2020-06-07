@@ -42,7 +42,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="left"
-                        android:paddingLeft="20dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+
                         android:text="\n캠프카는 중고캠핑카 공유앱입니다\n
 캠핑카를 장만하고 싶은데\n
 너무비싸죠, 여기서 공유하세요 \n
@@ -70,7 +72,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="left"
-                        android:paddingLeft="20dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+
                         android:textSize="20dip"
                         android:text="\n1년간 소개페이지를 유지합니다.\n
 문의는 konginfo.co.kr 로 해주세요  \n
@@ -98,9 +102,11 @@
                         android:gravity="left"
                         android:text="\n문의는 konginfo.co.kr 게시판으로\n
 부탁드려요.  \n
+투자,광고,앱제작 모두 환영합니다.  \n
 감사합니다.\n"
 
-                        android:paddingLeft="20dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
                         android:textSize="20dip" />
                 </TableRow>
             </TableLayout>

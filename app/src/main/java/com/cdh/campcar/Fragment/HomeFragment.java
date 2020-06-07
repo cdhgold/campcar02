@@ -16,17 +16,23 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.cdh.campcar.Data.ProductBean;
 import com.cdh.campcar.Data.ProductDBHelper;
 import com.cdh.campcar.InfoActivity;
+import com.cdh.campcar.MainActivity;
 import com.cdh.campcar.PhotoActivity;
 import com.cdh.campcar.R;
 import com.cdh.campcar.Recycler.HomeGridAdapter;
 
 import java.util.ArrayList;
-
+/*
+최초 main 화면
+ */
 public class HomeFragment extends Fragment {
-    private static final int INTERVAL_TIME = 3800;
+    private static final int INTERVAL_TIME = 3800; // 스크롤 간격
+    public RequestManager mGlideRequestManager;
 
     private View view;
     private ViewFlipper viewFlipper;
@@ -48,6 +54,12 @@ public class HomeFragment extends Fragment {
             R.drawable.slid10
 
     };
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mGlideRequestManager = Glide.with(this);
+        ProductBean.setDimg(null);// 이미지초기화
+    }
 
     // 메인. 슬라이드 형식 화면 절반치 광고, 아래에 상품 6개 정도 보여주기
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -88,8 +100,21 @@ public class HomeFragment extends Fragment {
         data = dbHelper.getRandomProduct();
 
         gridView = view.findViewById(R.id.gridView);
-        adapter = new HomeGridAdapter(getContext(), data);
+        adapter = new HomeGridAdapter(getContext(), data, mGlideRequestManager);
         gridView.setAdapter(adapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                ProductBean procutBean = new ProductBean();
+                procutBean.setProd(data.get(position));
+                Log.d("campcar seq1 ",String.valueOf(data.get(position).getSeq()))   ;
+                // 상세보기로 가기
+                ViewFragment frg = new ViewFragment();
+                ((MainActivity)getContext()).replaceFragment(frg);    // 새로 불러올 Fragment의 Instance를 Main으로 전달
+
+            }
+        });
 
     }
 }

@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.cdh.campcar.Data.ProductBean;
 import com.cdh.campcar.Data.ProductDBHelper;
 import com.cdh.campcar.PhotoActivity;
@@ -90,6 +92,7 @@ public class ViewFragment extends Fragment  implements ItemClickListener {
         ProductBean vo = new ProductBean();
         vo = vo.getProd();
         int seq = vo.getSeq();  // pk seq
+ Log.d("campcar seq2 ",String.valueOf(seq))   ;
         carNm.setText(vo.getCarNm());
         carTel.setText(vo.getCarTel());
         carYear.setText(vo.getCarYear());
@@ -110,50 +113,55 @@ public class ViewFragment extends Fragment  implements ItemClickListener {
         String img09 = vo.getCarImg09();
         String img10 = vo.getCarImg10();
 
-        Bitmap bm1 = UtilActivity.StringToBitmap(img01);
-        Bitmap bm2 = UtilActivity.StringToBitmap(img02);
-        Bitmap bm3 = UtilActivity.StringToBitmap(img03);
-        Bitmap bm4 = UtilActivity.StringToBitmap(img04);
-        Bitmap bm5 = UtilActivity.StringToBitmap(img05);
-        Bitmap bm6 = UtilActivity.StringToBitmap(img06);
-        Bitmap bm7 = UtilActivity.StringToBitmap(img07);
-        Bitmap bm8 = UtilActivity.StringToBitmap(img08);
-        Bitmap bm9 = UtilActivity.StringToBitmap(img09);
-        Bitmap bm10 = UtilActivity.StringToBitmap(img10);
-        Drawable cimg01 =  new BitmapDrawable( getResources(), bm1);
-        Drawable cimg02 =  new BitmapDrawable( getResources(), bm2);
-        Drawable cimg03 =  new BitmapDrawable( getResources(), bm3);
-        Drawable cimg04 =  new BitmapDrawable( getResources(), bm4);
-        Drawable cimg05 =  new BitmapDrawable( getResources(), bm5);
-        Drawable cimg06 =  new BitmapDrawable( getResources(), bm6);
-        Drawable cimg07 =  new BitmapDrawable( getResources(), bm7);
-        Drawable cimg08 =  new BitmapDrawable( getResources(), bm8);
-        Drawable cimg09 =  new BitmapDrawable( getResources(), bm9);
-        Drawable cimg10 =  new BitmapDrawable( getResources(), bm10);
-        cimg01 = "".equals(img01.trim()) ? getNoImg(img01): cimg01 ;
-        cimg02 = "".equals(img02.trim()) ? getNoImg(img02): cimg02 ;
-        cimg03 = "".equals(img03.trim()) ? getNoImg(img03): cimg03 ;
-        cimg04 = "".equals(img04.trim()) ? getNoImg(img04): cimg04 ;
-        cimg05 = "".equals(img05.trim()) ? getNoImg(img05): cimg05 ;
-        cimg06 = "".equals(img06.trim()) ? getNoImg(img06): cimg06 ;
-        cimg07 = "".equals(img07.trim()) ? getNoImg(img07): cimg07 ;
-        cimg08 = "".equals(img08.trim()) ? getNoImg(img08): cimg08 ;
-        cimg09 = "".equals(img09.trim()) ? getNoImg(img09): cimg09 ;
-        cimg10 = "".equals(img10.trim()) ? getNoImg(img10): cimg10 ;
+        Glide.with(getContext()).load("file:///"+getContext().getFilesDir()+"/"+img01).into(carImg01);
+        if("".equals(img02)){
+            carImg02.setImageDrawable(getNoImg());
+        }else {
+            Glide.with(getContext()).load("file:///" + getContext().getFilesDir() + "/" + img02).into(carImg02);
+        }
+        if("".equals(img03)){
+            carImg03.setImageDrawable(getNoImg());
+        }else {
+            Glide.with(getContext()).load("file:///"+getContext().getFilesDir()+"/"+img03).into(carImg03);
+        }
+        if("".equals(img04)){
+            carImg04.setImageDrawable(getNoImg());
+        }else {
+            Glide.with(getContext()).load("file:///"+getContext().getFilesDir()+"/"+img04).into(carImg04);
+        }
+        if("".equals(img05)){
+            carImg05.setImageDrawable(getNoImg());
+        }else {
+            Glide.with(getContext()).load("file:///"+getContext().getFilesDir()+"/"+img05).into(carImg05);
+        }
 
-
-        carImg01.setImageDrawable(cimg01);
-        carImg02.setImageDrawable(cimg02);
-        carImg03.setImageDrawable(cimg03);
-        carImg04.setImageDrawable(cimg04);
-        carImg05.setImageDrawable(cimg05);
-        carImg06.setImageDrawable(cimg06);
-        carImg07.setImageDrawable(cimg07);
-        carImg08.setImageDrawable(cimg08);
-        carImg09.setImageDrawable(cimg09);
-        carImg10.setImageDrawable(cimg10);
-        Drawable[] img = {cimg01,cimg02,cimg03,cimg04,cimg05,cimg06,cimg07
-                            ,cimg08,cimg09,cimg10};
+        if("".equals(img06)){
+            carImg06.setImageDrawable(getNoImg());
+        }else {
+            Glide.with(getContext()).load("file:///"+getContext().getFilesDir()+"/"+img06).into(carImg06);
+        }
+        if("".equals(img07)){
+            carImg07.setImageDrawable(getNoImg());
+        }else {
+            Glide.with(getContext()).load("file:///"+getContext().getFilesDir()+"/"+img07).into(carImg07);
+        }
+        if("".equals(img08)){
+            carImg08.setImageDrawable(getNoImg());
+        }else {
+            Glide.with(getContext()).load("file:///"+getContext().getFilesDir()+"/"+img08).into(carImg08);
+        }
+        if("".equals(img09)){
+            carImg09.setImageDrawable(getNoImg());
+        }else {
+            Glide.with(getContext()).load("file:///"+getContext().getFilesDir()+"/"+img09).into(carImg09);
+        }
+        if("".equals(img10)){
+            carImg10.setImageDrawable(getNoImg());
+        }else {
+            Glide.with(getContext()).load("file:///"+getContext().getFilesDir()+"/"+img10).into(carImg10);
+        }
+        String[] img = {img01,img02,img03,img04,img05,
+                         img06,img07,img08,img09,img10};
         vo.setDimg(img);
         carImg01.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -167,7 +175,7 @@ public class ViewFragment extends Fragment  implements ItemClickListener {
         return view;
     }
     // no img 처리
-    public Drawable getNoImg(String img01){
+    public Drawable getNoImg(){
         Drawable img = ContextCompat.getDrawable(getContext(), R.drawable.noimg );
         return img;
     }
@@ -175,7 +183,7 @@ public class ViewFragment extends Fragment  implements ItemClickListener {
     @Override
     public void onItemClick(View v, int position,String gbn) {
         //photoActivity를 호출
-        Intent intent = new Intent(getContext(), PhotoActivity.class);
+        Intent intent = new Intent(getContext(), PhotoActivity.class); // 확대해서 보기
         //액티비티 시작!
         startActivity(intent);
 

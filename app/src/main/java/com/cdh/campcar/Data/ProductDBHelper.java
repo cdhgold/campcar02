@@ -23,14 +23,7 @@ public class ProductDBHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "productdb";
     private static final String TABLE_NAME = "product";
-    private static int DB_VERSION = 2;
-
-    public static final String COL_0 = "serialNumber";
-    public static final String COL_1 = "id";
-    public static final String COL_2 = "name";
-    public static final String COL_3 = "price";
-    public static final String COL_4 = "image";
-    public static final String COL_5 = "type";
+    private static int DB_VERSION = 3;
 
     private Context mContext;
 
@@ -61,6 +54,7 @@ public class ProductDBHelper extends SQLiteOpenHelper {
         Log.d("campcar","onCreate "  );
         String sql = "create table " + TABLE_NAME + " ( "
                 + " seq  integer primary key , "
+                + " email		text not null , "
                 + " carNm		text not null , "
                 + " carYear     text not null , "
                 + " carKm       text not null , "
@@ -97,6 +91,7 @@ public class ProductDBHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         int iseq = product.getSeq();
         values.put("seq"	    , iseq);
+        values.put("email"	    , product.getCarEmail());
         values.put("carNm"	    , product.getCarNm());
         values.put("carYear"	, product.getCarYear());
         values.put("carKm"		, product.getCarKm());
