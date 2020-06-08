@@ -22,6 +22,7 @@
                 android:id="@+id/registerTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="캠핑카등록"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -35,18 +36,20 @@
                 android:id="@+id/em"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="이메일(수정시사용)"
-                />
+                android:layout_weight="1"
+                android:text="이메일(수정시사용)" />
         </TableRow>
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <EditText
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/custom_edittxt"
-                android:inputType="textPersonName"    />
+                android:inputType="textPersonName" />
         </TableRow>
 
         <TableRow
@@ -63,12 +66,14 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <EditText
                 android:id="@+id/carNm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/custom_edittxt"
-                android:inputType="textPersonName"    />
+                android:inputType="textPersonName" />
         </TableRow>
         <TableRow>
             <TextView
@@ -83,6 +88,7 @@
                 android:id="@+id/carKm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/custom_edittxt"
                 android:inputType="number" />
         </TableRow>
@@ -95,12 +101,14 @@
                 android:textSize="18sp"  />
         </TableRow>
         <TableRow >
+
             <EditText
                 android:id="@+id/carYear"
                 android:layout_width="253dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/custom_edittxt"
-                android:inputType="number"  />
+                android:inputType="number" />
         </TableRow>
 
         <TableRow>
@@ -113,10 +121,12 @@
                 android:text="@string/carFuel"  />
         </TableRow>
         <TableRow >
+
             <EditText
                 android:id="@+id/carFuel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/custom_edittxt"
                 android:inputType="textPersonName"
                 android:textCursorDrawable="@drawable/edittxt_cursor" />
@@ -132,12 +142,14 @@
                 android:text="@string/carAddr"   />
         </TableRow>
         <TableRow >
+
             <EditText
                 android:id="@+id/carAddr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:background="@drawable/custom_edittxt"  />
+                android:layout_weight="1"
+                android:background="@drawable/custom_edittxt"
+                android:inputType="textPersonName" />
         </TableRow>
 
         <TableRow>
@@ -150,12 +162,14 @@
                 android:text="@string/carTel"    />
         </TableRow>
         <TableRow >
+
             <EditText
                 android:id="@+id/carTel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/custom_edittxt"
-                android:inputType="number"    />
+                android:inputType="number" />
         </TableRow>
 
         <TableRow>
@@ -173,8 +187,9 @@
                 android:id="@+id/carInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:background="@drawable/custom_edittxt"
-                android:inputType="textMultiLine"   />
+                android:inputType="textMultiLine" />
         </TableRow>
 
         <TableRow>
@@ -187,10 +202,12 @@
                 android:inputType="textPersonName" />
         </TableRow>
         <TableRow >
+
             <EditText
                 android:id="@+id/carAmt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/custom_edittxt"
                 android:inputType="textPersonName" />
         </TableRow>
@@ -209,6 +226,7 @@
                 android:id="@+id/imgBtn01"
                 android:layout_width="252dp"
                 android:layout_height="77dp"
+                android:layout_weight="1"
                 android:background="@drawable/carbtn01"
                 android:scaleType="centerCrop"
                 android:tooltipText="대표이미지" />
@@ -220,8 +238,9 @@
                 android:id="@+id/carOk"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="다음으로"
+                android:layout_weight="1"
                 android:gravity="center"
+                android:text="다음으로"
                 android:textColor="@color/colorAccent"
                 android:textSize="20sp" />
         </TableRow>

@@ -7,8 +7,11 @@ import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Base64;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,7 +29,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.io.ByteArrayOutputStream;
 
 public class UtilActivity   {
-
+    public static String stmp = "";
+    public static boolean bchk = false;
     public static void showALert(String nm, Context ctx) {
         AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
         builder.setTitle("필수입력");
@@ -73,5 +77,41 @@ public class UtilActivity   {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 70, baos);
         return baos.toByteArray();
+    }
+    // context, 확인 문자열
+    public static boolean inputDial(Context me ,String chkstr ){
+
+        UtilActivity.stmp = chkstr;
+        AlertDialog.Builder builder = new AlertDialog.Builder(me);
+        builder.setTitle("이메일확인");
+
+// Set up the input
+        final EditText input = new EditText(me);
+// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        builder.setView(input);
+
+// Set up the buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String tmp = input.getText().toString();
+Log.d("camp tmp",tmp)     ;
+Log.d("camp stmp",UtilActivity.stmp)     ;
+
+                if( tmp.equals(UtilActivity.stmp)){
+                    bchk = true;
+
+                }
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
+        return bchk;
     }
 }

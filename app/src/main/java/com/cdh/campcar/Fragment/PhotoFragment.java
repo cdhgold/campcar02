@@ -27,6 +27,7 @@ import com.cdh.campcar.MainActivity;
 import com.cdh.campcar.PhotoActivity;
 import com.cdh.campcar.R;
 import com.cdh.campcar.Recycler.HomeGridAdapter;
+import com.cdh.campcar.UtilActivity;
 import com.github.chrisbanes.photoview.PhotoView;
 
 import java.util.ArrayList;
@@ -41,6 +42,7 @@ public class PhotoFragment extends Fragment implements View.OnClickListener{
     private Button btn;
     private int i = 0;
     private View view;
+    private String email = "";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +57,7 @@ public class PhotoFragment extends Fragment implements View.OnClickListener{
         photoView.setOnClickListener(this);
         vo = new ProductBean();
         vo = vo.getProd();
+        email = vo.getCarEmail(); // 본인여부확인
         btn.setOnClickListener(this);
 
 
@@ -83,14 +86,30 @@ public class PhotoFragment extends Fragment implements View.OnClickListener{
                 }
                 break;
             case R.id.btnImgEdit:   // 이미지수정, 이미지선택 서버전송,
-                Bundle args = new Bundle();
-                args.putString("img", String.valueOf(i));
-                PhotoEdFragment frg = new PhotoEdFragment();
-                frg.setArguments(args); // param pass
-                ((PhotoActivity)getContext()).replaceFragment(frg);    // 새로 불러올 Fragment의 Instance를 Main으로 전달
-
+                //email
+                dialTrd();
                 break;
         }
 
     };
+    // public synchronized
+    public  void dialTrd () {
+
+        try {
+            boolean btmp = UtilActivity.inputDial(getContext(), email);
+            if (btmp) {
+                Bundle args = new Bundle();
+                args.putString("img", String.valueOf(i));
+                PhotoEdFragment frg = new PhotoEdFragment();
+                frg.setArguments(args); // param pass
+                ((PhotoActivity) getContext()).replaceFragment(frg);    // 새로 불러올 Fragment의 Instance를 Main으로 전달
+            } else {
+                //UtilActivity.showAlim("이메일을 확인하세요!", getContext());
+            }
+
+        } catch (Exception e) {
+
+        }
+    }// end
+
 }

@@ -150,7 +150,7 @@ public class ProductDBHelper extends SQLiteOpenHelper {
 
     public ArrayList<ProductBean> getAllProduct() {
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, null);
+        Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, " seq desc ");
         ArrayList<ProductBean> result = new ArrayList<>();
 
         while (cursor.moveToNext()) {
