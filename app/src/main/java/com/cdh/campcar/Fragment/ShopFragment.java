@@ -82,7 +82,7 @@ public class ShopFragment extends Fragment implements ItemClickListener {
         pAdapter = new ShopRecyclerAdapter(getContext(), pData, this,mGlideRequestManager);
         recyclerView.setAdapter(pAdapter);
     }
-
+    //필터적용
     private void showProduct(String gbn) {
         pData.clear();
 

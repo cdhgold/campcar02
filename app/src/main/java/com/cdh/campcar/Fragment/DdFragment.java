@@ -156,6 +156,7 @@ public class DdFragment extends Fragment  {
                 for(int i = 0; i< nodeList.getLength(); i++){
                     String sseq	    = "";
                     String scarNm	    = "";
+                    String semail	    = "";
                     String scarYear      = "";
                     String scarKm        = "";
                     String scarAddr      = "";
@@ -180,6 +181,10 @@ public class DdFragment extends Fragment  {
                     NodeList seq = fstElmnt.getElementsByTagName("Seq");
                     if(seq.getLength() > 0) {
                         sseq = seq.item(0).getChildNodes().item(0).getNodeValue();
+                    }
+                    NodeList email = fstElmnt.getElementsByTagName("Email");
+                    if(email.getLength() > 0) {
+                        semail = email.item(0).getChildNodes().item(0).getNodeValue();
                     }
                     NodeList carNm = fstElmnt.getElementsByTagName("CarNm");
                     if(carNm.getLength() > 0) {
@@ -257,6 +262,7 @@ public class DdFragment extends Fragment  {
                     dbHelper = ProductDBHelper.getInstance(getContext());
                     ProductBean product = new ProductBean();
                     product.setSeq	(Integer.parseInt(sseq) );
+                    product.setCarEmail	(semail);
                     product.setCarNm	(scarNm);
                     product.setCarYear	(scarYear);
                     product.setCarKm	(scarKm);

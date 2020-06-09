@@ -23,6 +23,7 @@ import com.cdh.campcar.Fragment.CartFragment;
 import com.cdh.campcar.Fragment.DdFragment;
 import com.cdh.campcar.Fragment.HomeFragment;
 import com.cdh.campcar.Fragment.MyFragment;
+import com.cdh.campcar.Fragment.PhotoFragment;
 import com.cdh.campcar.Fragment.ShopFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -79,16 +80,15 @@ public class UtilActivity   {
         return baos.toByteArray();
     }
     // context, 확인 문자열
-    public static boolean inputDial(Context me ,String chkstr ){
+    public static boolean inputDial(Context me   ){
 
-        UtilActivity.stmp = chkstr;
         AlertDialog.Builder builder = new AlertDialog.Builder(me);
         builder.setTitle("이메일확인");
 
 // Set up the input
         final EditText input = new EditText(me);
 // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_NULL);
         builder.setView(input);
 
 // Set up the buttons
@@ -96,18 +96,14 @@ public class UtilActivity   {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String tmp = input.getText().toString();
-Log.d("camp tmp",tmp)     ;
-Log.d("camp stmp",UtilActivity.stmp)     ;
+                PhotoFragment.txtEmail.setText(tmp);
 
-                if( tmp.equals(UtilActivity.stmp)){
-                    bchk = true;
-
-                }
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                PhotoFragment.txtEmail.setText("");
                 dialog.cancel();
             }
         });

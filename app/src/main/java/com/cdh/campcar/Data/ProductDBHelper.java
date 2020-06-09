@@ -23,7 +23,7 @@ public class ProductDBHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "productdb";
     private static final String TABLE_NAME = "product";
-    private static int DB_VERSION = 3;
+    private static int DB_VERSION = 4;
 
     private Context mContext;
 
@@ -118,6 +118,7 @@ public class ProductDBHelper extends SQLiteOpenHelper {
         if (cursor.moveToNext()) {
             String usql = "UPDATE ";
             usql += TABLE_NAME + " set carNm = '" +product.getCarNm()+"' " ;
+            usql += ", email    = '" +product.getCarEmail()+"'  ";
             usql += ", carYear  = '" +product.getCarYear() +"'  ";
             usql += ", carKm    = '" +product.getCarKm()+"'  ";
             usql += ", carAddr  = '" +product.getCarAddr()+"'  ";
@@ -150,13 +151,15 @@ public class ProductDBHelper extends SQLiteOpenHelper {
 
     public ArrayList<ProductBean> getAllProduct() {
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, " seq desc ");
+        Cursor cursor = db.rawQuery("select * from " + TABLE_NAME  + " order by seq desc", null );
+
         ArrayList<ProductBean> result = new ArrayList<>();
 
         while (cursor.moveToNext()) {
             ProductBean product = new ProductBean();
 
             product.setSeq(cursor.getInt(cursor.getColumnIndex("seq")));
+            product.setCarEmail(cursor.getString	(cursor.getColumnIndex("email")));
             product.setCarNm(cursor.getString	(cursor.getColumnIndex("carNm")));
             product.setCarYear(cursor.getString	(cursor.getColumnIndex("carYear")));
             product.setCarKm(cursor.getString	(cursor.getColumnIndex("carKm")));
@@ -192,6 +195,7 @@ public class ProductDBHelper extends SQLiteOpenHelper {
             ProductBean product = new ProductBean();
 
             product.setSeq(cursor.getInt(cursor.getColumnIndex("seq")));
+            product.setCarEmail(cursor.getString	(cursor.getColumnIndex("email")));
             product.setCarNm(cursor.getString	(cursor.getColumnIndex("carNm")));
             product.setCarYear(cursor.getString	(cursor.getColumnIndex("carYear")));
             product.setCarKm(cursor.getString	(cursor.getColumnIndex("carKm")));
@@ -237,6 +241,7 @@ public class ProductDBHelper extends SQLiteOpenHelper {
             ProductBean product = new ProductBean();
 
             product.setSeq(cursor.getInt(cursor.getColumnIndex("seq")));
+            product.setCarEmail(cursor.getString	(cursor.getColumnIndex("email")));
             product.setCarNm(cursor.getString	(cursor.getColumnIndex("carNm")));
             product.setCarYear(cursor.getString	(cursor.getColumnIndex("carYear")));
             product.setCarKm(cursor.getString	(cursor.getColumnIndex("carKm")));

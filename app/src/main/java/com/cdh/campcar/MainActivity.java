@@ -12,6 +12,7 @@ import com.cdh.campcar.Fragment.DdFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -126,37 +127,73 @@ public class MainActivity extends AppCompatActivity {
             ProductBean.setDimg(null);// 이미지초기화
             ProductBean vo = new ProductBean();
             vo.setProd(null);
+            TransThrd tt = null;
             switch (menuItem.getItemId()) {
                 case R.id.nav_home: // 첫화면 (메인 )
-                    transaction.replace(R.id.frameLayout, homeFragment).commitAllowingStateLoss();
+                    //transaction.replace(R.id.frameLayout, homeFragment).commitAllowingStateLoss();
+                    tt = new TransThrd(homeFragment); // too much work으로 thread로 처리해야함.
+                    tt.start();
                     break;
 
                 case R.id.nav_shop: // 보기 그리드
-                    transaction.replace(R.id.frameLayout, shopFragment).commitAllowingStateLoss();
+                    //transaction.replace(R.id.frameLayout, shopFragment).commitAllowingStateLoss();
+                    tt = new TransThrd(shopFragment); // too much work으로 thread로 처리해야함.
+                    tt.start();
                     break;
 
                 case R.id.nav_cart: // 보기 목록
-                    transaction.replace(R.id.frameLayout, cartFragment).commitAllowingStateLoss();
+                    tt = new TransThrd(cartFragment); // too much work으로 thread로 처리해야함.
+                    tt.start();
+                    //transaction.replace(R.id.frameLayout, cartFragment).commitAllowingStateLoss();
                     break;
 
                 case R.id.nav_my:   // data 등록
-                    transaction.replace(R.id.frameLayout, myFragment).commitAllowingStateLoss();
+                    //transaction.replace(R.id.frameLayout, myFragment).commitAllowingStateLoss();
+                    tt = new TransThrd(myFragment); // too much work으로 thread로 처리해야함.
+                    tt.start();
                     break;
                 case R.id.nav_data: // 자료down
-                    transaction.replace(R.id.frameLayout, ddFragment).commitAllowingStateLoss();
+                    //transaction.replace(R.id.frameLayout, ddFragment).commitAllowingStateLoss();
+                    tt = new TransThrd(ddFragment); // too much work으로 thread로 처리해야함.
+                    tt.start();
                     break;
                 case R.id.info: // 앱안내
-                    transaction.replace(R.id.frameLayout, ddFragment).commitAllowingStateLoss();
+                    //transaction.replace(R.id.frameLayout, ddFragment).commitAllowingStateLoss();
+                    tt = new TransThrd(ddFragment); // too much work으로 thread로 처리해야함.
+                    tt.start();
                     break;
             }
             return true;
         }
     }
+    //메뉴 thread
+    class TransThrd  extends Thread {
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        private Fragment frg;
+        public TransThrd(Fragment fragment ){
+            this.frg = fragment;
+        }
+        public void run() {
+            transaction.replace(R.id.frameLayout, this.frg).commitAllowingStateLoss();
+        }
+    }
+
     //fragment 전환
     public void replaceFragment(Fragment fragment ) {
+        ReplaceThrd rt = new ReplaceThrd(fragment);
+        rt.start();
+    }
+    class ReplaceThrd  extends Thread {
+        private Fragment frg;
+        public ReplaceThrd(Fragment fragment ){
+            this.frg = fragment;
+        }
+        public void run() {
 
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.frameLayout, fragment).commitAllowingStateLoss();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.replace(R.id.frameLayout, this.frg).commitAllowingStateLoss();
+
+        }
     }
     @Override
     public void onBackPressed() {

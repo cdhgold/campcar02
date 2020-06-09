@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
@@ -43,6 +44,7 @@ public class PhotoFragment extends Fragment implements View.OnClickListener{
     private int i = 0;
     private View view;
     private String email = "";
+    public static TextView txtEmail;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,12 +56,13 @@ public class PhotoFragment extends Fragment implements View.OnClickListener{
         PhotoView photoView = view.findViewById(R.id.photoView);
         Glide.with(getContext()).load("file:///"+getContext().getFilesDir()+"/"+img[0]).into(photoView);
         btn = view.findViewById(R.id.btnImgEdit);
+        txtEmail = view.findViewById(R.id.email);
         photoView.setOnClickListener(this);
         vo = new ProductBean();
         vo = vo.getProd();
         email = vo.getCarEmail(); // 본인여부확인
         btn.setOnClickListener(this);
-
+Log.d("email등록 ", email);
 
 
         return view;
@@ -86,25 +89,34 @@ public class PhotoFragment extends Fragment implements View.OnClickListener{
                 }
                 break;
             case R.id.btnImgEdit:   // 이미지수정, 이미지선택 서버전송,
-                //email
-                dialTrd();
+                String chkemail = (String)txtEmail.getText();
+                if("".equals(chkemail) ){
+                    goNext("");
+                }else{
+                    if(email.equals(chkemail)) {
+                        goNext("N");
+                    }else{
+                        UtilActivity.showAlim("이메일확인하세요!",getContext() );
+                        txtEmail.setText("");
+                    }
+                }
+
                 break;
         }
 
     };
-    // public synchronized
-    public  void dialTrd () {
+    // 이메일 체크
+    public  void goNext (String gbn) {
 
         try {
-            boolean btmp = UtilActivity.inputDial(getContext(), email);
-            if (btmp) {
+            if("".equals(gbn)){
+                UtilActivity.inputDial(getContext() );
+            }else {
                 Bundle args = new Bundle();
                 args.putString("img", String.valueOf(i));
                 PhotoEdFragment frg = new PhotoEdFragment();
                 frg.setArguments(args); // param pass
                 ((PhotoActivity) getContext()).replaceFragment(frg);    // 새로 불러올 Fragment의 Instance를 Main으로 전달
-            } else {
-                //UtilActivity.showAlim("이메일을 확인하세요!", getContext());
             }
 
         } catch (Exception e) {

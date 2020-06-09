@@ -6,9 +6,15 @@
     <Button
         android:id="@+id/btnImgEdit"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-
+        android:layout_height="70dp"
+        android:background="#EDB3B3"
         android:text="이미지수정" />
+    <TextView
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@drawable/custom_edittxt"
+        android:text="" />
     <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/photoView"
         android:layout_width="match_parent"
