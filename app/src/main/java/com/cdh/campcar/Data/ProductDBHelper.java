@@ -271,7 +271,10 @@ public class ProductDBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         return db.delete(TABLE_NAME, null, null);
     }
-
+    public long deleteProduct(String seq ){
+        SQLiteDatabase db = getWritableDatabase();
+        return db.delete(TABLE_NAME, "seq = ?", new String[]{seq});
+    }
     private void initProduct(){
         // init("product", 1, "청자켓", 73000, getByteArrayFromDrawable(R.drawable.top_blue_jacket), "top");
     }

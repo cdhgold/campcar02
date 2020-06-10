@@ -3,12 +3,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
     <Button
         android:id="@+id/btnImgEdit"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="#EDB3B3"
-        android:text="이미지수정" />
+        android:layout_weight="1"
+        android:text="내이미지수정" />
+    <Button
+        android:id="@+id/btnImgDel"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="#BEF781"
+        android:layout_weight="1"
+        android:text="판매완료" />
+    </LinearLayout>
     <TextView
         android:id="@+id/email"
         android:layout_width="match_parent"

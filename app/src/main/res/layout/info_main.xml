@@ -11,5 +11,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"  />
 
-
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/info_bottom_navigation_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:background="@color/colorProductNameBg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/menu_info_nav" />
 </androidx.constraintlayout.widget.ConstraintLayout>

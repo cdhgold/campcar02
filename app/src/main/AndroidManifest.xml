@@ -22,11 +22,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".Fragment.ShopFragment" />
-        <activity android:name=".Fragment.CartFragment" />
-        <activity android:name=".Fragment.MyFragment" />
-        <activity android:name=".Fragment.HomeFragment" />
+        </activity>V
         <activity android:name=".PhotoActivity" />
         <activity android:name=".InfoActivity" />
 

@@ -95,7 +95,7 @@ public class PhotoEdFragment extends Fragment  implements View.OnClickListener {
         ProductBean vo = new ProductBean();
         vo = vo.getProd();
         seq = vo.getSeq(); // 수정data  seq
-UtilActivity.showALert(String.valueOf(seq), getContext());
+//UtilActivity.showALert(String.valueOf(seq), getContext());
 
         save  = view.findViewById(R.id.save );
         cancel  = view.findViewById(R.id.cancel );
@@ -348,6 +348,6 @@ UtilActivity.showALert(String.valueOf(seq), getContext());
 
 
         }//run
-    }//class
+    }//class thread end
 
 }
