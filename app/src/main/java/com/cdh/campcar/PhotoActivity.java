@@ -3,6 +3,7 @@ package com.cdh.campcar;
 import com.cdh.campcar.Fragment.PhotoEdFragment;
 import com.cdh.campcar.Fragment.PhotoFragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +23,11 @@ public class PhotoActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.photo_main);
+        Intent vintent = getIntent(); // gets the previously created intent
+        String imgpos = vintent.getStringExtra("pos"); // 이미지위치
+        Bundle param = new Bundle();
+        param.putString("imgpos", imgpos );
+        photoFragment.setArguments(param);
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.phoFrame, photoFragment).commitAllowingStateLoss();
 

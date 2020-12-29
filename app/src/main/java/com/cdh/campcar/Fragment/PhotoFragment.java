@@ -22,8 +22,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
@@ -53,6 +51,7 @@ import okhttp3.internal.Util;
 /*
 이미지확대, photoActivity  에서 사용
 본인 이미지수정 및 판매완료(삭제)  처리
+이미지수정 취소에서도 오고, viewFragment 에서도 온다. param주의
  */
 public class PhotoFragment extends Fragment implements View.OnClickListener{
     private String[] img = ProductBean.getDimg();
@@ -74,9 +73,18 @@ public class PhotoFragment extends Fragment implements View.OnClickListener{
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        String imgpos = this.getArguments().getString("imgpos");
+        i = Integer.parseInt(imgpos); // 이미지 위치를 가져온다
         view = inflater.inflate(R.layout.photo, container, false);
         PhotoView photoView = view.findViewById(R.id.photoView);
-        Glide.with(getContext()).load("file:///"+getContext().getFilesDir()+"/"+img[0]).into(photoView);
+        if("".equals(img[i])){
+            Drawable img = ContextCompat.getDrawable(getContext(), R.drawable.noimg);
+            photoView.setImageDrawable(img);
+        }else{
+            Glide.with(getContext()).load("file:///"+getContext().getFilesDir()+"/"+img[i]).into(photoView);
+
+        }
+
         btn = view.findViewById(R.id.btnImgEdit);
         btnDel = view.findViewById(R.id.btnImgDel);// 삭제
         txtEmail = view.findViewById(R.id.email);
@@ -88,7 +96,8 @@ public class PhotoFragment extends Fragment implements View.OnClickListener{
         btn.setOnClickListener(this);
         btnDel.setOnClickListener(this);
 
- Log.d("seq등록 ", String.valueOf(seq) );
+ Log.d("PhotoFragment imgpos ", String.valueOf(i)  );
+Log.d("PhotoFragment imgpos ", email  );
 
 
         return view;

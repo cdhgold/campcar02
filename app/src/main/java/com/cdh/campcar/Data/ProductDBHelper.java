@@ -23,7 +23,7 @@ public class ProductDBHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "productdb";
     private static final String TABLE_NAME = "product";
-    private static int DB_VERSION = 4;
+    private static int DB_VERSION = 5;
 
     private Context mContext;
 
@@ -62,6 +62,7 @@ public class ProductDBHelper extends SQLiteOpenHelper {
                 + " carTel      text not null , "
                 + " carFuel     text not null , "
                 + " carAmt      text not null , "
+                + " updDt       text not null , "
                 + " carImg01    text not null , "
                 + " carImg02    text not null , "
                 + " carImg03    text not null , "
@@ -76,6 +77,7 @@ public class ProductDBHelper extends SQLiteOpenHelper {
                 + ")";
 
         db.execSQL(sql);
+
     }
 
     @Override
@@ -100,6 +102,7 @@ public class ProductDBHelper extends SQLiteOpenHelper {
         values.put("carFuel"  , product.getCarFuel());
         values.put("carAmt"   , product.getCarAmt());
         values.put("carInfo"  , product.getCarInfo());
+        values.put("updDt"    , product.getUpdDt());
         values.put("carImg01" , product.getCarImg01());
         values.put("carImg02" , product.getCarImg02());
         values.put("carImg03" , product.getCarImg03());
@@ -154,70 +157,77 @@ public class ProductDBHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery("select * from " + TABLE_NAME  + " order by seq desc", null );
 
         ArrayList<ProductBean> result = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            while(!cursor.isAfterLast()){
+                ProductBean product = new ProductBean();
 
-        while (cursor.moveToNext()) {
-            ProductBean product = new ProductBean();
+                product.setSeq(cursor.getInt(cursor.getColumnIndex("seq")));
+                product.setCarEmail(cursor.getString(cursor.getColumnIndex("email")));
+                product.setCarNm(cursor.getString(cursor.getColumnIndex("carNm")));
+                product.setCarYear(cursor.getString(cursor.getColumnIndex("carYear")));
+                product.setCarKm(cursor.getString(cursor.getColumnIndex("carKm")));
+                product.setCarAddr(cursor.getString(cursor.getColumnIndex("carAddr")));
+                product.setCarTel(cursor.getString(cursor.getColumnIndex("carTel")));
+                product.setCarFuel(cursor.getString(cursor.getColumnIndex("carFuel")));
+                product.setCarAmt(cursor.getString(cursor.getColumnIndex("carAmt")));
+                product.setCarInfo(cursor.getString(cursor.getColumnIndex("carInfo")));
+                product.setUpdDt(cursor.getString(cursor.getColumnIndex("updDt")));
+                product.setCarImg01(cursor.getString(cursor.getColumnIndex("carImg01")));
+                product.setCarImg02(cursor.getString(cursor.getColumnIndex("carImg02")));
+                product.setCarImg03(cursor.getString(cursor.getColumnIndex("carImg03")));
+                product.setCarImg04(cursor.getString(cursor.getColumnIndex("carImg04")));
+                product.setCarImg05(cursor.getString(cursor.getColumnIndex("carImg05")));
+                product.setCarImg06(cursor.getString(cursor.getColumnIndex("carImg06")));
+                product.setCarImg07(cursor.getString(cursor.getColumnIndex("carImg07")));
+                product.setCarImg08(cursor.getString(cursor.getColumnIndex("carImg08")));
+                product.setCarImg09(cursor.getString(cursor.getColumnIndex("carImg09")));
+                product.setCarImg10(cursor.getString(cursor.getColumnIndex("carImg10")));
 
-            product.setSeq(cursor.getInt(cursor.getColumnIndex("seq")));
-            product.setCarEmail(cursor.getString	(cursor.getColumnIndex("email")));
-            product.setCarNm(cursor.getString	(cursor.getColumnIndex("carNm")));
-            product.setCarYear(cursor.getString	(cursor.getColumnIndex("carYear")));
-            product.setCarKm(cursor.getString	(cursor.getColumnIndex("carKm")));
-            product.setCarAddr(cursor.getString	(cursor.getColumnIndex("carAddr")));
-            product.setCarTel(cursor.getString	(cursor.getColumnIndex("carTel")));
-            product.setCarFuel(cursor.getString	(cursor.getColumnIndex("carFuel")));
-            product.setCarAmt(cursor.getString	(cursor.getColumnIndex("carAmt")));
-            product.setCarInfo(cursor.getString	(cursor.getColumnIndex("carInfo")));
-            product.setCarImg01(cursor.getString	(cursor.getColumnIndex("carImg01")));
-            product.setCarImg02(cursor.getString	(cursor.getColumnIndex("carImg02")));
-            product.setCarImg03(cursor.getString	(cursor.getColumnIndex("carImg03")));
-            product.setCarImg04(cursor.getString	(cursor.getColumnIndex("carImg04")));
-            product.setCarImg05(cursor.getString	(cursor.getColumnIndex("carImg05")));
-            product.setCarImg06(cursor.getString	(cursor.getColumnIndex("carImg06")));
-            product.setCarImg07(cursor.getString	(cursor.getColumnIndex("carImg07")));
-            product.setCarImg08(cursor.getString	(cursor.getColumnIndex("carImg08")));
-            product.setCarImg09(cursor.getString	(cursor.getColumnIndex("carImg09")));
-            product.setCarImg10(cursor.getString	(cursor.getColumnIndex("carImg10")));
-
-            result.add(product);
+                result.add(product);
+                cursor.moveToNext();
+            }
         }
-
+Log.d("data size ",String.valueOf(result.size()) );
         return result;
     }
     /*하단에 상품정보를 보여준다
      */
-    public ArrayList<ProductBean> getRandomProduct(){
+    public   ArrayList<ProductBean> getRandomProduct(){
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("select * from " + TABLE_NAME  + " order by seq desc", null );
-        ArrayList<ProductBean> result = new ArrayList<>();
+        ArrayList<ProductBean> result = new ArrayList<ProductBean>();
 
-        while (cursor.moveToNext()) {
-            ProductBean product = new ProductBean();
+        if (cursor.moveToFirst()) {
+            while(!cursor.isAfterLast()){
+                ProductBean product = new ProductBean();
 
-            product.setSeq(cursor.getInt(cursor.getColumnIndex("seq")));
-            product.setCarEmail(cursor.getString	(cursor.getColumnIndex("email")));
-            product.setCarNm(cursor.getString	(cursor.getColumnIndex("carNm")));
-            product.setCarYear(cursor.getString	(cursor.getColumnIndex("carYear")));
-            product.setCarKm(cursor.getString	(cursor.getColumnIndex("carKm")));
-            product.setCarAddr(cursor.getString	(cursor.getColumnIndex("carAddr")));
-            product.setCarTel(cursor.getString	(cursor.getColumnIndex("carTel")));
-            product.setCarFuel(cursor.getString	(cursor.getColumnIndex("carFuel")));
-            product.setCarAmt(cursor.getString	(cursor.getColumnIndex("carAmt")));
-            product.setCarInfo(cursor.getString	(cursor.getColumnIndex("carInfo")));
-            product.setCarImg01(cursor.getString	(cursor.getColumnIndex("carImg01")));
-            product.setCarImg02(cursor.getString	(cursor.getColumnIndex("carImg02")));
-            product.setCarImg03(cursor.getString	(cursor.getColumnIndex("carImg03")));
-            product.setCarImg04(cursor.getString	(cursor.getColumnIndex("carImg04")));
-            product.setCarImg05(cursor.getString	(cursor.getColumnIndex("carImg05")));
-            product.setCarImg06(cursor.getString	(cursor.getColumnIndex("carImg06")));
-            product.setCarImg07(cursor.getString	(cursor.getColumnIndex("carImg07")));
-            product.setCarImg08(cursor.getString	(cursor.getColumnIndex("carImg08")));
-            product.setCarImg09(cursor.getString	(cursor.getColumnIndex("carImg09")));
-            product.setCarImg10(cursor.getString	(cursor.getColumnIndex("carImg10")));
+                product.setSeq(cursor.getInt(cursor.getColumnIndex("seq")));
+                product.setCarEmail(cursor.getString(cursor.getColumnIndex("email")));
+                product.setCarNm(cursor.getString(cursor.getColumnIndex("carNm")));
+                product.setCarYear(cursor.getString(cursor.getColumnIndex("carYear")));
+                product.setCarKm(cursor.getString(cursor.getColumnIndex("carKm")));
+                product.setCarAddr(cursor.getString(cursor.getColumnIndex("carAddr")));
+                product.setCarTel(cursor.getString(cursor.getColumnIndex("carTel")));
+                product.setCarFuel(cursor.getString(cursor.getColumnIndex("carFuel")));
+                product.setCarAmt(cursor.getString(cursor.getColumnIndex("carAmt")));
+                product.setCarInfo(cursor.getString(cursor.getColumnIndex("carInfo")));
+                product.setUpdDt(cursor.getString(cursor.getColumnIndex("updDt")));
+                product.setCarImg01(cursor.getString(cursor.getColumnIndex("carImg01")));
+                product.setCarImg02(cursor.getString(cursor.getColumnIndex("carImg02")));
+                product.setCarImg03(cursor.getString(cursor.getColumnIndex("carImg03")));
+                product.setCarImg04(cursor.getString(cursor.getColumnIndex("carImg04")));
+                product.setCarImg05(cursor.getString(cursor.getColumnIndex("carImg05")));
+                product.setCarImg06(cursor.getString(cursor.getColumnIndex("carImg06")));
+                product.setCarImg07(cursor.getString(cursor.getColumnIndex("carImg07")));
+                product.setCarImg08(cursor.getString(cursor.getColumnIndex("carImg08")));
+                product.setCarImg09(cursor.getString(cursor.getColumnIndex("carImg09")));
+                product.setCarImg10(cursor.getString(cursor.getColumnIndex("carImg10")));
 
-            result.add(product);
+                result.add(product);
+                cursor.moveToNext();
+            }
         }
-
+Log.d("data size ",String.valueOf(result.size()) );
         return result;
     }
     /*
@@ -250,6 +260,7 @@ public class ProductDBHelper extends SQLiteOpenHelper {
             product.setCarFuel(cursor.getString	(cursor.getColumnIndex("carFuel")));
             product.setCarAmt(cursor.getString	(cursor.getColumnIndex("carAmt")));
             product.setCarInfo(cursor.getString	(cursor.getColumnIndex("carInfo")));
+            product.setUpdDt(cursor.getString	(cursor.getColumnIndex("updDt")));
             product.setCarImg01(cursor.getString	(cursor.getColumnIndex("carImg01")));
             product.setCarImg02(cursor.getString	(cursor.getColumnIndex("carImg02")));
             product.setCarImg03(cursor.getString	(cursor.getColumnIndex("carImg03")));

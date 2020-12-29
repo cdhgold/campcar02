@@ -52,9 +52,10 @@ public class CartFragment extends Fragment implements ItemClickListener {
     }
 
     private void showProduct() {
-        dbHelper = ProductDBHelper.getInstance(getContext());
-        data = dbHelper.getAllProduct() ;
+        //dbHelper = ProductDBHelper.getInstance(getContext());
 
+        //data = dbHelper.getRandomProduct();
+        data = ProductBean.getPlist() ;
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(layoutManager);

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:divider="?android:dividerHorizontal"
+    android:showDividers="middle"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="캠핑카등록-대표이미지"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <View
+        style="@style/Divider.Horizontal"  />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"   >
+        <ImageButton
+            android:id="@+id/imgAlbum"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/galary"  />
+
+        <ImageButton
+            android:id="@+id/imgCamera"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/camera"  />
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/img01"
+        android:layout_width="336dp"
+        android:layout_height="321dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/noimg"  />
+</LinearLayout>

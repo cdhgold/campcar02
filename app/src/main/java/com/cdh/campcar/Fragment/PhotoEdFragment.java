@@ -2,7 +2,9 @@ package com.cdh.campcar.Fragment;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -74,11 +76,13 @@ public class PhotoEdFragment extends Fragment  implements View.OnClickListener {
     private TextView save ;
     private TextView cancel ;
     private ProductDBHelper dbHelper;
+    private ProductBean vo;
     private String imgSeq = ""; // img 수정 순번
     final static int TAKE_PICTURE = 1;
     final static int CAPTURE_IMAGE = 2;
     private int seq = 0;
     private int chkimg = 0; // image 수정여부확인 , image get 100
+    Object lock = new Object();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,7 +96,7 @@ public class PhotoEdFragment extends Fragment  implements View.OnClickListener {
     // 메인. 슬라이드 형식 화면 절반치 광고, 아래에 상품 6개 정도 보여주기
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_reg_img, container, false);
-        ProductBean vo = new ProductBean();
+        vo = new ProductBean();
         vo = vo.getProd();
         seq = vo.getSeq(); // 수정data  seq
 //UtilActivity.showALert(String.valueOf(seq), getContext());
@@ -209,8 +213,10 @@ public class PhotoEdFragment extends Fragment  implements View.OnClickListener {
                 send.start();
                 break;
             case R.id.cancel:
+                Bundle bundle = new Bundle();
+                bundle.putString("imgpos", "0");
                 PhotoFragment frg = new PhotoFragment();
-                //frg.setArguments(args); // param pass
+                frg.setArguments(bundle); // param pass
                 ((PhotoActivity)getContext()).replaceFragment(frg);
                 break;
         }
@@ -310,8 +316,22 @@ public class PhotoEdFragment extends Fragment  implements View.OnClickListener {
                             //성공시 xml다시받고 , list화면으로 이동
                             GetXml getxml = new GetXml(getContext());
                             getxml.start();
-                            ViewFragment frg = new ViewFragment();
-                            ((PhotoActivity)getContext()).replaceFragment(frg);
+                            try {
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        showAlert();
+                                    }
+                                });
+                                synchronized (lock) {
+                                    lock.wait();
+                                }
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            Intent intent = new Intent(getContext(), MainActivity.class);
+                            //main 으로 이동
+                            startActivity(intent);
 
                         }else{
                             Log.d("campCar","server err");
@@ -349,5 +369,30 @@ public class PhotoEdFragment extends Fragment  implements View.OnClickListener {
 
         }//run
     }//class thread end
+    // thread 안 alert
+    private void showAlert() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        AlertDialog dialog = builder.setTitle("장영실제작소")
+                .setMessage("광고문의는 konginfo.co.kr로! ")
+                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        releaseLock();
+                    }
+                })
+
+
+// 백버튼 불가, 바탕화면 클릭 불가
+                .setCancelable(false)
+                .create();
+        dialog.show();
+    }
+    // thread lock 해제
+    void releaseLock() {
+        synchronized (lock) {
+            lock.notify();
+            Log.e("TAG", "notify");
+        }
+    }
 
 }

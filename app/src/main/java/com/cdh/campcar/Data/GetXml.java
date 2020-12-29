@@ -48,6 +48,8 @@ public class GetXml extends Thread {
             doc = db.parse(new InputSource(url.openStream()));
             doc.getDocumentElement().normalize();
 
+            dbHelper = ProductDBHelper.getInstance(context);
+            dbHelper.deleteAllProduct();// 삭제하고 다운처리 20-07-10
             NodeList nodeList = doc.getElementsByTagName("Car");
             for (int i = 0; i < nodeList.getLength(); i++) {
                 String sseq = "";
@@ -60,6 +62,7 @@ public class GetXml extends Thread {
                 String scarFuel = "";
                 String scarAmt = "";
                 String scarInfo = "";
+                String scarUpdDt = "";
                 String scarImg01 = "";
                 String scarImg02 = "";
                 String scarImg03 = "";
@@ -114,6 +117,10 @@ public class GetXml extends Thread {
                 if (carInfo.getLength() > 0) {
                     scarInfo = carInfo.item(0).getChildNodes().item(0).getNodeValue();
                 }
+                NodeList updDt = fstElmnt.getElementsByTagName("UpdDt");
+                if (updDt.getLength() > 0) {
+                    scarUpdDt = updDt.item(0).getChildNodes().item(0).getNodeValue();
+                }
                 NodeList carImg01 = fstElmnt.getElementsByTagName("CarImg01");
                 if (carImg01.getLength() > 0) {
                     scarImg01 = carImg01.item(0).getChildNodes().item(0).getNodeValue();
@@ -155,7 +162,6 @@ public class GetXml extends Thread {
                     scarImg10 = carImg10.item(0).getChildNodes().item(0).getNodeValue();
                 }
                 // insert
-                dbHelper = ProductDBHelper.getInstance(context);
                 ProductBean product = new ProductBean();
                 product.setSeq(Integer.parseInt(sseq));
                 product.setCarNm(scarNm);
@@ -167,6 +173,8 @@ public class GetXml extends Thread {
                 product.setCarFuel(scarFuel);
                 product.setCarAmt(scarAmt);
                 product.setCarInfo(scarInfo);
+                product.setUpdDt(scarUpdDt);
+
                 // byte[] byteArray=str.getBytes();  string to byte[]
                 // String strYes = new String(byteArray); byte[] to string
                 product.setCarImg01(new String(LoadImageFromWebOperations(scarImg01)) );

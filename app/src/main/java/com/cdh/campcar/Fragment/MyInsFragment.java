@@ -192,7 +192,7 @@ public class MyInsFragment extends Fragment implements View.OnClickListener {
                 //bitmap을 생성
                 Bitmap bitmap = ((BitmapDrawable)img01.getDrawable()).getBitmap();
                 OutputStream out = new FileOutputStream(file);
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 40, out);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 40, out); // out 으로 compress
                 out.close();
                 ProductBean vo = new ProductBean();
                 vo = vo.getProd();              // myFragment 에서 값 담음
@@ -203,7 +203,7 @@ public class MyInsFragment extends Fragment implements View.OnClickListener {
                 String boundary = "*****";
                 int bytesRead, bytesAvailable, bufferSize;
                 byte[] buffer;
-                int maxBufferSize = 1 * 1024 * 1024;
+                int maxBufferSize = 1 * 1000 * 100;
                 FileInputStream fileInputStream = null;
 
                 if (file.isFile()) {

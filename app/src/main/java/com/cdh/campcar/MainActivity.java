@@ -4,11 +4,20 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.cdh.campcar.Data.GetXml;
 import com.cdh.campcar.Data.ProductBean;
 import com.cdh.campcar.Fragment.DdFragment;
+import com.cdh.campcar.Fragment.MyPagerAdapter;
+import com.cdh.campcar.Fragment.Reg01Fragment;
+import com.cdh.campcar.Fragment.Reg02Fragment;
+import com.cdh.campcar.Fragment.Reg03Fragment;
+import com.cdh.campcar.Fragment.Reg04Fragment;
+import com.cdh.campcar.Fragment.RegFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import android.app.AlertDialog;
@@ -42,8 +51,17 @@ public class MainActivity extends AppCompatActivity {
     private ShopFragment shopFragment = new ShopFragment();
     private CartFragment cartFragment = new CartFragment();
     private MyFragment myFragment = new MyFragment();
+    private RegFragment regFrg = new RegFragment();
+    private static Reg01Fragment regFrg01 = new Reg01Fragment();
+    private static Reg02Fragment regFrg02 = new Reg02Fragment();
+    private static Reg03Fragment regFrg03 = new Reg03Fragment();
+    private static Reg04Fragment regFrg04 = new Reg04Fragment();
+
     private DdFragment ddFragment = new DdFragment();   // data refresh
     private int iexit = 0;      // 종료여부
+    private static FragmentStateAdapter mypager = null;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.frameLayout, homeFragment).commitAllowingStateLoss();
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation_view);
         bottomNav.setOnNavigationItemSelectedListener(new ItemSelectListener());
+        // 캠핑카등록에서 사용
+        getInstance(this);
         /*
         uto update check
          */
@@ -68,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
                         appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
                     // 업데이트가 사용 가능한 상태 (업데이트 있음) -> 이곳에서 업데이트를 요청해주자
                     try {
+
                         mAppUpdateManager.startUpdateFlowForResult(
                                 appUpdateInfo,
                                 // 유연한 업데이트 사용 시 (AppUpdateType.FLEXIBLE) 사용
@@ -76,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
                                 MainActivity.this,
                                 // 전역변수로 선언해준 Code
                                 MY_REQUEST_CODE);
+
                     } catch (IntentSender.SendIntentException e) {
                         Log.e("AppUpdater", "AppUpdateManager Error", e);
                         e.printStackTrace();
@@ -84,6 +106,10 @@ public class MainActivity extends AppCompatActivity {
 
                     // 업데이트가 사용 가능하지 않은 상태(업데이트 없음) -> 다음 액티비티로 넘어가도록
                 }
+                // data down
+                GetXml newdata = new GetXml(getApplicationContext());
+                newdata.start();
+
             }
         });// auto update end
     }
@@ -149,8 +175,10 @@ public class MainActivity extends AppCompatActivity {
 
                 case R.id.nav_my:   // data 등록
                     //transaction.replace(R.id.frameLayout, myFragment).commitAllowingStateLoss();
-                    tt = new TransThrd(myFragment); // too much work으로 thread로 처리해야함.
-                    tt.start();
+                    //tt = new TransThrd(myFragment);
+                    Intent intent = new Intent(MainActivity.this, PagerActivity.class); // 확대해서 보기
+                    startActivity(intent);
+
                     break;
                 case R.id.nav_data: // 자료down
                     //transaction.replace(R.id.frameLayout, ddFragment).commitAllowingStateLoss();
@@ -216,4 +244,16 @@ public class MainActivity extends AppCompatActivity {
         });
         d.show();
     }
+    /*
+    캠핑카등록에서 사용
+     */
+    public static FragmentStateAdapter getInstance( MainActivity me) {
+
+        if(mypager == null) {
+            FragmentStateAdapter adapterViewPager = new MyPagerAdapter( me , 4);
+        }
+        return mypager;
+    }
+
+
 }

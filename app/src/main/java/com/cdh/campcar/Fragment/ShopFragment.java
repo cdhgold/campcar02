@@ -1,6 +1,7 @@
 package com.cdh.campcar.Fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,17 +75,23 @@ public class ShopFragment extends Fragment implements ItemClickListener {
      */
     private void showProduct() {
         dbHelper = ProductDBHelper.getInstance(getContext());
-        pData = dbHelper.getAllProduct();
+
+        //pData = dbHelper.getRandomProduct();
+        pData = ProductBean.getPlist() ;
         // 열 3개 gridview
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
         recyclerView = view.findViewById(R.id.productRecycler);
         recyclerView.setLayoutManager(layoutManager);
         pAdapter = new ShopRecyclerAdapter(getContext(), pData, this,mGlideRequestManager);
+
         recyclerView.setAdapter(pAdapter);
+
+
     }
     //필터적용
     private void showProduct(String gbn) {
         pData.clear();
+        dbHelper = ProductDBHelper.getInstance(getContext());
 
         pData = dbHelper.getProductbySeq(gbn);
         pAdapter.updateData(pData);

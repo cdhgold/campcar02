@@ -15,6 +15,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.cdh.campcar.Data.ProductBean;
@@ -36,85 +39,100 @@ import java.util.ArrayList;
 main page 하단 상품정보를 보여준다
 차량선택시 상세보기로 이동
  */
-public class HomeGridAdapter extends BaseAdapter {
+public class HomeGridAdapter extends RecyclerView.Adapter<HomeGridAdapter.HomeViewHolder> {
     private Context context;
+    private ItemClickListener listener;
     private ArrayList<ProductBean> data;
     private ImageView imageView;
     private RequestManager glideMang;
     private int pos = 0;
-    public HomeGridAdapter(Context context, ArrayList<ProductBean> data, RequestManager mGlideRequestManager){
+    public HomeGridAdapter(Context context, ArrayList<ProductBean> data,ItemClickListener listener,
+                           RequestManager mGlideRequestManager){
         this.context = context;
         this.data = data;
+        this.listener = listener;
         this.glideMang = mGlideRequestManager;
     }
 
+    @NonNull
     @Override
-    public int getCount() {
-
-        return data.size();
+    public HomeGridAdapter.HomeViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.custom_item_card, viewGroup, false);
+        return new HomeGridAdapter.HomeViewHolder(view);
     }
 
     @Override
-    public Object getItem(int position) {
-        return data.get(position);
+    public void onBindViewHolder(@NonNull HomeGridAdapter.HomeViewHolder homeViewHolder, int i) {
+        ProductBean productBean = data.get(i);
+        pos = productBean.getSeq() ;
+
+        String imgStr = productBean.getCarImg01() ;
+
+        //this.glideMang.load("file:///" + ctx.getFilesDir() + "/" + imgStr).into(shopViewHolder.productImage);
+        Picasso.get().load("file:///"+context.getFilesDir()+"/"+imgStr).into(homeViewHolder.productImage) ;
+
+        //shopViewHolder.productImage.setImageBitmap(myBitmap);
+        homeViewHolder.productName.setText(productBean.getCarNm());
+        homeViewHolder.productPrice.setText(String.valueOf(productBean.getCarAmt()));
+
     }
 
     @Override
-    public long getItemId(int position) {
-        return position;
+    public int getItemCount() {
+        if(data == null)
+            return 0;
+        else
+            return data.size();
     }
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        HomeViewHolder viewHolder;
-        //pos = data.get(position).getSeq() ;
-        if(convertView == null){
-            viewHolder = new HomeViewHolder();
-            // cardview : 라운드테두리, 그림자를 줄수 있다
-            LayoutInflater inflater = LayoutInflater.from(context);
-            convertView = inflater.inflate(R.layout.custom_item_card, null);
-            viewHolder.productImage = convertView.findViewById(R.id.imageView);
-            imageView = convertView.findViewById(R.id.imageView);
-            viewHolder.productName = convertView.findViewById(R.id.productNameTv);
-            viewHolder.productPrice = convertView.findViewById(R.id.productPriceTv);
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (HomeViewHolder) convertView.getTag();
-        }
+    public void updateData(ArrayList<ProductBean> data){
+        this.data = data;
 
-        String imgStr = data.get(position).getCarImg01() ; // 파일명
-        try {
-            this.glideMang.load("file:///" + context.getFilesDir() + "/" + imgStr).into(viewHolder.productImage);
-            //Picasso.get().load("file:///"+context.getFilesDir()+"/"+imgStr).into(imageView);
-            //viewHolder.productImage = imageView;
-            viewHolder.productName.setText(data.get(position).getCarNm()+data.get(position).getSeq());
-            viewHolder.productPrice.setText(String.valueOf(data.get(position).getCarAmt()));
-
-        }catch (Exception e){
-
-        }
-        return convertView;
     }
+
     // url 이미지를 set drawadble
     private Drawable LoadImageFromWebOperations(String url) {
         try {
             InputStream is = (InputStream) new URL(url).getContent();
-            Drawable d = Drawable.createFromStream(is, "src name");
-            return d;
+            Drawable drawa = Drawable.createFromStream(is, "src name");
+            return drawa;
         } catch (Exception e) {
             System.out.println("Exc=" + e);
             return null;
         }
     }
-    public class HomeViewHolder {
-        ImageView productImage;
-        TextView productName;
-        TextView productPrice;
-    }
+
 
     public Drawable getImage(byte[] bytes){
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         Drawable drawable = new BitmapDrawable(null, bitmap);
         return drawable;
     }
+
+    public class HomeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        ImageView productImage;
+        TextView productName;
+        TextView productPrice;
+        private Context context;
+
+        public HomeViewHolder(@NonNull View itemView) {
+            super(itemView);
+            //notifyItemRangeChanged(0, data.size());
+            productImage = itemView.findViewById(R.id.imageView);
+            productName = itemView.findViewById(R.id.productNameTv);
+            productPrice = itemView.findViewById(R.id.productPriceTv);
+            itemView.setOnClickListener(this);
+
+        }
+
+        @Override
+        public void onClick(View v) {
+            int pos = getAdapterPosition() ;
+            if (pos != RecyclerView.NO_POSITION) {
+                listener.onItemClick(v, pos,"img" );
+
+            }
+        }
+    }
+
 }

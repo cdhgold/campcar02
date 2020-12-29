@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -15,6 +16,8 @@ import androidx.cardview.*;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
@@ -25,18 +28,19 @@ import com.cdh.campcar.MainActivity;
 import com.cdh.campcar.PhotoActivity;
 import com.cdh.campcar.R;
 import com.cdh.campcar.Recycler.HomeGridAdapter;
+import com.cdh.campcar.Recycler.ItemClickListener;
 
 import java.util.ArrayList;
 /*
 최초 main 화면
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment  implements ItemClickListener {
     private static final int INTERVAL_TIME = 3800; // 스크롤 간격
     public RequestManager mGlideRequestManager;
 
     private View view;
     private ViewFlipper viewFlipper;
-    private GridView gridView;
+    private RecyclerView gridView;
     private HomeGridAdapter adapter;
     private ArrayList<ProductBean> data;
     private ProductDBHelper dbHelper;
@@ -95,26 +99,28 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void showProduct() {
+    private  void showProduct() {
         dbHelper = ProductDBHelper.getInstance(getContext());
+
         data = dbHelper.getRandomProduct();
+        ProductBean.setPlist(data);
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
 
         gridView = view.findViewById(R.id.gridView);
-        adapter = new HomeGridAdapter(getContext(), data, mGlideRequestManager);
-        gridView.setAdapter(adapter);
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                ProductBean procutBean = new ProductBean();
-                procutBean.setProd(data.get(position));
-                Log.d("campcar seq1 ",String.valueOf(data.get(position).getSeq()))   ;
-                // 상세보기로 가기
-                ViewFragment frg = new ViewFragment();
-                ((MainActivity)getContext()).replaceFragment(frg);    // 새로 불러올 Fragment의 Instance를 Main으로 전달
+        gridView.setLayoutManager(layoutManager);
 
-            }
-        });
+        adapter = new HomeGridAdapter(getContext(), data, this,mGlideRequestManager);
+        gridView.setAdapter(adapter);
+
+
+    }
+    // 상세보기
+    @Override
+    public void onItemClick(View v, int position,String gbn) {
+        ProductBean procutBean = new ProductBean();
+        procutBean.setProd(data.get(position));
+        ViewFragment frg = new ViewFragment();
+        ((MainActivity)getContext()).replaceFragment(frg);    // 새로 불러올 Fragment의 Instance를 Main으로 전달
 
     }
 }

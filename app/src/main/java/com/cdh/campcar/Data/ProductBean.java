@@ -2,6 +2,9 @@ package com.cdh.campcar.Data;
 
 import android.graphics.drawable.Drawable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProductBean {
 
     private int seq   		= 0;
@@ -13,6 +16,7 @@ public class ProductBean {
     private String carTel       = "";
     private String carFuel      = "";
     private String carAmt       = "";
+    private String updDt        = "";
     private String carInfo      = "";
     private String carImg01     = "";
     private String carImg02     = "";
@@ -26,6 +30,23 @@ public class ProductBean {
     private String carImg10     = "";
     private static ProductBean prod = null;
     private static String[] dimg = null    ;
+    private static ArrayList<ProductBean> plist = null ;
+
+    public String getUpdDt() {
+        return updDt;
+    }
+
+    public void setUpdDt(String updDt) {
+        this.updDt = updDt;
+    }
+
+    public static ArrayList<ProductBean> getPlist() {
+        return plist;
+    }
+
+    public static void setPlist(ArrayList<ProductBean> plist) {
+        ProductBean.plist = plist;
+    }
 
     public String getCarEmail() {
         return carEmail;

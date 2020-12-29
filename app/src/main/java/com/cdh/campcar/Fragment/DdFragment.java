@@ -152,6 +152,8 @@ public class DdFragment extends Fragment  {
                 doc = db.parse(new InputSource(url.openStream()));
                 doc.getDocumentElement().normalize();
 
+                dbHelper = ProductDBHelper.getInstance(getContext());
+                dbHelper.deleteAllProduct();// 삭제하고 다운처리 20-07-10
                 NodeList nodeList = doc.getElementsByTagName("Car");
                 for(int i = 0; i< nodeList.getLength(); i++){
                     String sseq	    = "";
@@ -164,6 +166,7 @@ public class DdFragment extends Fragment  {
                     String scarFuel      = "";
                     String scarAmt       = "";
                     String scarInfo      = "";
+                    String scarUpdDt      = "";
                     String scarImg01     = "";
                     String scarImg02     = "";
                     String scarImg03     = "";
@@ -218,6 +221,11 @@ public class DdFragment extends Fragment  {
                     if(carInfo.getLength() > 0) {
                         scarInfo =  carInfo.item(0).getChildNodes().item(0).getNodeValue()  ;
                     }
+                    NodeList carUpdDt  = fstElmnt.getElementsByTagName("UpdDt");
+                    if(carUpdDt.getLength() > 0) {
+                        scarUpdDt =  carUpdDt.item(0).getChildNodes().item(0).getNodeValue()  ;
+                    }
+
                     NodeList carImg01  = fstElmnt.getElementsByTagName("CarImg01");
                     if(carImg01.getLength() > 0 ) {
                         scarImg01 =  carImg01.item(0).getChildNodes().item(0).getNodeValue()  ;
@@ -259,7 +267,6 @@ public class DdFragment extends Fragment  {
                         scarImg10 =  carImg10.item(0).getChildNodes().item(0).getNodeValue()  ;
                     }
                     // insert
-                    dbHelper = ProductDBHelper.getInstance(getContext());
                     ProductBean product = new ProductBean();
                     product.setSeq	(Integer.parseInt(sseq) );
                     product.setCarEmail	(semail);
@@ -271,6 +278,7 @@ public class DdFragment extends Fragment  {
                     product.setCarFuel	(scarFuel);
                     product.setCarAmt	(scarAmt);
                     product.setCarInfo	(scarInfo);
+                    product.setUpdDt	(scarUpdDt);
                     product.setCarImg01(new String(LoadImageFromWebOperations(scarImg01)) );
                     product.setCarImg02(new String(LoadImageFromWebOperations(scarImg02)));
                     product.setCarImg03(new String(LoadImageFromWebOperations(scarImg03)));

@@ -31,6 +31,8 @@ import com.cdh.campcar.Recycler.ItemClickListener;
 import com.cdh.campcar.Recycler.ViewAdapter;
 import com.cdh.campcar.UtilActivity;
 
+import java.text.DecimalFormat;
+
 /*
 캠핑카 상세보기 , 처음화면에서 이동
  */
@@ -46,6 +48,7 @@ public class ViewFragment extends Fragment  implements ItemClickListener {
     private TextView carFuel   ;
     private TextView carAmt    ;
     private TextView carInfo   ;
+    private TextView regdt   ;
     private ImageView carImg01   ;
     private ImageView carImg02   ;
     private ImageView carImg03   ;
@@ -72,6 +75,7 @@ public class ViewFragment extends Fragment  implements ItemClickListener {
         carTel   = view.findViewById(R.id.carTel  );
         carFuel  = view.findViewById(R.id.carFuel );
         carAmt   = view.findViewById(R.id.carAmt  );
+        regdt   = view.findViewById(R.id.regdt  );
         carInfo  = view.findViewById(R.id.carInfo );
         carImg01 = view.findViewById(R.id.carimg01 );
         carImg02 = view.findViewById(R.id.carimg02 );
@@ -91,17 +95,23 @@ public class ViewFragment extends Fragment  implements ItemClickListener {
         //carOk.setOnClickListener(this);
         ProductBean vo = new ProductBean();
         vo = vo.getProd();
-        int seq = vo.getSeq();  // pk seq
- Log.d("campcar seq2 ",String.valueOf(seq))   ;
+//        int seq = vo.getSeq();  // pk seq
+// Log.d("campcar seq2 ",String.valueOf(seq))   ;
         carNm.setText(vo.getCarNm());
         carTel.setText(vo.getCarTel());
         carYear.setText(vo.getCarYear());
         carKm.setText(vo.getCarKm());
         carAddr.setText(vo.getCarAddr());
-        carAmt.setText(vo.getCarAmt());
+        DecimalFormat formatter = new DecimalFormat("###,###");
+        String reg = "^[0-9]+$";
+        String amt = vo.getCarAmt();
+        if(amt.matches(reg)) {
+            amt = formatter.format(Double.parseDouble(amt));
+        }
+        carAmt.setText(amt);
         carFuel.setText(vo.getCarFuel());
         carInfo.setText(vo.getCarInfo());
-
+        regdt.setText(vo.getUpdDt());
         String img01 = vo.getCarImg01();
         String img02 = vo.getCarImg02();
         String img03 = vo.getCarImg03();
@@ -165,9 +175,52 @@ public class ViewFragment extends Fragment  implements ItemClickListener {
         vo.setDimg(img);
         carImg01.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // your code here
-
                 onItemClick(v,0,"");
+            }
+        });
+        carImg02.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                onItemClick(v,1,"");
+            }
+        });
+        carImg03.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                onItemClick(v,2,"");
+            }
+        });
+        carImg04.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                onItemClick(v,3,"");
+            }
+        });
+        carImg05.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                onItemClick(v,4,"");
+            }
+        });
+        carImg06.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                onItemClick(v,5,"");
+            }
+        });
+        carImg07.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                onItemClick(v,6,"");
+            }
+        });
+        carImg08.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                onItemClick(v,7,"");
+            }
+        });
+        carImg09.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                onItemClick(v,8,"");
+            }
+        });
+        carImg10.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                onItemClick(v,9,"");
             }
         });
         ////////////////////////////////////
@@ -179,12 +232,13 @@ public class ViewFragment extends Fragment  implements ItemClickListener {
         Drawable img = ContextCompat.getDrawable(getContext(), R.drawable.noimg );
         return img;
     }
-
+    // pos 이미지 순번
     @Override
-    public void onItemClick(View v, int position,String gbn) {
+    public void onItemClick(View v, int pos,String gbn) {
         //photoActivity를 호출
         Intent intent = new Intent(getContext(), PhotoActivity.class); // 확대해서 보기
         //액티비티 시작!
+        intent.putExtra("pos",String.valueOf(pos));
         startActivity(intent);
 
     }

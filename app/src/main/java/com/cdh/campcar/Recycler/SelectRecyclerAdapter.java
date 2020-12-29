@@ -44,26 +44,26 @@ public class SelectRecyclerAdapter extends RecyclerView.Adapter<SelectRecyclerAd
             return data.length;
     }
 
-    public class SelectViewHolder extends RecyclerView.ViewHolder{
+    public class SelectViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView typeSelect;
 
         public SelectViewHolder(@NonNull View itemView) {
             super(itemView);
 
             typeSelect = itemView.findViewById(R.id.typeSelectTv);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int pos = getAdapterPosition() ;
-                    if (pos != RecyclerView.NO_POSITION) {
-                        // 데이터 리스트로부터 아이템 데이터 참조.
-                        //String gbn = data[pos] ;
+            itemView.setOnClickListener(this)  ;
+        }
 
-                        listener.onItemClick(v,pos,"");
+        @Override
+        public void onClick(View v) {
+            int pos = getAdapterPosition() ;
+            if (pos != RecyclerView.NO_POSITION) {
+                // 데이터 리스트로부터 아이템 데이터 참조.
+                //String gbn = data[pos] ;
 
-                    }
-                }
-            });
+                listener.onItemClick(v,pos,"");
+
+            }
         }
     }
 }

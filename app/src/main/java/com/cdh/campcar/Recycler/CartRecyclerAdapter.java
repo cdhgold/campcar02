@@ -21,6 +21,7 @@ import com.cdh.campcar.Fragment.ViewFragment;
 import com.cdh.campcar.MainActivity;
 import com.cdh.campcar.R;
 import com.cdh.campcar.UtilActivity;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -62,7 +63,8 @@ public class CartRecyclerAdapter extends RecyclerView.Adapter<CartRecyclerAdapte
         //Drawable image =  new BitmapDrawable(ctx.getResources(), bm);
         //cartViewHolder.productImage.setImageDrawable(image);
         pos = productBean.getSeq();
-        this.glideMang.load("file:///"+ctx.getFilesDir()+"/"+imgStr).into(cartViewHolder.productImage);
+        //this.glideMang.load("file:///"+ctx.getFilesDir()+"/"+imgStr).into(cartViewHolder.productImage);
+        Picasso.get().load("file:///"+ctx.getFilesDir()+"/"+imgStr).into(cartViewHolder.productImage);
 
         cartViewHolder.productName.setText(productBean.getCarNm());
         cartViewHolder.productPrice.setText(String.valueOf(productBean.getCarAmt()));
@@ -82,7 +84,7 @@ public class CartRecyclerAdapter extends RecyclerView.Adapter<CartRecyclerAdapte
         return drawable;
     }
 
-    public class CartViewHolder extends RecyclerView.ViewHolder {
+    public class CartViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView productImage;
         TextView productName;
         TextView productPrice;
@@ -93,17 +95,17 @@ public class CartRecyclerAdapter extends RecyclerView.Adapter<CartRecyclerAdapte
             productImage = itemView.findViewById(R.id.imageView);
             productName = itemView.findViewById(R.id.productNameTv);
             productPrice = itemView.findViewById(R.id.productPriceTv);
+            itemView.setOnClickListener(this);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int pos = getAdapterPosition() ;
-                    if (pos != RecyclerView.NO_POSITION) {
-                        listener.onItemClick(v, pos,"" );
-                    }
-                }
-            });
+        }
 
+        @Override
+        public void onClick(View v) {
+            int pos = getAdapterPosition() ;
+            if (pos != RecyclerView.NO_POSITION) {
+                listener.onItemClick(v, pos,"" );
+
+            }
         }
     }
 }
