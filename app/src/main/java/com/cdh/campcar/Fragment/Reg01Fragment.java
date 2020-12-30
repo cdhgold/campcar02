@@ -158,7 +158,6 @@ public class Reg01Fragment extends Fragment implements View.OnClickListener {
         //내부저장소 캐시 경로를 받아옵니다.
         File storage = getActivity().getCacheDir();
         for (File cacheFile : storage.listFiles()) { // 기존파일삭제
-  Log.e("cdhgold","getPath : " + cacheFile.getName());
             if (cacheFile.exists() && "carImg01.jpeg".equals(cacheFile.getName()) ) {
                 cacheFile.delete();
                 break;

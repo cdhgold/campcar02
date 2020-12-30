@@ -28,7 +28,7 @@ public class ProductBean {
     private String carImg08     = "";
     private String carImg09     = "";
     private String carImg10     = "";
-    private static ProductBean prod = null;
+    public static ProductBean prod = null;
     private static String[] dimg = null    ;
     private static ArrayList<ProductBean> plist = null ;
 

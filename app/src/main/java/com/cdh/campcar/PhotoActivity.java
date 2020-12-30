@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 /*
 상세보기화면에서 이동 ( viewFragment ) 이미지 확대용
+이미지보기 및 수정
  */
 public class PhotoActivity extends AppCompatActivity  {
     private PhotoFragment photoFragment = new PhotoFragment();      // 이미지 확대보기

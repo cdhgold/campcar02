@@ -1,6 +1,7 @@
 package com.cdh.campcar.Fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,16 +11,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.cdh.campcar.Data.ProductBean;
 import com.cdh.campcar.R;
 
 /*
 캠핑카등록1 -  이미지 
  */
 public class Reg03Fragment extends Fragment implements View.OnClickListener {
-    private EditText carAddr   ;
-    private EditText carTel    ;
-    private EditText carFuel   ;
-    private EditText carAmt    ;
+    private static EditText carAddr   ;
+    private static EditText carTel    ;
+    private static EditText carFuel   ;
+    private static EditText carAmt    ;
     private static Reg03Fragment reg01Frg = null;
     public static Reg03Fragment getInstance() {
         if(reg01Frg == null) {
@@ -52,4 +54,16 @@ public class Reg03Fragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
 
     }
+    // pagerActivity에서 get
+    public static void getReg03(){
+        String scarAddr =  carAddr  != null ? carAddr.getText().toString() : "" ;
+        String scarTel =  carTel  != null ? carTel.getText().toString() : "" ;
+        String scarFuel = carFuel  != null ? carFuel.getText().toString() : "" ;
+        String scarAmt   = carAmt  != null ? carAmt.getText().toString() : "" ;
+        ProductBean.prod.setCarAddr(scarAddr);
+        ProductBean.prod.setCarTel(scarTel);
+        ProductBean.prod.setCarFuel(scarFuel);
+        ProductBean.prod.setCarAmt(scarAmt);
+    }
+
 }

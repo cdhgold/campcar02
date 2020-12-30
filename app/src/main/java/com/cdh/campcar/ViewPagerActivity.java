@@ -17,16 +17,16 @@ import com.cdh.campcar.Fragment.Reg03Fragment;
 import me.relex.circleindicator.CircleIndicator3;
 
 /*
-캠핑카등록 view pager activity
+이미지 상세보기 및 수정 및 내리기 처리 .
  */
-public class PagerActivity extends AppCompatActivity  implements View.OnClickListener {
+public class ViewPagerActivity extends AppCompatActivity  implements View.OnClickListener {
     FragmentStateAdapter adapterViewPager;
     ImageButton home;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.viewpager);
+        setContentView(R.layout.add_img_pager);
 
         ViewPager2 vpPager = (ViewPager2) findViewById(R.id.vpPager);
         adapterViewPager = new MyPagerAdapter(this, 4);
