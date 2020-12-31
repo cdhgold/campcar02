@@ -111,8 +111,6 @@ public class HomeFragment extends Fragment  implements ItemClickListener {
 
         adapter = new HomeGridAdapter(getContext(), data, this,mGlideRequestManager);
         gridView.setAdapter(adapter);
-
-
     }
     // 상세보기
     @Override

@@ -29,7 +29,7 @@ public class PagerActivity extends AppCompatActivity  implements View.OnClickLis
         setContentView(R.layout.viewpager);
 
         ViewPager2 vpPager = (ViewPager2) findViewById(R.id.vpPager);
-        adapterViewPager = new MyPagerAdapter(this, 4);
+        adapterViewPager = new MyPagerAdapter(this, 4); // fragment 연결
         vpPager.setAdapter(adapterViewPager);
         home = (ImageButton) findViewById(R.id.vhome); // 메인화면으로 가기
         CircleIndicator3 indicator = (CircleIndicator3 ) findViewById(R.id.indicator);

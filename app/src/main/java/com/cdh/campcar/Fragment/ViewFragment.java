@@ -30,6 +30,7 @@ import com.cdh.campcar.Recycler.HomeGridAdapter;
 import com.cdh.campcar.Recycler.ItemClickListener;
 import com.cdh.campcar.Recycler.ViewAdapter;
 import com.cdh.campcar.UtilActivity;
+import com.cdh.campcar.ViewPagerActivity;
 
 import java.text.DecimalFormat;
 
@@ -88,11 +89,6 @@ public class ViewFragment extends Fragment  implements ItemClickListener {
         carImg09 = view.findViewById(R.id.carimg09 );
         carImg10 = view.findViewById(R.id.carimg10 );
 
-        //carImg01  = view.findViewById(R.id.imgBtn01 );
-        //carOk= view.findViewById(R.id.carOk );
-
-        //carImg01.setOnClickListener(this);
-        //carOk.setOnClickListener(this);
         ProductBean vo = new ProductBean();
         vo = vo.getProd();
 //        int seq = vo.getSeq();  // pk seq
@@ -232,11 +228,12 @@ public class ViewFragment extends Fragment  implements ItemClickListener {
         Drawable img = ContextCompat.getDrawable(getContext(), R.drawable.noimg );
         return img;
     }
-    // pos 이미지 순번
+    // pos 이미지 순번, 이미지클릭시 이미지 상세보기로 이동 - ViewPagerActivity 로 이동
     @Override
     public void onItemClick(View v, int pos,String gbn) {
         //photoActivity를 호출
-        Intent intent = new Intent(getContext(), PhotoActivity.class); // 확대해서 보기
+        //Intent intent = new Intent(getContext(), PhotoActivity.class); // 확대해서 보기
+        Intent intent = new Intent(getContext(), ViewPagerActivity.class); // 확대해서 보기
         //액티비티 시작!
         intent.putExtra("pos",String.valueOf(pos));
         startActivity(intent);

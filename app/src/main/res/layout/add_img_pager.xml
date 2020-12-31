@@ -13,9 +13,27 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:scaleType="fitXY"
+            android:src="@drawable/ic_home_24px"  />
+        <ImageButton
+            android:id="@+id/addimg1"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:scaleType="fitXY"
             android:src="@drawable/galary"  />
+        <ImageButton
+            android:id="@+id/addimg2"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/camera"  />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"   >
         <me.relex.circleindicator.CircleIndicator3
-            android:id="@+id/indicator"
+            android:id="@+id/vindicator"
             app:ci_drawable="@drawable/black_radius"
             app:ci_height="7dp"
             app:ci_width="7dp"
@@ -25,7 +43,7 @@
             android:layout_height="48dp"/>
     </LinearLayout>
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/vpPager"
+        android:id="@+id/imgvpager"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

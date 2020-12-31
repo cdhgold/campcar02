@@ -34,6 +34,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 /*
 main page 하단 상품정보를 보여준다
@@ -73,7 +74,13 @@ public class HomeGridAdapter extends RecyclerView.Adapter<HomeGridAdapter.HomeVi
 
         //shopViewHolder.productImage.setImageBitmap(myBitmap);
         homeViewHolder.productName.setText(productBean.getCarNm());
-        homeViewHolder.productPrice.setText(String.valueOf(productBean.getCarAmt()));
+        DecimalFormat formatter = new DecimalFormat("###,###");
+        String reg = "^[0-9]+$";
+        String amt = productBean.getCarAmt();
+        if(amt.matches(reg)) {
+            amt = formatter.format(Double.parseDouble(amt));
+        }
+        homeViewHolder.productPrice.setText(amt);
 
     }
 
@@ -101,14 +108,11 @@ public class HomeGridAdapter extends RecyclerView.Adapter<HomeGridAdapter.HomeVi
             return null;
         }
     }
-
-
     public Drawable getImage(byte[] bytes){
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         Drawable drawable = new BitmapDrawable(null, bitmap);
         return drawable;
     }
-
     public class HomeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView productImage;
         TextView productName;
@@ -124,7 +128,6 @@ public class HomeGridAdapter extends RecyclerView.Adapter<HomeGridAdapter.HomeVi
             itemView.setOnClickListener(this);
 
         }
-
         @Override
         public void onClick(View v) {
             int pos = getAdapterPosition() ;
