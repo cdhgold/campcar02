@@ -60,10 +60,12 @@ public class Reg03Fragment extends Fragment implements View.OnClickListener {
         String scarTel =  carTel  != null ? carTel.getText().toString() : "" ;
         String scarFuel = carFuel  != null ? carFuel.getText().toString() : "" ;
         String scarAmt   = carAmt  != null ? carAmt.getText().toString() : "" ;
-        ProductBean.prod.setCarAddr(scarAddr);
-        ProductBean.prod.setCarTel(scarTel);
-        ProductBean.prod.setCarFuel(scarFuel);
-        ProductBean.prod.setCarAmt(scarAmt);
+        if(ProductBean.prod != null) {
+            ProductBean.prod.setCarAddr(scarAddr);
+            ProductBean.prod.setCarTel(scarTel);
+            ProductBean.prod.setCarFuel(scarFuel);
+            ProductBean.prod.setCarAmt(scarAmt);
+        }
     }
 
 }

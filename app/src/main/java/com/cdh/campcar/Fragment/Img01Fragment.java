@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.cdh.campcar.R;
+import com.cdh.campcar.ViewPagerActivity;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
@@ -38,7 +39,7 @@ import static android.app.Activity.RESULT_OK;
  */
 public class Img01Fragment extends Fragment implements View.OnClickListener {
 
-    private ImageView img01;
+    public static ImageView img01;
     private static Img01Fragment img01Frg = null;
     public static Img01Fragment getInstance() {
         if(img01Frg == null) {
@@ -50,6 +51,7 @@ public class Img01Fragment extends Fragment implements View.OnClickListener {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_img01, container, false);
         img01  = view.findViewById(R.id.carImg01 );        //  get 한 이미지를 보여준다
+        Log.e("img01 ", "onCreateView : " + img01);
 
         return view;
     }
@@ -68,5 +70,14 @@ public class Img01Fragment extends Fragment implements View.OnClickListener {
 
         }
     }
+    @Override
+    public void onStart(){
+        super.onStart();
+        getImg();
+    }
+    public void getImg(){
+        Log.e("img01 ", "getImg : " + img01);
+        ((ViewPagerActivity)getActivity()).setAimg1(img01,0);
 
+    }
 }

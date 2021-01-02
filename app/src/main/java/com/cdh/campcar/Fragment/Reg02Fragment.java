@@ -76,11 +76,12 @@ public class Reg02Fragment extends Fragment implements View.OnClickListener {
         String scarEmail =  carEmail  != null ? carEmail.getText().toString() : "" ;
         String scarYear = carYear  != null ? carYear.getText().toString() : "" ;
         String scarKm   = carKm  != null ? carKm.getText().toString() : "" ;
-        ProductBean.prod.setCarNm(scarNm);
-        ProductBean.prod.setCarEmail(scarEmail);
-        ProductBean.prod.setCarYear(scarYear);
-        ProductBean.prod.setCarKm(scarKm);
-
+        if(ProductBean.prod != null) {
+            ProductBean.prod.setCarNm(scarNm);
+            ProductBean.prod.setCarEmail(scarEmail);
+            ProductBean.prod.setCarYear(scarYear);
+            ProductBean.prod.setCarKm(scarKm);
+        }
 
     }
 }

@@ -1,6 +1,7 @@
 package com.cdh.campcar.Fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +12,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.cdh.campcar.R;
+import com.cdh.campcar.ViewPagerActivity;
 
 /*
  이미지 02
  */
 public class Img08Fragment extends Fragment implements View.OnClickListener {
 
-    private ImageView img01;
+    public static ImageView img01;
     private static Img08Fragment img01Frg = null;
     public static Img08Fragment getInstance() {
         if(img01Frg == null) {
@@ -48,5 +50,14 @@ public class Img08Fragment extends Fragment implements View.OnClickListener {
 
         }
     }
+    @Override
+    public void onStart(){
+        super.onStart();
+        getImg();
+    }
+    public void getImg(){
+        Log.e("img01 ", "getImg : " + img01);
+        ((ViewPagerActivity)getActivity()).setAimg1(img01,7);
 
+    }
 }

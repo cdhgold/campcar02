@@ -25,17 +25,25 @@ public class ImgPagerAdapter extends FragmentStateAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-
                 return  Img01Fragment.getInstance();
             case 1:
-
-                return  Img01Fragment.getInstance();
+                return  Img02Fragment.getInstance();
             case 2:
-
-                return  Img01Fragment.getInstance();
+                return  Img03Fragment.getInstance();
             case 3:
-
-                return  Img01Fragment.getInstance();
+                return  Img04Fragment.getInstance();
+            case 4:
+                return  Img05Fragment.getInstance();
+            case 5:
+                return  Img06Fragment.getInstance();
+            case 6:
+                return  Img07Fragment.getInstance();
+            case 7:
+                return  Img08Fragment.getInstance();
+            case 8:
+                return  Img09Fragment.getInstance();
+            case 9:
+                return  Img10Fragment.getInstance();
             default:
 
                 return  Img01Fragment.getInstance();

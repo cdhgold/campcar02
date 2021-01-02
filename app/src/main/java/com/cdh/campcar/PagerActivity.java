@@ -35,8 +35,7 @@ public class PagerActivity extends AppCompatActivity  implements View.OnClickLis
         CircleIndicator3 indicator = (CircleIndicator3 ) findViewById(R.id.indicator);
         indicator.setViewPager(vpPager);
         home.setOnClickListener(this);
-        ProductBean vo = new ProductBean();
-        vo.setProd(vo);
+
         vpPager.registerOnPageChangeCallback(callback);
     }
     /*
