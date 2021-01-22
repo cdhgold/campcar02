@@ -6,6 +6,7 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +18,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
@@ -51,6 +53,7 @@ public class Img01Fragment extends Fragment implements View.OnClickListener {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_img01, container, false);
         img01  = view.findViewById(R.id.carImg01 );        //  get 한 이미지를 보여준다
+
         Log.e("img01 ", "onCreateView : " + img01);
 
         return view;
@@ -70,14 +73,20 @@ public class Img01Fragment extends Fragment implements View.OnClickListener {
 
         }
     }
+
     @Override
     public void onStart(){
         super.onStart();
         getImg();
+    }@Override
+    public void onResume(){
+        super.onResume();
+        getImg();
     }
+    // 이미지를 viewpager에서 set한다.
     public void getImg(){
-        Log.e("img01 ", "getImg : " + img01);
-        ((ViewPagerActivity)getActivity()).setAimg1(img01,0);
+       // Log.e("img01 ", "getImg : " + img01);
+       // ((ViewPagerActivity)getActivity()).setAimg1(img01,0);
 
     }
 }

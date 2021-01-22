@@ -20,12 +20,7 @@
             android:layout_height="70dp"
             android:scaleType="fitXY"
             android:src="@drawable/galary"  />
-        <ImageButton
-            android:id="@+id/addimg2"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/camera"  />
+
 
     </LinearLayout>
     <LinearLayout

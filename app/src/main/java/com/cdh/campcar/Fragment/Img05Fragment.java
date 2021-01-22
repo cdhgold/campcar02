@@ -55,9 +55,15 @@ public class Img05Fragment extends Fragment implements View.OnClickListener {
         super.onStart();
         getImg();
     }
+    @Override
+    public void onResume(){
+        super.onResume();
+        getImg();
+    }
+
     public void getImg(){
-        Log.e("img01 ", "getImg : " + img01);
-        ((ViewPagerActivity)getActivity()).setAimg1(img01,4);
+      //  Log.e("img01 ", "getImg : " + img01);
+      //  ((ViewPagerActivity)getActivity()).setAimg1(img01,4);
 
     }
 }

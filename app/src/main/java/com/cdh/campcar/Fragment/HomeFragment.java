@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
+import com.cdh.campcar.Data.PreferenceManager;
 import com.cdh.campcar.Data.ProductBean;
 import com.cdh.campcar.Data.ProductDBHelper;
 import com.cdh.campcar.InfoActivity;
@@ -115,6 +116,8 @@ public class HomeFragment extends Fragment  implements ItemClickListener {
     // 상세보기
     @Override
     public void onItemClick(View v, int position,String gbn) {
+        PreferenceManager prefm = new PreferenceManager();
+        prefm.setString(getContext(),"pos",String.valueOf(position) );// 이미지 번호를 check한다.
         ProductBean procutBean = new ProductBean();
         procutBean.setProd(data.get(position));
         ViewFragment frg = new ViewFragment();

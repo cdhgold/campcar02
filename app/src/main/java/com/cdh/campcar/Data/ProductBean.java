@@ -6,6 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductBean {
+    private static ProductBean vo = null;
+    public static ProductBean getInstance(  ){
+        if(vo == null){
+            vo = new ProductBean( );
+        }
+        return vo;
+    }
 
     private int seq   		= 0;
     private String carNm	    = "";

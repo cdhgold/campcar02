@@ -22,6 +22,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.cdh.campcar.Data.PreferenceManager;
 import com.cdh.campcar.Data.ProductBean;
 import com.cdh.campcar.Data.ProductDBHelper;
 import com.cdh.campcar.PhotoActivity;
@@ -33,6 +34,7 @@ import com.cdh.campcar.UtilActivity;
 import com.cdh.campcar.ViewPagerActivity;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 /*
 캠핑카 상세보기 , 처음화면에서 이동
@@ -66,6 +68,7 @@ public class ViewFragment extends Fragment  implements ItemClickListener {
     private GridView gridView;
     private ViewAdapter adapter;
 
+    ProductBean vo = new ProductBean();
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_view_fragment, container, false);
 
@@ -89,8 +92,17 @@ public class ViewFragment extends Fragment  implements ItemClickListener {
         carImg09 = view.findViewById(R.id.carimg09 );
         carImg10 = view.findViewById(R.id.carimg10 );
 
-        ProductBean vo = new ProductBean();
         vo = vo.getProd();
+        if(vo == null){
+            PreferenceManager prefm = new PreferenceManager();
+            String pos = prefm.getString(getContext(),"pos" );// 이미지 번호를 check한다.
+            dbHelper = ProductDBHelper.getInstance(getContext());
+            ArrayList<ProductBean>  data = dbHelper.getRandomProduct();
+            ProductBean pvo = ProductBean.getInstance();
+            pvo.setProd(data.get(Integer.parseInt(pos) ));
+ Log.d("view  vo is null ","cdh pos "+pos)   ;
+            vo = pvo.getProd();
+        }
 //        int seq = vo.getSeq();  // pk seq
 // Log.d("campcar seq2 ",String.valueOf(seq))   ;
         carNm.setText(vo.getCarNm());
@@ -237,6 +249,19 @@ public class ViewFragment extends Fragment  implements ItemClickListener {
         //액티비티 시작!
         intent.putExtra("pos",String.valueOf(pos));
         startActivity(intent);
+
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
+        vo = vo.getProd();
+
+
+    }
+    @Override
+    public void onStart(){
+        super.onStart();
+
 
     }
 }

@@ -14,7 +14,6 @@
         android:text="My캠핑카-이미지1"
         android:textSize="24sp"
         android:textStyle="bold" />
-
     <View
         style="@style/Divider.Horizontal"  />
 

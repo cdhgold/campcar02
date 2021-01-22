@@ -20,6 +20,7 @@ import com.cdh.campcar.Fragment.Reg04Fragment;
 import com.cdh.campcar.Fragment.RegFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -30,6 +31,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.cdh.campcar.Fragment.CartFragment;
 import com.cdh.campcar.Fragment.HomeFragment;
@@ -182,14 +184,16 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case R.id.nav_data: // 자료down
                     //transaction.replace(R.id.frameLayout, ddFragment).commitAllowingStateLoss();
-                    tt = new TransThrd(ddFragment); // too much work으로 thread로 처리해야함.
-                    tt.start();
+                   // tt = new TransThrd(ddFragment); // too much work으로 thread로 처리해야함.
+                    //tt.start();
+
+
+                    intent = new Intent(MainActivity.this, ImgEditActivity.class); // 확대해서 보기
+                    //액티비티 시작!
+                    //intent.putExtra("pos",String.valueOf(pos));
+                    startActivity(intent);
                     break;
-                case R.id.info: // 앱안내
-                    //transaction.replace(R.id.frameLayout, ddFragment).commitAllowingStateLoss();
-                    tt = new TransThrd(ddFragment); // too much work으로 thread로 처리해야함.
-                    tt.start();
-                    break;
+
             }
             return true;
         }
@@ -254,6 +258,5 @@ public class MainActivity extends AppCompatActivity {
         }
         return mypager;
     }
-
 
 }
