@@ -40,6 +40,7 @@ import io.reactivex.disposables.Disposable;
 import com.cdh.campcar.util.ApiConfig;
 import com.cdh.campcar.util.AppConfig;
 import com.cdh.campcar.util.ServerResponse;
+import com.google.gson.JsonObject;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
@@ -48,12 +49,16 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import gun0912.tedbottompicker.TedBottomPicker;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -213,61 +218,47 @@ public class ImgEditActivity extends FragmentActivity implements View.OnClickLis
         for (Uri uri : uriList) {
             list.add(uri.toString()) ; // file path
         }
-        for(String s: list){
-            File file = new File(s);
-        }
-        RequestBody requestBody1 = null;
-        RequestBody requestBody2 = null;
-        RequestBody requestBody3 = null;
-        RequestBody requestBody4 = null;
-        RequestBody requestBody5 = null;
-        RequestBody requestBody6 = null;
-        RequestBody requestBody7 = null;
-        RequestBody requestBody8 = null;
-        RequestBody requestBody9 = null;
-        RequestBody requestBody10 = null;
-        MultipartBody.Part fileToUpload1 = null;
-        MultipartBody.Part fileToUpload2 = null;
-        MultipartBody.Part fileToUpload3 = null;
-        MultipartBody.Part fileToUpload4 = null;
-        MultipartBody.Part fileToUpload5 = null;
-        MultipartBody.Part fileToUpload6 = null;
-        MultipartBody.Part fileToUpload7 = null;
-        MultipartBody.Part fileToUpload8 = null;
-        MultipartBody.Part fileToUpload9 = null;
-        MultipartBody.Part fileToUpload10 = null;
+
         String semail = email.getText().toString();
+
+        RequestBody requestBody;
+        MultipartBody.Part body;
+        LinkedHashMap<String, RequestBody> mapRequestBody = new LinkedHashMap<String, RequestBody>();
+        List<MultipartBody.Part> arrBody = new ArrayList<>();
+        Map<String, RequestBody> map = new HashMap<>();
+
+
         // Parsing any Media type file
         if(list.get(0) !=null ){
+Log.d("file1==> ",list.get(0));
             File file = new File(list.get(0));
-            requestBody1 = RequestBody.create(MediaType.parse("*/*"), file);
-            fileToUpload1 = MultipartBody.Part.createFormData("carImg01", file.getName(), requestBody1);
+            RequestBody img01Body =  RequestBody.create(MediaType.parse("image/*"), file);
+            RequestBody email = RequestBody.create(MediaType.parse("text/plain"), semail);
+            map.put("file\"; filename=\"carImg01.jpg\" ", img01Body);
+            map.put("email", email);
+
         }
         if(list.get(1) !=null ){
             File file = new File(list.get(1));
-            requestBody2 = RequestBody.create(MediaType.parse("*/*"), file);
-            fileToUpload2 = MultipartBody.Part.createFormData("carImg02", file.getName(), requestBody2);
+            RequestBody img02Body =  RequestBody.create(MediaType.parse("image/*"), file);
+            map.put("file\"; filename=\"carImg02.jpg\" ", img02Body);
+
         }
+
+
+
         ApiConfig getResponse = AppConfig.getRetrofit().create(ApiConfig.class);
-        Call <ServerResponse> call = getResponse.uploadMulFile(fileToUpload1, fileToUpload2,semail);
-        call.enqueue(new Callback< ServerResponse >() {
+        Call <ResponseBody> call = getResponse.uploadFile(map);
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call< ServerResponse > call, Response< ServerResponse > response) {
-                ServerResponse serverResponse = response.body();
-                if (serverResponse != null) {
-                    if (serverResponse.getSuccess()) {
-                        Toast.makeText(getApplicationContext(), serverResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(getApplicationContext(), serverResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    assert serverResponse != null;
-                    Log.v("Response", serverResponse.toString());
-                }
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
             }
+
             @Override
-            public void onFailure(Call < ServerResponse > call, Throwable t) {}
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d(  "Err", t.getMessage());
+            }
         });
     }
     //내부저장소에 file 생성
