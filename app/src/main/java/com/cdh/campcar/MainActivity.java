@@ -183,15 +183,10 @@ public class MainActivity extends AppCompatActivity {
 
                     break;
                 case R.id.nav_data: // 자료down
-                    //transaction.replace(R.id.frameLayout, ddFragment).commitAllowingStateLoss();
-                   // tt = new TransThrd(ddFragment); // too much work으로 thread로 처리해야함.
-                    //tt.start();
+                    transaction.replace(R.id.frameLayout, ddFragment).commitAllowingStateLoss();
+                    tt = new TransThrd(ddFragment); // too much work으로 thread로 처리해야함.
+                    tt.start();
 
-
-                    intent = new Intent(MainActivity.this, ImgEditActivity.class); // 확대해서 보기
-                    //액티비티 시작!
-                    //intent.putExtra("pos",String.valueOf(pos));
-                    startActivity(intent);
                     break;
 
             }

@@ -21,5 +21,19 @@ public interface ApiConfig {
 
     @Multipart
     @POST("/car/carIns/saveMultiApp")
-    Call<ResponseBody> uploadFile( @PartMap Map<String, RequestBody> map);
+    Call<ResponseBody> uploadProduct(
+            @PartMap Map<String, RequestBody> params
+            ,@Part MultipartBody.Part img1
+            ,@Part MultipartBody.Part img2
+            ,@Part MultipartBody.Part img3
+            ,@Part MultipartBody.Part img4
+            ,@Part MultipartBody.Part img5
+            ,@Part MultipartBody.Part img6
+            ,@Part MultipartBody.Part img7
+            ,@Part MultipartBody.Part img8
+            ,@Part MultipartBody.Part img9
+            ,@Part MultipartBody.Part img10
+
+
+    );
 }
