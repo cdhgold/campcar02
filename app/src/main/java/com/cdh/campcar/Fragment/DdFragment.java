@@ -290,8 +290,8 @@ public class DdFragment extends Fragment  {
                     product.setCarImg09(new String(LoadImageFromWebOperations(scarImg09)));
                     product.setCarImg10(new String(LoadImageFromWebOperations(scarImg10)));
                     dbHelper.insertProduct(product);
-                    int percent = 100/nodeList.getLength()*(i+1);
-                    if(percent > 95)percent = 100;
+                    int percent = 100*(i+1)/nodeList.getLength();
+                    if(percent >= 90)percent = 100;
                     progressBar.setProgress(percent);
                     Message msg = handler.obtainMessage();
                     msg.arg1 = percent;

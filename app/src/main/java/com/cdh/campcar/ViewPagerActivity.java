@@ -142,21 +142,7 @@ Log.d("ViewPagerActivity","getProd===>"+vo);
             img = Img10Fragment.img01 ;
             imgNum = "9";
         }
-        commImgView = img;
-        sref = getSharedPreferences("imgflg",MODE_PRIVATE);
-        String img0 = sref.getString("img0","");
-        String img1 = sref.getString("img1","");
-        String img2 = sref.getString("img2","");
-        String img3 = sref.getString("img3","");
-        String img4 = sref.getString("img4","");
-        String img5 = sref.getString("img5","");
-        String img6 = sref.getString("img6","");
-        String img7 = sref.getString("img7","");
-        String img8 = sref.getString("img8","");
-        String img9 = sref.getString("img9","");
 
-        Log.d("commImgView"," pos "+pos + " img0 "+ img0);
-        Log.d("commImgView"," pos "+pos + " img1 "+ img1);
         if(vo == null){
             PreferenceManager prefm = new PreferenceManager();
 
@@ -167,83 +153,81 @@ Log.d("ViewPagerActivity","getProd===>"+vo);
             Log.d("view  vo is null ","cdh pos "+pos)   ;
             vo = pvo.getProd();
         }
-        if(pos == 0 && "".equals(img0)  ) {// 대표이미지
+        img.setImageDrawable(getNoImg());
+        if(pos == 0    ) {// 대표이미지
             String img01 = vo.getCarImg01();
- Log.d("commImgView"," img01 " + img01);
             Glide.with(getApplicationContext()).load("file:///" + getApplicationContext().getFilesDir() + "/" + img01).into(img);
         }
-        else if(pos == 1 && "".equals(img1)   ){
+        else if(pos == 1    ){
             String img02 = vo.getCarImg02();
             if("".equals(img02)){
                 img.setImageDrawable(getNoImg());
             }else {
                 Glide.with(getApplicationContext()).load("file:///" + getApplicationContext().getFilesDir() + "/" + img02).into(img);
             }
-
         }
-        else if(pos == 2 && "".equals(img2)   ){
+        else if(pos == 2   ){
             String img03 = vo.getCarImg03();
             if("".equals(img03)){
                 img.setImageDrawable(getNoImg());
             }else {
-                Glide.with(getApplicationContext()).load("file:///"+getApplicationContext().getFilesDir()+"/"+img03).into(img);
+                Glide.with(getApplicationContext()).load("file:///" + getApplicationContext().getFilesDir() + "/" + img03).into(img);
             }
-
         }
-        else if(pos == 3 && "".equals(img3)   ){
+        else if(pos == 3   ){
             String img04 = vo.getCarImg04();
             if("".equals(img04)){
                 img.setImageDrawable(getNoImg());
             }else {
-                Glide.with(getApplicationContext()).load("file:///"+getApplicationContext().getFilesDir()+"/"+img04).into(img);
+                Glide.with(getApplicationContext()).load("file:///" + getApplicationContext().getFilesDir() + "/" + img04).into(img);
             }
         }
-        else if(pos == 4 && "".equals(img4)   ){
+        else if(pos == 4    ){
             String img05 = vo.getCarImg05();
             if("".equals(img05)){
                 img.setImageDrawable(getNoImg());
             }else {
-                Glide.with(getApplicationContext()).load("file:///"+getApplicationContext().getFilesDir()+"/"+img05).into(img);
+                Glide.with(getApplicationContext()).load("file:///" + getApplicationContext().getFilesDir() + "/" + img05).into(img);
             }
         }
-        else if(pos == 5 && "".equals(img5)   ){
+        else if(pos == 5    ){
             String img06 = vo.getCarImg06();
             if("".equals(img06)){
                 img.setImageDrawable(getNoImg());
             }else {
-                Glide.with(getApplicationContext()).load("file:///"+getApplicationContext().getFilesDir()+"/"+img06).into(img);
+                Glide.with(getApplicationContext()).load("file:///" + getApplicationContext().getFilesDir() + "/" + img06).into(img);
             }
         }
-        else if(pos == 6 && "".equals(img6)   ){
+        else if(pos == 6     ){
             String img07 = vo.getCarImg07();
             if("".equals(img07)){
                 img.setImageDrawable(getNoImg());
             }else {
-                Glide.with(getApplicationContext()).load("file:///"+getApplicationContext().getFilesDir()+"/"+img07).into(img);
+                Glide.with(getApplicationContext()).load("file:///" + getApplicationContext().getFilesDir() + "/" + img07).into(img);
             }
         }
-        else if(pos == 7 && "".equals(img7)   ){
+        else if(pos == 7   ){
             String img08 = vo.getCarImg08();
             if("".equals(img08)){
                 img.setImageDrawable(getNoImg());
             }else {
-                Glide.with(getApplicationContext()).load("file:///"+getApplicationContext().getFilesDir()+"/"+img08).into(img);
+                Glide.with(getApplicationContext()).load("file:///" + getApplicationContext().getFilesDir() + "/" + img08).into(img);
             }
         }
-        else if(pos == 8 && "".equals(img8)   ){
+        else if(pos == 8   ){
             String img09 = vo.getCarImg09();
             if("".equals(img09)){
                 img.setImageDrawable(getNoImg());
             }else {
-                Glide.with(getApplicationContext()).load("file:///"+getApplicationContext().getFilesDir()+"/"+img09).into(img);
+                Glide.with(getApplicationContext()).load("file:///" + getApplicationContext().getFilesDir() + "/" + img09).into(img);
             }
         }
-        else if(pos == 9 && "".equals(img9)   ){
+        else if(pos == 9     ){
             String img10 = vo.getCarImg10();
             if("".equals(img10)){
                 img.setImageDrawable(getNoImg());
             }else {
-                Glide.with(getApplicationContext()).load("file:///"+getApplicationContext().getFilesDir()+"/"+img10).into(img);
+                Glide.with(getApplicationContext()).load("file:///" + getApplicationContext().getFilesDir() + "/" + img10).into(img);
             }
         }
 
@@ -296,78 +280,6 @@ Log.d("ViewPagerActivity","getProd===>"+vo);
 
     }
 
-    //내부저장소에 file 생성
-    private void setFilefromImg(Bitmap bitmap) {
-
-        //내부저장소 캐시 경로를 받아옵니다.
-        //저장할 파일 이름
-        String fileName =  "carImg01.jpeg";
-        String imgnum = ViewPagerActivity.imgNum;
-        if("0".equals(imgnum)){
-            fileName =  "carImg01.jpeg";
-            editor.putString("img0","1");
-
-        }
-        else if("1".equals(imgnum)) {
-            fileName = "carImg02.jpeg";
-            editor.putString("img1","1");
-        }
-        else if("2".equals(imgnum)) {
-            fileName = "carImg03.jpeg";
-            editor.putString("img2","1");
-        }
-        else if("3".equals(imgnum)) {
-            editor.putString("img3","1");
-            fileName = "carImg04.jpeg";
-        }
-        else if("4".equals(imgnum)) {
-            editor.putString("img4","1");
-            fileName = "carImg05.jpeg";
-        }
-        else if("5".equals(imgnum)) {
-            fileName = "carImg06.jpeg";
-            editor.putString("img5","1");
-        }
-        else if("6".equals(imgnum)) {
-            fileName = "carImg07.jpeg";
-            editor.putString("img6","1");
-        }
-        else if("7".equals(imgnum)) {
-            fileName = "carImg08.jpeg";
-            editor.putString("img7","1");
-        }
-        else if("8".equals(imgnum)) {
-            fileName = "carImg09.jpeg";
-            editor.putString("img8","1");
-        }
-        else if("9".equals(imgnum)) {
-            fileName = "carImg10.jpeg";
-            editor.putString("img9","1");
-        }
-        //최종 커밋
-        editor.apply();
-
-        File storage = this.getCacheDir();
-        for (File cacheFile : storage.listFiles()) { // 기존파일삭제
-            if (cacheFile.exists() && fileName.equals(cacheFile.getName()) ) {
-                cacheFile.delete();
-                break;
-            }
-        }
-        //storage 에 파일 인스턴스를 생성합니다.
-        File tempFile = new File(storage, fileName);
-        try {
-            // 파일을 쓸 수 있는 스트림을 준비합니다.
-            FileOutputStream out = new FileOutputStream(tempFile);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 40, out); // out 으로 compress
-            // 스트림 사용후 닫아줍니다.
-            out.close();
-        } catch (FileNotFoundException e) {
-            Log.e("cdhgold","FileNotFoundException : " + e.getMessage());
-        } catch (IOException e) {
-            Log.e("cdhgold","IOException : " + e.getMessage());
-        }
-    }
     // no img 처리
     public Drawable getNoImg(){
         Drawable img = ContextCompat.getDrawable(getApplicationContext(), R.drawable.noimg );

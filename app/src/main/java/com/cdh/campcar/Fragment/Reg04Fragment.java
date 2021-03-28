@@ -123,7 +123,7 @@ public class Reg04Fragment extends Fragment implements View.OnClickListener {
                 }
                 sendServer send = new sendServer();
                 send.start();
-                getActivity().finish();
+                getActivity().finish(); // pagerActivity
                 break;
         }
     }
