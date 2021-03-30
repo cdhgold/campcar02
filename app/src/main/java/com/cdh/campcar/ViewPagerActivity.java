@@ -197,7 +197,7 @@ Log.d("ViewPagerActivity","getProd===>"+vo);
             }else {
                 Glide.with(getApplicationContext()).load("file:///" + getApplicationContext().getFilesDir() + "/" + img06).into(img);
             }
-        }
+        } 
         else if(pos == 6     ){
             String img07 = vo.getCarImg07();
             if("".equals(img07)){

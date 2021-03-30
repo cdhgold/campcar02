@@ -24,6 +24,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.cdh.campcar.Data.ProductBean;
 import com.cdh.campcar.Data.ProductDBHelper;
 import com.cdh.campcar.R;
 import com.gun0912.tedpermission.PermissionListener;
@@ -71,6 +72,8 @@ public class Reg01Fragment extends Fragment implements View.OnClickListener {
         imgCamera.setOnClickListener(this);
         imgAlbum.setOnClickListener(this);
         tedPermission(); // 권한없을시 ,
+        ProductBean prod = ProductBean.getInstance();
+        ProductBean.prod = prod;
         return view;
     }
 
