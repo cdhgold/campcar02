@@ -166,7 +166,7 @@ public class ImgEditActivity extends FragmentActivity implements View.OnClickLis
 
                 TedBottomPicker.with(ImgEditActivity.this)
                         //.setPeekHeight(getResources().getDisplayMetrics().heightPixels/2)
-                        .setPeekHeight(1600)
+                        .setPeekHeight(1100)
                         .showTitle(false)
                         .setCompleteButtonText("Done")
                         .setEmptySelectionText("No Select")
@@ -394,7 +394,7 @@ public class ImgEditActivity extends FragmentActivity implements View.OnClickLis
         File storage = this.getCacheDir();
         File file = new File(storage, fileName);
         try (OutputStream output = new FileOutputStream(file)) {
-            byte[] buffer = new byte[2 * 1024]; // or other buffer size
+            byte[] buffer = new byte[1024 * 1024]; // 1m
             int read;
             while ((read = input.read(buffer)) != -1) {
                 output.write(buffer, 0, read);
