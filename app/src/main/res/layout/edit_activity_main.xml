@@ -31,12 +31,13 @@
         android:id="@+id/tmp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="이미지수정을 총10개 까지 가능합니다.\n 등록순서대로 표시됩니다.\n최신Data받으셔합니다."
+        android:text="이미지수정을 총10개 까지 가능합니다.\n 등록순서대로 표시됩니다.\n이미지사이즈는 1M미만.\n수정후 최신Data 다운받으세요."
         android:ems="10"  />
     <EditText
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="이메일을 입력하세요."
         android:ems="10"  />
 
     <HorizontalScrollView

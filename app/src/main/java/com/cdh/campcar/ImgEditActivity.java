@@ -73,7 +73,7 @@ import retrofit2.Response;
 
 /*
 이미지 상세보기 및 수정 및 내리기 처리 .
- */ 
+ */
 public class ImgEditActivity extends FragmentActivity implements View.OnClickListener {
     FragmentStateAdapter adapterViewPager;
     private List<Uri> selectedUriList;
@@ -166,7 +166,7 @@ public class ImgEditActivity extends FragmentActivity implements View.OnClickLis
 
                 TedBottomPicker.with(ImgEditActivity.this)
                         //.setPeekHeight(getResources().getDisplayMetrics().heightPixels/2)
-                        .setPeekHeight(1600)
+                        .setPeekHeight(1100)
                         .showTitle(false)
                         .setCompleteButtonText("Done")
                         .setEmptySelectionText("No Select")
@@ -257,7 +257,7 @@ public class ImgEditActivity extends FragmentActivity implements View.OnClickLis
             File file = null;
             try{
                 InputStream inputs = resolver.openInputStream(furi);
-                file = getFile( inputs ) ;
+                file = getFile( inputs,"img01" ) ;
             }catch(Exception e){
             }
             RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
@@ -269,7 +269,7 @@ public class ImgEditActivity extends FragmentActivity implements View.OnClickLis
             File file = null;
             try{
                 InputStream inputs = resolver.openInputStream(furi);
-                file = getFile( inputs ) ;
+                file = getFile( inputs,"img02" ) ;
             }catch(Exception e){
             }
             RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
@@ -281,7 +281,7 @@ public class ImgEditActivity extends FragmentActivity implements View.OnClickLis
             File file = null;
             try{
                 InputStream inputs = resolver.openInputStream(furi);
-                file = getFile( inputs ) ;
+                file = getFile( inputs,"img03" ) ;
             }catch(Exception e){
             }
             RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
@@ -293,7 +293,7 @@ public class ImgEditActivity extends FragmentActivity implements View.OnClickLis
             File file = null;
             try{
                 InputStream inputs = resolver.openInputStream(furi);
-                file = getFile( inputs ) ;
+                file = getFile( inputs ,"img04") ;
             }catch(Exception e){
             }
             RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
@@ -305,7 +305,7 @@ public class ImgEditActivity extends FragmentActivity implements View.OnClickLis
             File file = null;
             try{
                 InputStream inputs = resolver.openInputStream(furi);
-                file = getFile( inputs ) ;
+                file = getFile( inputs ,"img05") ;
             }catch(Exception e){
             }
             RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
@@ -317,7 +317,7 @@ public class ImgEditActivity extends FragmentActivity implements View.OnClickLis
             File file = null;
             try{
                 InputStream inputs = resolver.openInputStream(furi);
-                file = getFile( inputs ) ;
+                file = getFile( inputs ,"img06") ;
             }catch(Exception e){
             }
             RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
@@ -329,7 +329,7 @@ public class ImgEditActivity extends FragmentActivity implements View.OnClickLis
             File file = null;
             try{
                 InputStream inputs = resolver.openInputStream(furi);
-                file = getFile( inputs ) ;
+                file = getFile( inputs ,"img07") ;
             }catch(Exception e){
             }
             RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
@@ -341,7 +341,7 @@ public class ImgEditActivity extends FragmentActivity implements View.OnClickLis
             File file = null;
             try{
                 InputStream inputs = resolver.openInputStream(furi);
-                file = getFile( inputs ) ;
+                file = getFile( inputs ,"img08") ;
             }catch(Exception e){
             }
             RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
@@ -353,7 +353,7 @@ public class ImgEditActivity extends FragmentActivity implements View.OnClickLis
             File file = null;
             try{
                 InputStream inputs = resolver.openInputStream(furi);
-                file = getFile( inputs ) ;
+                file = getFile( inputs ,"img09") ;
             }catch(Exception e){
             }
             RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
@@ -365,7 +365,7 @@ public class ImgEditActivity extends FragmentActivity implements View.OnClickLis
             File file = null;
             try{
                 InputStream inputs = resolver.openInputStream(furi);
-                file = getFile( inputs ) ;
+                file = getFile( inputs ,"img10") ;
             }catch(Exception e){
             }
             RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
@@ -390,12 +390,11 @@ public class ImgEditActivity extends FragmentActivity implements View.OnClickLis
         });
     }
 
-    private File getFile( InputStream input)   {
+    private File getFile( InputStream input , String fileName)   {
         File storage = this.getCacheDir();
-        String fileName =  "carImg01.png";
         File file = new File(storage, fileName);
         try (OutputStream output = new FileOutputStream(file)) {
-            byte[] buffer = new byte[2 * 1024]; // or other buffer size
+            byte[] buffer = new byte[1024 * 1024]; // 1m
             int read;
             while ((read = input.read(buffer)) != -1) {
                 output.write(buffer, 0, read);
@@ -411,83 +410,7 @@ public class ImgEditActivity extends FragmentActivity implements View.OnClickLis
         }
         return file;
     }
-    //내부저장소에 file 생성
-    private void setFilefromImg(Bitmap bitmap) {
 
-        //내부저장소 캐시 경로를 받아옵니다.
-        //저장할 파일 이름
-        String fileName =  "carImg01.jpeg";
-        String imgnum = ImgEditActivity.imgNum;
-        if("0".equals(imgnum)){
-            fileName =  "carImg01.jpeg";
-            editor.putString("img0","1");
-
-        }
-        else if("1".equals(imgnum)) {
-            fileName = "carImg02.jpeg";
-            editor.putString("img1","1");
-        }
-        else if("2".equals(imgnum)) {
-            fileName = "carImg03.jpeg";
-            editor.putString("img2","1");
-        }
-        else if("3".equals(imgnum)) {
-            editor.putString("img3","1");
-            fileName = "carImg04.jpeg";
-        }
-        else if("4".equals(imgnum)) {
-            editor.putString("img4","1");
-            fileName = "carImg05.jpeg";
-        }
-        else if("5".equals(imgnum)) {
-            fileName = "carImg06.jpeg";
-            editor.putString("img5","1");
-        }
-        else if("6".equals(imgnum)) {
-            fileName = "carImg07.jpeg";
-            editor.putString("img6","1");
-        }
-        else if("7".equals(imgnum)) {
-            fileName = "carImg08.jpeg";
-            editor.putString("img7","1");
-        }
-        else if("8".equals(imgnum)) {
-            fileName = "carImg09.jpeg";
-            editor.putString("img8","1");
-        }
-        else if("9".equals(imgnum)) {
-            fileName = "carImg10.jpeg";
-            editor.putString("img9","1");
-        }
-        //최종 커밋
-        editor.apply();
-
-        File storage = this.getCacheDir();
-        for (File cacheFile : storage.listFiles()) { // 기존파일삭제
-            if (cacheFile.exists() && fileName.equals(cacheFile.getName()) ) {
-                cacheFile.delete();
-                break;
-            }
-        }
-        //storage 에 파일 인스턴스를 생성합니다.
-        File tempFile = new File(storage, fileName);
-        try {
-            // 파일을 쓸 수 있는 스트림을 준비합니다.
-            FileOutputStream out = new FileOutputStream(tempFile);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 40, out); // out 으로 compress
-            // 스트림 사용후 닫아줍니다.
-            out.close();
-        } catch (FileNotFoundException e) {
-            Log.e("cdhgold","FileNotFoundException : " + e.getMessage());
-        } catch (IOException e) {
-            Log.e("cdhgold","IOException : " + e.getMessage());
-        }
-    }
-    // no img 처리
-    public Drawable getNoImg(){
-        Drawable img = ContextCompat.getDrawable(getApplicationContext(), R.drawable.noimg );
-        return img;
-    }
     //사진수정이후 탄다 .
     @Override
     public void onResume(){

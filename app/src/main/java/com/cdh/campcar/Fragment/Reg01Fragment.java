@@ -72,8 +72,8 @@ public class Reg01Fragment extends Fragment implements View.OnClickListener {
         imgCamera.setOnClickListener(this);
         imgAlbum.setOnClickListener(this);
         tedPermission(); // 권한없을시 ,
-        ProductBean vo = new ProductBean();
-        ProductBean.prod = vo;
+        ProductBean prod = ProductBean.getInstance();
+        ProductBean.prod = prod;
         return view;
     }
 

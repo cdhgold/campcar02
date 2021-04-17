@@ -8,8 +8,8 @@ android {
         applicationId "com.cdh.campcar"
         minSdkVersion 26
         targetSdkVersion 29
-        versionCode 9
-        versionName "9.0"
+        versionCode 11
+        versionName "11.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -57,5 +57,4 @@ dependencies {
     //file upload
     implementation 'com.squareup.retrofit2:converter-gson:2.0.0'
     implementation 'id.zelory:compressor:2.1.0'
-
 }

@@ -70,7 +70,7 @@ public class Reg04Fragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.carOk1:
-                ProductBean vo = new ProductBean();
+                ProductBean vo = ProductBean.getInstance();
                 vo = vo.getProd();              // myFragment 에서 값 담음
                 String carNm 	= vo.getCarNm();
                 String carEmail = vo.getCarEmail();
