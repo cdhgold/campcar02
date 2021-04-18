@@ -243,31 +243,9 @@
                         android:layout_weight="1"
                         android:scaleType="fitXY"/>
 
-                    <ImageView
-                        android:id="@+id/carimg08"
-                        android:layout_width="200dp"
-                        android:layout_height="200dp"
-                        android:layout_weight="1"
-                        android:scaleType="fitXY"/>
-                </TableRow>
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:weightSum="2" >
-                    <ImageView
-                        android:id="@+id/carimg09"
-                        android:layout_width="200dp"
-                        android:layout_height="200dp"
-                        android:layout_weight="1"
-                        android:scaleType="fitXY"/>
 
-                    <ImageView
-                        android:id="@+id/carimg10"
-                        android:layout_width="200dp"
-                        android:layout_height="200dp"
-                        android:layout_weight="1"
-                        android:scaleType="fitXY"/>
                 </TableRow>
+
             </TableLayout>
 
         </LinearLayout>

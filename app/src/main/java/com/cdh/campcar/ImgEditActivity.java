@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -261,7 +262,7 @@ public class ImgEditActivity extends FragmentActivity implements View.OnClickLis
             }catch(Exception e){
             }
             RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-            body1 = MultipartBody.Part.createFormData("carImg01", "carImg01.png", requestFile);
+            body1 = MultipartBody.Part.createFormData("carImg01", "carImg01.jpeg", requestFile);
         }
         if(list.size() >= 2 && list.get(1) !=null ){
             Uri furi = list.get(1);
@@ -272,8 +273,9 @@ public class ImgEditActivity extends FragmentActivity implements View.OnClickLis
                 file = getFile( inputs,"img02" ) ;
             }catch(Exception e){
             }
+
             RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-            body2 = MultipartBody.Part.createFormData("carImg02", "carImg02.png", requestFile);
+            body2 = MultipartBody.Part.createFormData("carImg02", "carImg02.jpeg", requestFile);
         }
         if(list.size() >= 3 && list.get(2) !=null ){
             Uri furi = list.get(2);
@@ -283,9 +285,11 @@ public class ImgEditActivity extends FragmentActivity implements View.OnClickLis
                 InputStream inputs = resolver.openInputStream(furi);
                 file = getFile( inputs,"img03" ) ;
             }catch(Exception e){
+                e.printStackTrace();
             }
+            Log.d("cdhgold","img02--->"+file.length());
             RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-            body3 = MultipartBody.Part.createFormData("carImg03", "carImg03.png", requestFile);
+            body3 = MultipartBody.Part.createFormData("carImg03", "carImg03.jpeg", requestFile);
         }
         if(list.size() >= 4 && list.get(3) !=null ){
             Uri furi = list.get(3);
@@ -297,7 +301,7 @@ public class ImgEditActivity extends FragmentActivity implements View.OnClickLis
             }catch(Exception e){
             }
             RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-            body4 = MultipartBody.Part.createFormData("carImg04", "carImg04.png", requestFile);
+            body4 = MultipartBody.Part.createFormData("carImg04", "carImg04.jpeg", requestFile);
         }
         if(list.size() >= 5 && list.get(4) !=null ){
             Uri furi = list.get(4);
@@ -309,7 +313,7 @@ public class ImgEditActivity extends FragmentActivity implements View.OnClickLis
             }catch(Exception e){
             }
             RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-            body5 = MultipartBody.Part.createFormData("carImg05", "carImg05.png", requestFile);
+            body5 = MultipartBody.Part.createFormData("carImg05", "carImg05.jpeg", requestFile);
         }
         if(list.size() >= 6 && list.get(5) !=null ){
             Uri furi = list.get(5);
@@ -321,7 +325,7 @@ public class ImgEditActivity extends FragmentActivity implements View.OnClickLis
             }catch(Exception e){
             }
             RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-            body6 = MultipartBody.Part.createFormData("carImg06", "carImg06.png", requestFile);
+            body6 = MultipartBody.Part.createFormData("carImg06", "carImg06.jpeg", requestFile);
         }
         if(list.size() >= 7 && list.get(6) !=null ){
             Uri furi = list.get(6);
@@ -333,7 +337,7 @@ public class ImgEditActivity extends FragmentActivity implements View.OnClickLis
             }catch(Exception e){
             }
             RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-            body7 = MultipartBody.Part.createFormData("carImg07", "carImg07.png", requestFile);
+            body7 = MultipartBody.Part.createFormData("carImg07", "carImg07.jpeg", requestFile);
         }
         if(list.size() >= 8 && list.get(7) !=null ){
             Uri furi = list.get(7);
@@ -345,7 +349,7 @@ public class ImgEditActivity extends FragmentActivity implements View.OnClickLis
             }catch(Exception e){
             }
             RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-            body8 = MultipartBody.Part.createFormData("carImg08", "carImg08.png", requestFile);
+            body8 = MultipartBody.Part.createFormData("carImg08", "carImg08.jpeg", requestFile);
         }
         if(list.size() >= 9 && list.get(8) !=null ){
             Uri furi = list.get(8);
@@ -357,7 +361,7 @@ public class ImgEditActivity extends FragmentActivity implements View.OnClickLis
             }catch(Exception e){
             }
             RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-            body9 = MultipartBody.Part.createFormData("carImg09", "carImg09.png", requestFile);
+            body9 = MultipartBody.Part.createFormData("carImg09", "carImg09.jpeg", requestFile);
         }
         if(list.size() >= 10 && list.get(9) !=null ){
             Uri furi = list.get(9);
@@ -369,7 +373,7 @@ public class ImgEditActivity extends FragmentActivity implements View.OnClickLis
             }catch(Exception e){
             }
             RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-            body10 = MultipartBody.Part.createFormData("carImg10", "carImg10.png", requestFile);
+            body10 = MultipartBody.Part.createFormData("carImg10", "carImg10.jpeg", requestFile);
         }
 
         Map<String, RequestBody> params = new HashMap<>();
@@ -393,14 +397,16 @@ public class ImgEditActivity extends FragmentActivity implements View.OnClickLis
     private File getFile( InputStream input , String fileName)   {
         File storage = this.getCacheDir();
         File file = new File(storage, fileName);
-        try (OutputStream output = new FileOutputStream(file)) {
-            byte[] buffer = new byte[1024 * 1024]; // 1m
-            int read;
-            while ((read = input.read(buffer)) != -1) {
-                output.write(buffer, 0, read);
-            }
+        try   {
 
-            output.flush();
+            Bitmap bitmap =  BitmapFactory.decodeStream(input);
+            OutputStream out = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 35, out); // png는 압축 안됨 .
+            Log.d("cdhgold","getFile--->"+file.length());
+            if(file.length() > 2000000 ){
+                file = null;
+            }
+            out.close();
         } catch (Exception e) {
         }finally {
             try{

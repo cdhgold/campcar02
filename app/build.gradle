@@ -8,8 +8,8 @@ android {
         applicationId "com.cdh.campcar"
         minSdkVersion 26
         targetSdkVersion 29
-        versionCode 11
-        versionName "11.0"
+        versionCode 13
+        versionName "13.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -44,9 +44,11 @@ dependencies {
     implementation 'androidx.viewpager2:viewpager2:1.0.0-alpha04'
     implementation 'me.relex:circleindicator:2.1.4'
     // imgpicker
-    implementation 'gun0912.ted:tedpermission:2.2.0'
-    implementation 'com.github.bumptech.glide:glide:4.7.1'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
+    implementation 'gun0912.ted:tedpermission:2.2.0' 
+
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'
 

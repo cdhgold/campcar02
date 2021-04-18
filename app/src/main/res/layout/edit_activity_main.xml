@@ -31,7 +31,7 @@
         android:id="@+id/tmp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="이미지수정을 총10개 까지 가능합니다.\n 등록순서대로 표시됩니다.\n이미지사이즈는 1M미만.\n수정후 최신Data 다운받으세요."
+        android:text="이미지수정은 총7개 까지 가능합니다.\n 등록순서대로 표시됩니다.\n이미지사이즈는 1M미만.\n수정후 최신Data 다운받으세요."
         android:ems="10"  />
     <EditText
         android:id="@+id/email"

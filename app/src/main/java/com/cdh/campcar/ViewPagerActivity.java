@@ -82,7 +82,7 @@ public class ViewPagerActivity extends AppCompatActivity  implements View.OnClic
         setContentView(R.layout.add_img_pager);
         imgFlg = "";
         ViewPager2 vpPager = (ViewPager2) findViewById(R.id.imgvpager);
-        adapterViewPager = new ImgPagerAdapter(this, 10);// fragment 연결
+        adapterViewPager = new ImgPagerAdapter(this, 7);// fragment 연결
         vpPager.setAdapter(adapterViewPager);
         home = (ImageButton) findViewById(R.id.vhome); // 메인화면으로 가기
         gallery= (ImageButton) findViewById(R.id.addimg1);

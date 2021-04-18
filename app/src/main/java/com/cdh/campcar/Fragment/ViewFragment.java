@@ -59,9 +59,7 @@ public class ViewFragment extends Fragment  implements ItemClickListener {
     private ImageView carImg05   ;
     private ImageView carImg06   ;
     private ImageView carImg07   ;
-    private ImageView carImg08   ;
-    private ImageView carImg09   ;
-    private ImageView carImg10   ;
+
 
     private TextView carOk ;
     private ProductDBHelper dbHelper;
@@ -88,9 +86,7 @@ public class ViewFragment extends Fragment  implements ItemClickListener {
         carImg05 = view.findViewById(R.id.carimg05 );
         carImg06 = view.findViewById(R.id.carimg06 );
         carImg07 = view.findViewById(R.id.carimg07 );
-        carImg08 = view.findViewById(R.id.carimg08 );
-        carImg09 = view.findViewById(R.id.carimg09 );
-        carImg10 = view.findViewById(R.id.carimg10 );
+
 
         vo = vo.getProd();
         if(vo == null){
@@ -127,9 +123,7 @@ public class ViewFragment extends Fragment  implements ItemClickListener {
         String img05 = vo.getCarImg05();
         String img06 = vo.getCarImg06();
         String img07 = vo.getCarImg07();
-        String img08 = vo.getCarImg08();
-        String img09 = vo.getCarImg09();
-        String img10 = vo.getCarImg10();
+
 
         Glide.with(getContext()).load("file:///"+getContext().getFilesDir()+"/"+img01).into(carImg01);
         if("".equals(img02)){
@@ -163,23 +157,9 @@ public class ViewFragment extends Fragment  implements ItemClickListener {
         }else {
             Glide.with(getContext()).load("file:///"+getContext().getFilesDir()+"/"+img07).into(carImg07);
         }
-        if("".equals(img08)){
-            carImg08.setImageDrawable(getNoImg());
-        }else {
-            Glide.with(getContext()).load("file:///"+getContext().getFilesDir()+"/"+img08).into(carImg08);
-        }
-        if("".equals(img09)){
-            carImg09.setImageDrawable(getNoImg());
-        }else {
-            Glide.with(getContext()).load("file:///"+getContext().getFilesDir()+"/"+img09).into(carImg09);
-        }
-        if("".equals(img10)){
-            carImg10.setImageDrawable(getNoImg());
-        }else {
-            Glide.with(getContext()).load("file:///"+getContext().getFilesDir()+"/"+img10).into(carImg10);
-        }
+
         String[] img = {img01,img02,img03,img04,img05,
-                         img06,img07,img08,img09,img10};
+                         img06,img07 };
         vo.setDimg(img);
         carImg01.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -216,21 +196,7 @@ public class ViewFragment extends Fragment  implements ItemClickListener {
                 onItemClick(v,6,"");
             }
         });
-        carImg08.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                onItemClick(v,7,"");
-            }
-        });
-        carImg09.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                onItemClick(v,8,"");
-            }
-        });
-        carImg10.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                onItemClick(v,9,"");
-            }
-        });
+
         ////////////////////////////////////
 
         return view;
